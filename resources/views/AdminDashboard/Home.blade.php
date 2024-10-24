@@ -1,0 +1,1 @@
+@extends ('AdminDashboard.master')
