@@ -22,4 +22,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/admin',[AdminTemplateController::class,'index']);
 Route::get('/home',[HomeTemplateController::class,'index']);
 
+
+
+Route::view('/AdminDashboard/customer_section', 'AdminDashboard.customer_section')->name('customer_section');
+
 require __DIR__.'/auth.php';
