@@ -6,7 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Floors extends Model
+class Floor extends Model
 {
     use HasFactory;
 
@@ -14,11 +14,11 @@ class Floors extends Model
 
     public function apartment()
     {
-        return $this->belongsTo(Apartment::class);
+        return $this->belongsTo(Apartments::class, 'apartment_id');
     }
 
     public function rooms()
     {
-        return $this->hasMany(Room::class);
+        return $this->hasMany(Rooms::class);
     }
 }
