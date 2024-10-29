@@ -32,7 +32,7 @@
 <div class="body-wrapper">
 
     <!-- HEADER AREA START (header-5) -->
-    @include('frontend\header')
+    @include('frontend.header')
     <!-- HEADER AREA END -->
 
 

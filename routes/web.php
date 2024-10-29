@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminTemplateController;
 use App\Http\Controllers\HomeTemplateController;
+use App\Http\Controllers\ContactTemplateController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,5 +23,9 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/admin',[AdminTemplateController::class,'index']);
 Route::get('/home',[HomeTemplateController::class,'index']);
+Route::get('/contact',[ContactTemplateController::class,'index']);
 
+Route::get('/about', function () {
+    return view('frontend.AboutUs');
+});
 require __DIR__.'/auth.php';
