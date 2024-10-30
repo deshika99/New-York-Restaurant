@@ -229,7 +229,7 @@ table .form-check {
 }
 
 .text-brand {
-  color: #3BB77E !important;
+  color: #bd0f0f !important;
 }
 
 .bg-primary {
@@ -241,7 +241,7 @@ table .form-check {
 }
 
 .text-primary {
-  color: #3BB77E !important;
+  color: #bd0f0f !important;
 }
 
 .bg-primary-light {
@@ -249,7 +249,7 @@ table .form-check {
 }
 
 .dropdown-item.active, .dropdown-item:active {
-  background-color: #3BB77E;
+  background-color: #bd0f0f;
 }
 
 .screen-overlay {
@@ -378,7 +378,7 @@ table .form-check {
 }
 
 a {
-  color: #3BB77E;
+  color: #bd0f0f;
 }
 
 body {
@@ -507,13 +507,14 @@ b {
   font-size: 24px;
 }
 .menu-aside .menu-item.active .icon {
-  color: #3BB77E;
+  color: #bd0f0f;
+  
 }
 .menu-aside .menu-item.active .menu-link {
   background-color: rgba(59, 183, 126, 0.2);
 }
 .menu-aside .menu-item.active .submenu a.active {
-  color: #3BB77E !important;
+  color: #bd0f0f !important;
 }
 .menu-aside .menu-link {
   padding: 10px;
@@ -600,7 +601,7 @@ b {
 }
 .pagination-area .page-item.active .page-link, .pagination-area .page-item:hover .page-link {
   color: #fff;
-  background: #3BB77E;
+  background: #bd0f0f;
 }
 .pagination-area .page-item .page-link {
   border: 0;
@@ -632,7 +633,7 @@ b {
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #3BB77E;
+  color: #bd0f0f;
   background-color: rgba(59, 183, 126, 0.2);
 }
 
@@ -647,7 +648,7 @@ b {
   padding: 10px 40px;
   color: #ffffff;
   border: none;
-  background-color: #3BB77E;
+  background-color: #bd0f0f;
   border-radius: 4px;
 }
 .btn.btn-primary i {
@@ -656,7 +657,7 @@ b {
   margin-top: -4px;
 }
 .btn.btn-primary:hover {
-  background-color: #29A56C;
+  background-color: #bd0f0f;
 }
 .btn.btn-secondary {
   font-size: 14px;
@@ -673,14 +674,14 @@ b {
 .btn.btn-md {
   padding: 0.5rem 0.95rem;
   font-weight: 500;
-  background-color: #3BB77E;
+  background-color: #bd0f0f;
   color: #ffffff;
 }
 .btn.btn-md:hover {
-  background-color: #29A56C;
+  background-color: #bd0f0f;
 }
 .btn.btn-xs {
-  background-color: #3BB77E;
+  background-color: #bd0f0f;
   color: #ffffff;
   border: none;
   font-size: 11px;
@@ -752,7 +753,7 @@ b {
   padding: 0.5rem 0.95rem;
 }
 .btn-light:hover {
-  background-color: #3BB77E;
+  background-color: #bd0f0f;
   color: #fff !important;
 }
 .btn-light:hover i {
@@ -785,12 +786,12 @@ b {
 }
 
 .btn-brand {
-  background-color: #3BB77E;
+  background-color: #bd0f0f;
   border: 0;
   color: #fff;
 }
 .btn-brand:hover {
-  background-color: #29A56C;
+  background-color: #bd0f0f;
   color: #fff;
 }
 
@@ -1204,7 +1205,7 @@ textarea.form-control {
 }
 
 .progress-bar {
-  background-color: #3BB77E;
+  background-color: #bd0f0f;
 }
 
 .new-member-list {
@@ -1228,7 +1229,7 @@ textarea.form-control {
   align-items: center;
 }
 .verti-timeline .event-list.active .event-timeline-dot {
-  color: #3BB77E;
+  color: #bd0f0f;
 }
 .verti-timeline .event-list:last-child {
   padding-bottom: 0;
@@ -1594,7 +1595,7 @@ a[class*=card]:hover .title {
   margin-bottom: 5px;
 }
 .itemside a.title:hover {
-  color: #3BB77E;
+  color: #bd0f0f;
 }
 
 a.itemside {
@@ -1641,7 +1642,7 @@ a.itemside:hover .title {
   text-decoration: none;
 }
 .card-product-grid a.title:hover {
-  color: #3BB77E;
+  color: #bd0f0f;
 }
 .card-product-grid:hover {
   border-color: #eee;
