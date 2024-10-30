@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="card card-body mb-4">
-                            <article class="icontext">
+                            <article class="icontext">             
                                 <span class="icon icon-sm rounded-circle bg-primary-light"><i class="text-primary material-icons md-monetization_on"></i></span>
                                 <div class="text">
                                     <h6 class="mb-1 card-title">Revenue</h6>
@@ -29,10 +29,10 @@
                                 <span class="icon icon-sm rounded-circle bg-success-light"><i class="text-success material-icons md-local_shipping"></i></span>
                                 <div class="text">
                                     <h6 class="mb-1 card-title">Orders</h6>
-                                    <span>53.668</span>
+                                    <span>53.668</span>  
                                     <span class="text-sm"> Excluding orders in transit </span>
-                                </div>
-                            </article>
+                                </div>                        
+                            </article>   
                         </div>
                     </div>
                     <div class="col-lg-3">
