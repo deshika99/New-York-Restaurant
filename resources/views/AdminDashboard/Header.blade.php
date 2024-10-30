@@ -1,74 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>Nest Dashboard</title>
-        <meta http-equiv="x-ua-compatible" content="ie=edge" />
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta property="og:title" content="" />
-        <meta property="og:type" content="" />
-        <meta property="og:url" content="" />
-        <meta property="og:image" content="" />
-        <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="backend/assets/imgs/theme/favicon.svg" />
-        <!-- Template CSS -->
-        <script src="backend/assets/js/vendors/color-modes.js"></script>
-        <link  href="backend/assets/css/main.css?v=6.0" rel="stylesheet" type="text/css" />
-    </head>
-    <style>
-    </style>
-
-    <body>
-        <div class="screen-overlay"></div>
-
-        <aside class="navbar-aside" id="offcanvas_aside">
-    <div class="aside-top">
-        <a href="index.html" class="brand-wrap">
-            <img src="backend/assets/imgs/theme/logo.png" class="logo" alt="Nest Dashboard">
-        </a>
-        <div>
-            <button class="btn btn-icon btn-aside-minimize"><i class="text-muted material-icons md-menu_open"></i></button>
-        </div>
-    </div>
-    <nav>
-        <ul class="menu-aside">
-            <li class="menu-item active">
-                <a class="menu-link" href="index.html">
-                    <i class="icon material-icons md-home"></i>
-                    <span class="text">Dashboard</span>
-                </a>
-            </li>
-            <li class="menu-item has-submenu">
-                <a class="menu-link" href="{{ route('customer_section') }}">
-                    <i class="icon material-icons md-shopping_bag"></i>
-                    <span class="text">Customer Section</span>
-                </a>
-            </li>
-            <li class="menu-item has-submenu">
-                <a class="menu-link" href="page-orders-1.html">
-                    <i class="icon material-icons md-shopping_cart"></i>
-                    <span class="text">Order Management</span>
-                </a>
-            </li>
-            <li class="menu-item has-submenu">
-                <a class="menu-link" href="page-sellers-cards.html">
-                    <i class="icon material-icons md-store"></i>
-                    <span class="text">Report</span>
-                </a>
-            </li>
-            <li class="menu-item has-submenu">
-                <a class="menu-link" href="#">
-                    <i class="icon material-icons md-settings"></i>
-                    <span class="text">Settings</span>
-                </a>
-            </li>
-        </ul>
-        <br />
-        <br />
-    </nav>
-</aside>
-<main class="main-wrap">
 <header class="main-header navbar">
                 <div class="col-search">
                     <form class="searchform">
@@ -109,7 +38,7 @@
                             </div>
                         </li>
                         <li class="dropdown nav-item">
-                            <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="backend/assets/imgs/people/avatar-2.png" alt="User" /></a>
+                            <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="{{ asset('backend/assets/imgs/people/avatar-2.png') }}" alt="User" /></a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
                                 <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
                                 <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
