@@ -4,10 +4,15 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminTemplateController;
 use App\Http\Controllers\HomeTemplateController;
+
+use App\Http\Controllers\ContactTemplateController;
+
+
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\RoomTypeController;
 use App\Http\Controllers\FloorController;
 use App\Http\Controllers\RoomController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,6 +27,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+Route::get('/admin',[AdminTemplateController::class,'index']);
+Route::get('/home',[HomeTemplateController::class,'index']);
+Route::get('/contact',[ContactTemplateController::class,'index']);
 
 Route::get('/admin',[AdminTemplateController::class,'index'])->name('admin');
 Route::get('/home',[HomeTemplateController::class,'index'])->name('home');
@@ -67,4 +77,8 @@ Route::delete('/admin/rooms/{id}', [RoomController::class, 'destroy'])->name('ro
 
 Route::post('/admin/categories', [CategoryController::class, 'store'])->name('categories.store');
 
+
+Route::get('/about', function () {
+    return view('frontend.AboutUs');
+});
 require __DIR__.'/auth.php';
