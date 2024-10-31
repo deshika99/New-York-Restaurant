@@ -90,7 +90,7 @@
                                     <li><a href="shop.html">Fasilities</a> <!--class="menu-icon"-->
 
                                     </li>
-                                    <li><a href="/frontend/about.html">About</a>
+                                    <li><a href="about.html">About</a>
 
                                     </li>
                                     <li><a href="contact.html">Contact</a></li>

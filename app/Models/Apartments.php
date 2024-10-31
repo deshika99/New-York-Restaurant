@@ -13,7 +13,7 @@ class Apartments extends Model
 
     public function floors()
     {
-        return $this->hasMany(Floor::class);
+        return $this->hasMany(Floor::class, 'apartment_id'); // Specify 'apartment_id' explicitly if needed
     }
     
 }

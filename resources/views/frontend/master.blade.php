@@ -32,8 +32,17 @@
 <div class="body-wrapper">
 
     <!-- HEADER AREA START (header-5) -->
-    @include('frontend\header')
-    
+
+    @include('frontend.header')
+    <!-- HEADER AREA END -->
+
+
+    <!-- Utilize Cart Menu End -->
+
+    <!-- Utilize Mobile Menu Start -->
+
+    <!-- Utilize Mobile Menu End -->
+
 
     <div class="ltn__utilize-overlay"></div>
 
