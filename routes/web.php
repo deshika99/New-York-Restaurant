@@ -8,16 +8,10 @@ use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminTemplateController;
 use App\Http\Controllers\HomeTemplateController;
-
 use App\Http\Controllers\ContactTemplateController;
-
-
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PositionController;
-use App\Http\Controllers\RoomTypeController;
-use App\Http\Controllers\FloorController;
-use App\Http\Controllers\RoomController;
 
 
 Route::get('/', function () {
