@@ -16,4 +16,10 @@ class RoomTypes extends Model
     {
         return $this->hasMany(Room::class);
     }
+
+    public function getLastImageAttribute()
+    {
+        $imagesArray = json_decode($this->images, true); // Decode the JSON into an array
+        return !empty($imagesArray) ? end($imagesArray) : null; // Return the last image or null
+    }
 }
