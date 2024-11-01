@@ -32,6 +32,7 @@
 <div class="body-wrapper">
 
     <!-- HEADER AREA START (header-5) -->
+
     @include('frontend.header')
     <!-- HEADER AREA END -->
 
@@ -41,6 +42,7 @@
     <!-- Utilize Mobile Menu Start -->
 
     <!-- Utilize Mobile Menu End -->
+
 
     <div class="ltn__utilize-overlay"></div>
 
@@ -1556,29 +1558,9 @@
     </div>
     <!-- BLOG AREA END -->
 
-    <!-- CALL TO ACTION START (call-to-action-6) -->
-    <div class="ltn__call-to-action-area call-to-action-6 before-bg-bottom" data-bs-bg="img/1.jpg--">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="call-to-action-inner call-to-action-inner-6 ltn__secondary-bg position-relative text-center---">
-                        <div class="coll-to-info text-color-white">
-                            <h1>Looking for a dream home?</h1>
-                            <p>We can help you realize your dream of a new home</p>
-                        </div>
-                        <div class="btn-wrapper">
-                            <a class="btn btn-effect-3 btn-white" href="contact.html">Explore Properties <i class="icon-next"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- CALL TO ACTION END -->
+    
 
-    <!-- FOOTER AREA START -->
-    @include('frontend/footer')
-    <!-- FOOTER AREA END -->
+    
 
     <!-- MODAL AREA START (Quick View Modal) -->
     <div class="ltn__modal-area ltn__quick-view-modal-area">
@@ -1777,7 +1759,14 @@
     </div>
     <!-- MODAL AREA END -->
 
+    
+
 </div>
+
+<!-- FOOTER AREA START -->
+@include('frontend/footer')
+    <!-- FOOTER AREA END -->
+
 <!-- Body main wrapper end -->
 
     <!-- preloader area start -->
