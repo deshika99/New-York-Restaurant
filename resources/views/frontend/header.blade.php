@@ -84,16 +84,16 @@
                         <nav>
                             <div class="ltn__main-menu">
                                 <ul>
-                                    <li><a href="#">Home</a>
+                                    <li><a href="{{route('home')}}">Home</a>
 
                                     </li>
                                     <li><a href="shop.html">Fasilities</a> <!--class="menu-icon"-->
 
                                     </li>
-                                    <li><a href="about.html">About</a>
+                                    <li><a href="{{route('about')}}">About</a>
 
                                     </li>
-                                    <li><a href="contact.html">Contact</a></li>
+                                    <li><a href="{{route('contact')}}">Contact</a></li>
                                 </ul>
                             </div>
                         </nav>
@@ -123,8 +123,8 @@
                             <li>
                                 <a href="#"><i class="icon-user"></i></a>
                                 <ul>
-                                    <li><a href="login.html">Sign in</a></li>
-                                    <li><a href="register.html">Register</a></li>
+                                    <li><a href="{{route('loginpage')}}">Sign in</a></li>
+                                    <li><a href="{{route('registerpage')}}">Register</a></li>
                                     <li><a href="account.html">My Account</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
                                 </ul>
