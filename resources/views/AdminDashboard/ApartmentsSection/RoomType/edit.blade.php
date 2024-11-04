@@ -50,6 +50,7 @@
                         <!-- Existing Images Display with Delete Option -->
                         <div class="mb-4">
                             <label class="form-label">Current Images</label>
+                            @if ($roomType->images)
                             <div class="row" id="current-images">
                                 @foreach (json_decode($roomType->images, true) as $image)
                                     <div class="col-md-3 mb-3 image-container">
@@ -58,6 +59,10 @@
                                     </div>
                                 @endforeach
                             </div>
+                            @else
+                            <p class="form-label"> No Images Yet</p>              
+                            @endif
+                            
                         </div>
 
                         <!-- New Images Upload Section -->
