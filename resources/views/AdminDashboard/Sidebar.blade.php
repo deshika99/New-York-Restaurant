@@ -38,6 +38,25 @@
                     </li>
 
 
+                    <li class="menu-item has-submenu {{ request()->is('admin/staff*') || request()->is('admin/position*') || request()->is('admin/department*') ? 'active' : '' }}">
+                        <a class="menu-link" href="#">
+                            <i class="icon material-icons md-apartment"></i>
+                            <span class="text">Staff</span>
+                        </a>
+                        <div class="submenu {{ request()->is('admin/staff*') || request()->is('admin/position*') || request()->is('admin/department*') ? 'active' : '' }}">
+                            <a href="{{ route('staff_management') }}" class="{{ request()->is('admin/staff') ? 'active' : '' }}">
+                                Staff Management                
+                            </a>
+                            <a href="{{ route('position_management') }}" class="{{ request()->is('admin/position') ? 'active' : '' }}">
+                                Position Management
+                            </a>
+                            <a href="{{ route('department_management') }}" class="{{ request()->is('admin/department') ? 'active' : '' }}">
+                                Department Management 
+                            </a>
+                        </div>
+                    </li>
+
+
                     
 
 
