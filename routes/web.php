@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminTemplateController;
 use App\Http\Controllers\HomeTemplateController;
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\AddCustomerController;
+use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,7 +36,13 @@ Route::get('/AdminDashboard/customer_section', [AddCustomerController::class, 'i
 Route::get('/AdminDashboard/customer-section', [AddCustomerController::class, 'showCustomerSection'])->name('customer.section');
 Route::get('/AdminDashboard/customers', [AddCustomerController::class, 'showCustomerSection'])->name('customer_section');
 
+Route::view('/AdminDashboard/add_order', 'AdminDashboard.add_order')->name('add_order');
+Route::view('/AdminDashboard/create_order', 'AdminDashboard.create_order')->name('create_order');
 
+
+Route::get('/AdminDashboard/creat_order/create', [OrderController::class, 'create'])->name('order.create');
+Route::post('/AdminDashboard/orders/store', [OrderController::class, 'store'])->name('order.store');
+Route::get('/AdminDashboard/add_order', [OrderController::class, 'showAddOrderForm'])->name('add_order');
 
 //Apartments and Romms Section
 

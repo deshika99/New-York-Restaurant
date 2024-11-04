@@ -54,4 +54,11 @@ class AddCustomerController extends Controller
         return redirect()->route('AdminDashboard.customer_section')->with('success', 'Customer added successfully!');
     }
 
+    public function createOrder()
+    {
+         $customers = User::all(); // Adjust the query as needed based on your model
+         return view('AdminDashboard.create_order', compact('customers'));
+    }
+
+
 }
