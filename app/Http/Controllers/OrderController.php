@@ -16,13 +16,13 @@ class OrderController extends Controller
     }
 
     public function showAddOrderForm()
-{
+    {
     // Fetch all customers
     $customers = User::all(); // Or any specific query to get your customers
 
     // Pass the customers to the view
     return view('AdminDashboard.add_order', compact('customers'));
-}
+    }
 
     // Store new order in the database
     public function store(Request $request)

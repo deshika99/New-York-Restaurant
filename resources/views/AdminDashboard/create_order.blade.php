@@ -4,8 +4,7 @@
 
 <div class="content-header">
         <div>
-            <h2 class="content-title card-title">Create Booking</h2>
-            
+            <h2 class="content-title card-title">Create Booking</h2>    
         </div>
     </div>
 

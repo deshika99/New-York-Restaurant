@@ -39,6 +39,7 @@ Route::get('/AdminDashboard/customers', [AddCustomerController::class, 'showCust
 Route::view('/AdminDashboard/add_order', 'AdminDashboard.add_order')->name('add_order');
 Route::view('/AdminDashboard/create_order', 'AdminDashboard.create_order')->name('create_order');
 
+//create booking
 
 Route::get('/AdminDashboard/creat_order/create', [OrderController::class, 'create'])->name('order.create');
 Route::post('/AdminDashboard/orders/store', [OrderController::class, 'store'])->name('order.store');
