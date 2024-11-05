@@ -86,77 +86,41 @@
                         <!-- Tab for Room Search -->
                         <div class="tab-pane fade active show" id="ltn__form_tab_1_1">
                             <div class="car-dealer-form-inner">
-                                <form action="#" class="ltn__car-dealer-form-box row">
-                                    <div class="ltn__car-dealer-form-item ltn__custom-icon---- ltn__icon-car---- col-lg-3 col-md-6">
-                                        <select class="nice-select">
-                                            <option>Select Location</option>
-                                            <option>Downtown</option>
-                                            <option>Suburbs</option>
-                                            <option>Beachside</option>
-                                            <option>Mountain View</option>
-                                        </select>
+                                <form action="{{route('checkAvailability')}}" method="POST" class="ltn__car-dealer-form-box row">
+                                    @csrf
+                                    <!-- Check-in Date -->
+                                    <div class="ltn__car-dealer-form-item ltn__custom-icon ltn__icon-calendar col-lg-2 col-md-6">
+                                        <input type="date" name="checkin" placeholder="Check-in Date" class="form-control">
+                                        @error('checkin')
+                                        <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
-                                    <div class="ltn__car-dealer-form-item ltn__custom-icon---- ltn__icon-meter---- col-lg-3 col-md-6">
-                                        <select class="nice-select">
-                                            <option>Room Status</option>
-                                            <option>Available</option>
-                                            <option>Booked</option>
-                                            <option>Reserved</option>
-                                        </select>
+                                    <!-- Check-out Date -->
+                                    <div class="ltn__car-dealer-form-item ltn__custom-icon ltn__icon-calendar col-lg-2 col-md-6">
+                                        <input type="date" name="checkout" placeholder="Check-out Date" class="form-control datepicker">
+                                        @error('checkout')
+                                        <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
-                                    <div class="ltn__car-dealer-form-item ltn__custom-icon---- ltn__icon-calendar---- col-lg-3 col-md-6">
-                                        <select class="nice-select">
-                                            <option>Room Type</option>
-                                            <option>Single</option>
-                                            <option>Double</option>
-                                            <option>Suite</option>
-                                            <option>Family Room</option>
-                                        </select>
+                                    <!-- Apartment Selection -->
+                                    <div class="ltn__car-dealer-form-item ltn__custom-icon---- ltn__icon-car----  col-lg-5 col-md-6">
+                                        <select name="apartment" class="nice-select">
+                                            <option>Select Apartment</option>
+                                            @foreach($apartments as $apartment)
+                                            <option value="{{ $apartment->id }}">{{ $apartment->apartment_name }} - {{ $apartment->location_name }}</option>
+                                            @endforeach              
+                                        </select>                                             
+                                        @error('apartment')
+                                        <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
+                                    <!-- Submit Button -->
                                     <div class="ltn__car-dealer-form-item ltn__custom-icon ltn__icon-calendar col-lg-3 col-md-6">
                                         <div class="btn-wrapper text-center mt-0">
-                                            <a href="room-listing.html" class="btn theme-btn-1 btn-effect-1 text-uppercase">Find Room</a>
+                                            <button type="submit" class="btn theme-btn-1 btn-effect-1 text-uppercase">Find Room</button>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- Tab for Apartment Search -->
-                        <div class="tab-pane fade" id="ltn__form_tab_1_2">
-                            <div class="car-dealer-form-inner">
-                                <form action="#" class="ltn__car-dealer-form-box row">
-                                    <div class="ltn__car-dealer-form-item ltn__custom-icon---- ltn__icon-car---- col-lg-3 col-md-6">
-                                        <select class="nice-select">
-                                            <option>Select Location</option>
-                                            <option>Downtown</option>
-                                            <option>Suburbs</option>
-                                            <option>Beachside</option>
-                                            <option>Mountain View</option>
-                                        </select>
-                                    </div>
-                                    <div class="ltn__car-dealer-form-item ltn__custom-icon---- ltn__icon-meter---- col-lg-3 col-md-6">
-                                        <select class="nice-select">
-                                            <option>Apartment Status</option>
-                                            <option>Available</option>
-                                            <option>Occupied</option>
-                                            <option>Reserved</option>
-                                        </select>
-                                    </div>
-                                    <div class="ltn__car-dealer-form-item ltn__custom-icon---- ltn__icon-calendar---- col-lg-3 col-md-6">
-                                        <select class="nice-select">
-                                            <option>Apartment Type</option>
-                                            <option>1 Bedroom</option>
-                                            <option>2 Bedrooms</option>
-                                            <option>3 Bedrooms</option>
-                                            <option>Penthouse</option>
-                                        </select>
-                                    </div>
-                                    <div class="ltn__car-dealer-form-item ltn__custom-icon ltn__icon-calendar col-lg-3 col-md-6">
-                                        <div class="btn-wrapper text-center mt-0">
-                                            <a href="apartment-listing.html" class="btn theme-btn-1 btn-effect-1 text-uppercase">Find Apartment</a>
-                                        </div>
-                                    </div>
-                                </form>
+                                </form>     
                             </div>
                         </div>
                     </div>
@@ -709,25 +673,25 @@
 
 
     <!-- APARTMENTS PLAN AREA START -->
-<div class="ltn__apartments-plan-area pt-115--- pb-70"> 
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12"> 
-                <div class="section-title-area ltn__section-title-2--- text-center">
-                    <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color">Apartment Sketch</h6>
-                    <h1 class="section-title">Apartments Plan</h1>
-                </div>
-                <div class="ltn__tab-menu ltn__tab-menu-3 ltn__tab-menu-top-right-- text-uppercase--- text-center">
-                    <div class="nav">
-                        @foreach($roomTypes as $index => $roomType)
+    <div class="ltn__apartments-plan-area pt-115--- pb-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title-area ltn__section-title-2--- text-center">
+                        <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color">Apartment Sketch</h6>
+                        <h1 class="section-title">Apartments Plan</h1>
+                    </div>
+                    <div class="ltn__tab-menu ltn__tab-menu-3 ltn__tab-menu-top-right-- text-uppercase--- text-center">
+                        <div class="nav">
+                            @foreach($roomTypes as $index => $roomType)
                             <a data-bs-toggle="tab" href="#liton_tab_3_{{ $index }}" class="{{ $index == 0 ? 'active show' : '' }}">
                                 {{ $roomType->type_name }}
                             </a>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
-                </div>
-                <div class="tab-content">
-                    @foreach($roomTypes as $index => $roomType)
+                    <div class="tab-content">
+                        @foreach($roomTypes as $index => $roomType)
                         <div class="tab-pane fade {{ $index == 0 ? 'active show' : '' }}" id="liton_tab_3_{{ $index }}">
                             <div class="ltn__apartments-tab-content-inner">
                                 <div class="row">
@@ -748,25 +712,25 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="apartments-plan-img">
-                                        @php
-                                                $lastImage = $roomType->last_image; // Use the accessor to get the last image
+                                            @php
+                                            $lastImage = $roomType->last_image; // Use the accessor to get the last image
                                             @endphp
                                             @if($lastImage)
-                                                <img src="{{ asset('storage/' . $lastImage) }}" alt="{{ $roomType->type_name }}">
+                                            <img src="{{ asset('storage/' . $lastImage) }}" alt="{{ $roomType->type_name }}">
                                             @else
-                                                <img src="/path/to/default/image.png" alt="Default Image"> <!-- Default image if none exists -->
+                                            <img src="/path/to/default/image.png" alt="Default Image"> <!-- Default image if none exists -->
                                             @endif
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
     <!-- APARTMENTS PLAN AREA END -->
 
     <!-- VIDEO AREA START -->
@@ -886,101 +850,101 @@
     <!-- CATEGORY AREA END -->
 
     <!-- AMENITIES AREA START -->
-<div class="ltn__category-area ltn__product-gutter section-bg-1--- pt-115 pb-90">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title-area ltn__section-title-2--- text-center">
-                    <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color">Our Amenities</h6>
-                    <h1 class="section-title">Hotel Amenities</h1>
+    <div class="ltn__category-area ltn__product-gutter section-bg-1--- pt-115 pb-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title-area ltn__section-title-2--- text-center">
+                        <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color">Our Amenities</h6>
+                        <h1 class="section-title">Hotel Amenities</h1>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row ltn__category-slider-active--- slick-arrow-1 justify-content-center">
-            <!-- Parking -->
-            <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                <div class="ltn__category-item ltn__category-item-5 text-center">
-                    <a href="#">
-                        <span class="category-icon"><i class="flaticon-car"></i></span>
-                        <span class="category-title">Free Parking</span>
-                        <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
-                    </a>
+            <div class="row ltn__category-slider-active--- slick-arrow-1 justify-content-center">
+                <!-- Parking -->
+                <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                    <div class="ltn__category-item ltn__category-item-5 text-center">
+                        <a href="#">
+                            <span class="category-icon"><i class="flaticon-car"></i></span>
+                            <span class="category-title">Free Parking</span>
+                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <!-- Swimming Pool -->
-            <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                <div class="ltn__category-item ltn__category-item-5 text-center">
-                    <a href="#">
-                        <span class="category-icon"><i class="flaticon-swimming"></i></span>
-                        <span class="category-title">Swimming Pool</span>
-                        <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
-                    </a>
+                <!-- Swimming Pool -->
+                <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                    <div class="ltn__category-item ltn__category-item-5 text-center">
+                        <a href="#">
+                            <span class="category-icon"><i class="flaticon-swimming"></i></span>
+                            <span class="category-title">Swimming Pool</span>
+                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <!-- 24/7 Security -->
-            <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                <div class="ltn__category-item ltn__category-item-5 text-center">
-                    <a href="#">
-                        <span class="category-icon"><i class="flaticon-secure-shield"></i></span>
-                        <span class="category-title">24/7 Security</span>
-                        <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
-                    </a>
+                <!-- 24/7 Security -->
+                <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                    <div class="ltn__category-item ltn__category-item-5 text-center">
+                        <a href="#">
+                            <span class="category-icon"><i class="flaticon-secure-shield"></i></span>
+                            <span class="category-title">24/7 Security</span>
+                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <!-- Wellness Spa -->
-            <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                <div class="ltn__category-item ltn__category-item-5 text-center">
-                    <a href="#">
-                        <span class="category-icon"><i class="flaticon-stethoscope"></i></span>
-                        <span class="category-title">Wellness Spa</span>
-                        <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
-                    </a>
+                <!-- Wellness Spa -->
+                <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                    <div class="ltn__category-item ltn__category-item-5 text-center">
+                        <a href="#">
+                            <span class="category-icon"><i class="flaticon-stethoscope"></i></span>
+                            <span class="category-title">Wellness Spa</span>
+                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <!-- In-Room Dining -->
-            <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                <div class="ltn__category-item ltn__category-item-5 text-center">
-                    <a href="#">
-                        <span class="category-icon"><i class="flaticon-dining-table-with-chairs"></i></span>
-                        <span class="category-title">In-Room Dining</span>
-                        <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
-                    </a>
+                <!-- In-Room Dining -->
+                <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                    <div class="ltn__category-item ltn__category-item-5 text-center">
+                        <a href="#">
+                            <span class="category-icon"><i class="flaticon-dining-table-with-chairs"></i></span>
+                            <span class="category-title">In-Room Dining</span>
+                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <!-- Comfortable Bedding -->
-            <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                <div class="ltn__category-item ltn__category-item-5 text-center">
-                    <a href="#">
-                        <span class="category-icon"><i class="flaticon-bed-1"></i></span>
-                        <span class="category-title">Comfortable Beds</span>
-                        <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
-                    </a>
+                <!-- Comfortable Bedding -->
+                <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                    <div class="ltn__category-item ltn__category-item-5 text-center">
+                        <a href="#">
+                            <span class="category-icon"><i class="flaticon-bed-1"></i></span>
+                            <span class="category-title">Comfortable Beds</span>
+                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <!-- Smart Room Features -->
-            <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                <div class="ltn__category-item ltn__category-item-5 text-center">
-                    <a href="#">
-                        <span class="category-icon"><i class="flaticon-apartment"></i></span>
-                        <span class="category-title">Smart Room</span>
-                        <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
-                    </a>
+                <!-- Smart Room Features -->
+                <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                    <div class="ltn__category-item ltn__category-item-5 text-center">
+                        <a href="#">
+                            <span class="category-icon"><i class="flaticon-apartment"></i></span>
+                            <span class="category-title">Smart Room</span>
+                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <!-- Kids’ Play Area -->
-            <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                <div class="ltn__category-item ltn__category-item-5 text-center">
-                    <a href="#">
-                        <span class="category-icon"><i class="flaticon-slider"></i></span>
-                        <span class="category-title">Kids’ Play Area</span>
-                        <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
-                    </a>
+                <!-- Kids’ Play Area -->
+                <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                    <div class="ltn__category-item ltn__category-item-5 text-center">
+                        <a href="#">
+                            <span class="category-icon"><i class="flaticon-slider"></i></span>
+                            <span class="category-title">Kids’ Play Area</span>
+                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- AMENITIES AREA END -->
+    <!-- AMENITIES AREA END -->
 
 
     <!-- TESTIMONIAL AREA START (testimonial-7) -->

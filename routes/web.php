@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FloorController;
+use App\Http\Controllers\OnlineBookingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomTypeController;
@@ -103,6 +104,11 @@ Route::delete('/admin/staff/{id}', [StaffController::class, 'destroy'])->name('s
 
 
 Route::post('/admin/categories', [CategoryController::class, 'store'])->name('categories.store');
+
+
+
+Route::post('/check-availability', [OnlineBookingController::class, 'checkAvailability'])->name('checkAvailability');
+
 
 
 Route::get('/about', function () {

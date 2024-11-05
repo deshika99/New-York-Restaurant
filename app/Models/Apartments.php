@@ -9,6 +9,8 @@ class Apartments extends Model
 {
     use HasFactory;
 
+    protected $table = 'apartments';
+
     protected $fillable = ['location_name', 'apartment_name', 'total_floors', 'total_units', 'address', 'amenities', 'status','images'];
 
     public function floors()
