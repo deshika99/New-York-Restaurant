@@ -11,8 +11,9 @@
         <meta property="og:url" content="" />
         <meta property="og:image" content="" />
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="backend/assets/imgs/theme/favicon.svg" />
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('backend/assets/imgs/theme/favicon.svg') }}">
         <!-- Template CSS -->
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
         <script src="{{ asset('backend/assets/js/vendors/color-modes.js') }}"></script>
@@ -20,7 +21,9 @@
     </head>
 
     <body>
+
         <div class="screen-overlay"></div>
+
         
         @include('AdminDashboard.Sidebar')
 
@@ -33,6 +36,7 @@
             @yield('content')
    
             </section>
+
 
             <footer class="main-footer font-xs">
                 <div class="row pb-30 pt-15">
@@ -62,4 +66,6 @@
         
 
     </body>
+
 </html>
+

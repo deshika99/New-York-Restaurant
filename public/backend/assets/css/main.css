@@ -233,7 +233,7 @@ table .form-check {
 }
 
 .bg-primary {
-  background-color: rgba(59, 183, 126, 0.2);
+  background-color: rgba(183, 59, 59, 0.2);
 }
 
 .bg-brand-2 {
@@ -245,7 +245,7 @@ table .form-check {
 }
 
 .bg-primary-light {
-  background-color: rgba(59, 183, 126, 0.2) !important;
+  background-color: rgba(183, 59, 59, 0.2) !important;
 }
 
 .dropdown-item.active, .dropdown-item:active {
@@ -511,7 +511,7 @@ b {
   
 }
 .menu-aside .menu-item.active .menu-link {
-  background-color: rgba(59, 183, 126, 0.2);
+  background-color: rgba(183, 59, 59, 0.2);
 }
 .menu-aside .menu-item.active .submenu a.active {
   color: #bd0f0f !important;
@@ -859,7 +859,7 @@ textarea.form-control {
   height: 42px;
 }
 .searchform button:hover {
-  background-color: #3BB77E;
+  background-color: #bd0f0f;
 }
 .searchform button:hover i {
   color: #fff;
@@ -870,8 +870,8 @@ textarea.form-control {
 }
 
 .form-check-input:checked {
-  background-color: #3BB77E;
-  border-color: #3BB77E;
+  background-color: #bd0f0f;
+  border-color: #bd0f0f;
 }
 
 /*Nice select*/
@@ -1269,7 +1269,7 @@ textarea.form-control {
 
 .badge.bg-primary[href]:focus,
 .badge.bg-primary[href]:hover {
-  background-color: #3BB77E !important;
+  background-color:#bd0f0f  !important;
 }
 
 .badge.bg-light {
@@ -1282,13 +1282,13 @@ textarea.form-control {
 }
 
 .badge-soft-primary {
-  color: #3BB77E;
+  color: #bd0f0f;
   background-color: rgba(85, 230, 150, 0.18);
 }
 
 .badge-soft-primary[href]:focus,
 .badge-soft-primary[href]:hover {
-  color: #3BB77E;
+  color: #bd0f0f;
   text-decoration: none;
   background-color: rgba(85, 230, 150, 0.18);
 }
@@ -1321,7 +1321,7 @@ textarea.form-control {
 
 .badge.bg-success[href]:focus,
 .badge.bg-success[href]:hover {
-  background-color: #30b383 !important;
+  background-color:#bd0f0f !important;
 }
 
 .badge.bg-light {
@@ -1334,13 +1334,13 @@ textarea.form-control {
 }
 
 .badge-soft-success {
-  color: #34c38f;
+  color: #bd0f0f;
   background-color: rgba(52, 195, 143, 0.18);
 }
 
 .badge-soft-success[href]:focus,
 .badge-soft-success[href]:hover {
-  color: #34c38f;
+  color: #bd0f0f;
   text-decoration: none;
   background-color: rgba(52, 195, 143, 0.4);
 }
@@ -1558,7 +1558,7 @@ a[class*=card] {
   color: initial;
 }
 a[class*=card]:hover .title {
-  color: #3BB77E;
+  color: #bd0f0f;
 }
 
 /* ITEM LIST */
@@ -1767,7 +1767,7 @@ ul.row, ul.row-sm {
   width: 7px;
   border-radius: 100%;
   height: 7px;
-  background: #3BB77E;
+  background: #bd0f0f;
 }
 
 .list-check {
@@ -1783,7 +1783,7 @@ ul.row, ul.row-sm {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   font-size: 12px;
-  color: #198754;
+  color:#bd0f0f;
   position: absolute;
   top: 2px;
   left: 0;
@@ -1800,7 +1800,7 @@ ul.row, ul.row-sm {
 }
 .list-normal li:before {
   content: "•";
-  color: #3BB77E;
+  color: #bd0f0f;
   display: inline-block;
   width: 1em;
   margin-left: -1em;
@@ -1818,7 +1818,7 @@ ul.row, ul.row-sm {
   color: #1e2231;
 }
 .list-menu a:hover {
-  color: #3BB77E;
+  color: #bd0f0f;
 }
 
 .cols-two {
@@ -3414,9 +3414,9 @@ body.offcanvas-active {
   display: inline-block;
 }
 .navbar-aside .aside-top .logo {
-  max-width: 120px;
+  max-width: 35px;
   margin-top: 5px;
-  min-width: 120px;
+  min-width: 10px;
 }
 
 .main-header {
@@ -3450,14 +3450,14 @@ body.offcanvas-active {
   line-height: 17px;
   display: block;
   padding: 0;
-  background-color: #3BB77E;
+  background-color: #bd0f0f;
 }
 .main-header .nav-item.dropdown {
   margin-right: 5px;
 }
 .main-header .nav-link:hover {
   background-color: transparent;
-  color: #3BB77E;
+  color: #bd0f0f;
 }
 .main-header .col-search {
   flex-grow: 0.5;
@@ -3475,7 +3475,7 @@ body.offcanvas-active {
   border: 2px solid #eee;
 }
 .nav-item img.rounded-circle:hover {
-  border-color: #3BB77E;
+  border-color:#bd0f0f;
 }
 
 .content-header {
