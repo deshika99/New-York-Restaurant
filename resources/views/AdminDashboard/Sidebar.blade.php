@@ -37,6 +37,25 @@
                         </div>
                     </li>
 
+                    <li class="menu-item has-submenu">
+                        <a class="menu-link" href="page-products-list.html">
+                            <i class="icon material-icons md-shopping_bag"></i>
+                            <span class="text">Customer Section</span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item has-submenu">
+                        <a class="menu-link" href="page-orders-1.html">
+                            <i class="icon material-icons md-shopping_cart"></i>
+                            <span class="text">Order Management</span>
+                        </a>
+                        <div class="submenu">
+                            <a href="page-form-product-1.html">Add Booking</a>
+                            <a href="page-form-product-2.html"></a>
+                            <a href="page-form-product-3.html"></a>
+                        </div>
+                    </li>
+
 
                     <li class="menu-item has-submenu {{ request()->is('admin/staff*') || request()->is('admin/position*') || request()->is('admin/department*') ? 'active' : '' }}">
                         <a class="menu-link" href="#">
@@ -154,3 +173,4 @@
                 <br />
             </nav>
         </aside>
+
