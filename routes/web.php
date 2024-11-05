@@ -11,7 +11,6 @@ use App\Http\Controllers\HomeTemplateController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ContactTemplateController;
-use App\Http\Controllers\ContactTemplateController;
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PositionController;
