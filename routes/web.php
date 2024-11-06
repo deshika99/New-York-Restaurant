@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/admin',[AdminTemplateController::class,'index'])->name('admin');
 Route::get('/home',[HomeTemplateController::class,'index'])->name('home');
 Route::get('/contact',[ContactTemplateController::class,'index'])->name('contact');
+Route::get('/aboutus',[AboutController::class,'index'])->name('about');
 Route::get('/about',[AboutController::class,'index'])->name('about');
 Route::get('/registerpage',[RegisterController::class,'index'])->name('registerpage');
 Route::post('/registerpage',[RegisterController::class,'register'])->name('registerpage.user');
@@ -145,6 +146,9 @@ Route::post('/admin/categories', [CategoryController::class, 'store'])->name('ca
 
 
 Route::post('/check-availability', [OnlineBookingController::class, 'checkAvailability'])->name('checkAvailability');
+Route::get('/onlinebooking/create', [OnlineBookingController::class, 'create'])->name('onlinebooking.create');
+Route::post('/onlinebooking/store', [OnlineBookingController::class, 'store'])->name('onlinebooking.store');
+
 
 
 
