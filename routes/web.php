@@ -16,8 +16,6 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ContactTemplateController;
-use App\Http\Controllers\ContactTemplateController;
-use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PositionController;
 
@@ -62,12 +60,15 @@ Route::get('/AdminDashboard/customers', [AddCustomerController::class, 'showCust
 
 Route::view('/AdminDashboard/add_order', 'AdminDashboard.add_order')->name('add_order');
 Route::view('/AdminDashboard/create_order', 'AdminDashboard.create_order')->name('create_order');
+Route::view('/AdminDashboard/online_order', 'AdminDashboard.online_order')->name('online_order');
+Route::view('/AdminDashboard/all_booking', 'AdminDashboard.all_booking')->name('all_booking');
 
 //create booking
 
 Route::get('/AdminDashboard/creat_order/create', [OrderController::class, 'create'])->name('order.create');
-Route::post('/AdminDashboard/orders/store', [OrderController::class, 'store'])->name('order.store');
 Route::get('/AdminDashboard/add_order', [OrderController::class, 'showAddOrderForm'])->name('add_order');
+Route::get('/AdminDashboard/orders/store', [OrderController::class, 'store'])->name('orders.store');
+
 
 //Apartments and Romms Section
 
