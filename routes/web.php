@@ -42,6 +42,7 @@ Route::get('/admin',[AdminTemplateController::class,'index'])->name('admin');
 Route::get('/home',[HomeTemplateController::class,'index'])->name('home');
 Route::get('/contact',[ContactTemplateController::class,'index'])->name('contact');
 Route::get('/about',[AboutController::class,'index'])->name('about');
+Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/registerpage',[RegisterController::class,'index'])->name('registerpage');
 Route::post('/registerpage',[RegisterController::class,'register'])->name('registerpage.user');
 Route::get('/loginpage',[RegisterController::class,'login'])->name('loginpage');
@@ -150,6 +151,9 @@ Route::post('/check-availability', [OnlineBookingController::class, 'checkAvaila
 
 Route::get('/about', function () {
     return view('frontend.AboutUs');
-});
+})->name('about');
+
+
+
 
 require __DIR__.'/auth.php';
