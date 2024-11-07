@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/admin',[AdminTemplateController::class,'index'])->name('admin');
 Route::get('/home',[HomeTemplateController::class,'index'])->name('home');
 Route::get('/contact',[ContactTemplateController::class,'index'])->name('contact');
+Route::get('/aboutus',[AboutController::class,'index'])->name('about');
 Route::get('/about',[AboutController::class,'index'])->name('about');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/registerpage',[RegisterController::class,'index'])->name('registerpage');
@@ -62,12 +63,15 @@ Route::get('/AdminDashboard/customers', [AddCustomerController::class, 'showCust
 
 Route::view('/AdminDashboard/add_order', 'AdminDashboard.add_order')->name('add_order');
 Route::view('/AdminDashboard/create_order', 'AdminDashboard.create_order')->name('create_order');
+Route::view('/AdminDashboard/online_order', 'AdminDashboard.online_order')->name('online_order');
+Route::view('/AdminDashboard/all_booking', 'AdminDashboard.all_booking')->name('all_booking');
 
 //create booking
 
 Route::get('/AdminDashboard/creat_order/create', [OrderController::class, 'create'])->name('order.create');
-Route::post('/AdminDashboard/orders/store', [OrderController::class, 'store'])->name('order.store');
 Route::get('/AdminDashboard/add_order', [OrderController::class, 'showAddOrderForm'])->name('add_order');
+Route::get('/AdminDashboard/orders/store', [OrderController::class, 'store'])->name('orders.store');
+
 
 //Apartments and Romms Section
 
@@ -146,6 +150,11 @@ Route::post('/admin/categories', [CategoryController::class, 'store'])->name('ca
 
 
 Route::post('/check-availability', [OnlineBookingController::class, 'checkAvailability'])->name('checkAvailability');
+
+Route::get('/onlinebooking/create', [OnlineBookingController::class, 'create'])->name('onlinebooking.create');
+Route::post('/onlinebooking/store', [OnlineBookingController::class, 'store'])->name('onlinebooking.store');
+
+
 
 
 
