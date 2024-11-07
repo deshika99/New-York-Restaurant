@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apartments;
+
 use App\Models\Booking;
 use App\Models\Payment;
 use App\Models\Room;
@@ -11,18 +12,22 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+
 use Illuminate\Support\Facades\Session;
 
 class OnlineBookingController extends Controller
 {
+
     public function checkAvailability(Request $request)
     {
+
 
         $validatedData = $request->validate([
             'checkin' => 'required|date|after_or_equal:today',
             'checkout' => 'required|date|after:checkin',
             'apartment' => 'required|exists:apartments,id'
         ]);
+
 
 
         $checkin = $validatedData['checkin'];
@@ -169,5 +174,6 @@ class OnlineBookingController extends Controller
             Log::error('Error storing booking and payment details: ', ['error' => $e->getMessage()]);
             return response()->json(['message' => 'An error occurred while saving booking details. Please try again.'], 500);
         }
+
     }
 }

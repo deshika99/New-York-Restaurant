@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
+
     protected $table = 'bookings';
 
     protected $fillable = [
@@ -23,4 +24,5 @@ class Booking extends Model
         'booking_status',
         'confirmation_status',
     ];
+
 }

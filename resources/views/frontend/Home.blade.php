@@ -104,7 +104,9 @@
                                     </div>
                                     <!-- Apartment Selection -->
                                     <div class="ltn__car-dealer-form-item ltn__custom-icon---- ltn__icon-car----  col-lg-5 col-md-6">
+
                                         <select name="apartment" class="nice-select" id="apartment">
+
                                             <option>Select Apartment</option>
                                             @foreach($apartments as $apartment)
                                             <option value="{{ $apartment->id }}">{{ $apartment->apartment_name }} - {{ $apartment->location_name }}</option>
