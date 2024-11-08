@@ -2,7 +2,9 @@
 
 @section('content')
 <!-- BREADCRUMB AREA START -->
+
 <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 ">
+
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -15,6 +17,7 @@
                         </ul>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -34,7 +37,9 @@
                         <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                             <img src="{{ asset('storage/' . $image) }}" class="d-block w-100" alt="{{ $roomType->type_name }}">
                         </div>
+
                         @endforeach
+
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselRoomType{{ $roomType->id }}" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -50,12 +55,14 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $roomType->type_name }}</h5>
                     <p class="card-text">{{ $roomType->description }}</p>
+
                     <a href="{{ route('onlinebooking.create', 
                     ['room_type_id' => $roomType->id, 
                     'checkin' => $checkin,
                     'checkout' => $checkout,
                     'apartment_id' => $apartmentId ]) }}" 
                     class="btn btn-primary">Book Now</a>
+
                 </div>
             </div>
         </div>
