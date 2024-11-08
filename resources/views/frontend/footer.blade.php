@@ -1,5 +1,5 @@
 <!-- CALL TO ACTION START (call-to-action-6) -->
-<div class="ltn__call-to-action-area call-to-action-6 before-bg-bottom" data-bs-bg="img/1.jpg--">
+<!-- <div class="ltn__call-to-action-area call-to-action-6 before-bg-bottom" data-bs-bg="img/1.jpg--">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-</div>
+</div> -->
     <!-- CALL TO ACTION END -->
 
 
@@ -32,7 +32,21 @@
                             </div>
 
                         </div>
-                        <p>Lorem Ipsum is simply dummy text of the and typesetting industry. Lorem Ipsum is dummy text of the printing.</p>
+                        <p>Experience luxury, comfort, and convenience at New York Guest House & Restaurant. Book your room or apartment for an unforgettable stay in the heart of the city.</p>
+                        
+                        <div class="ltn__social-media mt-20">
+                            <ul>
+                                <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                                <li><a href="#" title="Youtube"><i class="fab fa-youtube"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-sm-6 col-12">
+                    <div class="footer-widget footer-menu-widget clearfix">
+                        <h4 class="footer-title">Contacts</h4>            
                         <div class="footer-address">
                             <ul>
                                 <li>
@@ -61,14 +75,6 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="ltn__social-media mt-20">
-                            <ul>
-                                <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
-                                <li><a href="#" title="Youtube"><i class="fab fa-youtube"></i></a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="col-xl-2 col-md-6 col-sm-6 col-12">
@@ -76,31 +82,17 @@
                         <h4 class="footer-title">Company</h4>
                         <div class="footer-menu">
                             <ul>
-                                <li><a href="about.html">About</a></li>
-                                <li><a href="locations.html">Location Map</a></li>
-                                <li><a href="faq.html">FAQ</a></li>
-                                <li><a href="contact.html">Contact us</a></li>
+                                <li><a href="{{route('about')}}">About</a></li>
+                                <li><a href="#">Location Map</a></li>
+                                <li><a href="{{route('contact')}}">Contact us</a></li>
+                                <li><a href="#">login</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-xl-2 col-md-6 col-sm-6 col-12">
-                    <div class="footer-widget footer-menu-widget clearfix">
-                        <h4 class="footer-title">Customer Care</h4>
-                        <div class="footer-menu">
-                            <ul>
-                                <!-- <li><a href="login.html">Login</a></li>-->
-                                <li><a href="account.html">My account</a></li>
-                                <li><a href="wishlist.html">Facilities</a></li>
-                                <li><a href="contact.html">Contact us</a></li>
-                                <li><a href="faq.html">FAQ</a></li>
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6 col-sm-12 col-12">
+                
+                <div class="col-xl-4 col-md-6 col-sm-12 col-12">
                     <div class="footer-widget footer-newsletter-widget">
                         <h4 class="footer-title">Newsletter</h4>
                         <p>Subscribe to our weekly Newsletter and receive updates via email.</p>

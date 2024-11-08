@@ -29,7 +29,7 @@
     <!-- Add your site or application content here -->
 
     <!-- Body main wrapper start -->
-    <div class="body-wrapper">
+    <div class="wrapper">
 
         <!-- HEADER AREA START (header-5) -->
 

@@ -10,7 +10,7 @@
                     <h1 class="page-title">Room Booking</h1>
                     <div class="ltn__breadcrumb-list">
                         <ul>
-                            <li><a href="/home"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
+                            <li><a href="{{route('home')}}"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
                             <li>Booking</li>
                         </ul>
                     </div>
@@ -21,7 +21,7 @@
 </div>
 <!-- BREADCRUMB AREA END -->
 
-<div class="ltn__checkout-area mb-105">
+<div class="ltn__checkout-area mb-105 mt--65">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -123,7 +123,34 @@
             </div>
         </div>
 
-        <div class="row mt-5 justify-content-end">
+
+        <div class="row mt-5">
+
+            <div class="col-lg-6 ">
+                <div class="ltn__checkout-inner">
+                    <div class="ltn__checkout-single-content ">
+                        <h4 class="title-2">Bank Details</h4>
+                        <div class="ltn__checkout-single-content-info">
+                            <div class="row">
+
+                                <div class="col-md-12" id="info-div">
+                                    <span class="">
+                                        For Bank Transfer payments, please use the following bank details:
+                                        <br><br>
+                                        <strong>Bank Name:</strong> [Your Bank Name] <br>
+                                        <strong>Account Number:</strong> [Your Account Number] <br>
+                                        <strong>Account Holder:</strong> [Account Holder's Name] <br>
+                                        <strong>Branch:</strong> [Branch Name] <br><br>
+                                        After completing the transfer, send a clear image of your bank slip along with your Booking Number and your details to WhatsApp number: <strong>077 123 4567</strong>.
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-lg-6 ">
                 <div class="ltn__checkout-inner">
                     <div class="ltn__checkout-single-content ">
@@ -136,7 +163,7 @@
                                     <div class="input-item ">
                                         <select name="payment_type" class="nice-select" id="payment_type">
                                             <option value="Card">Card</option>
-                                            <option value="At Hotel">At Hotel</option>
+                                            <option value="At Hotel">Pay At Hotel</option>
                                             <option value="Bank Transfer">Bank Transfer</option>
                                         </select>
                                     </div>
@@ -164,7 +191,7 @@
                                 </div>
 
                                 <!-- Submit Button -->
-                                <div class="ltn__car-dealer-form-item col-md-12 mt-5">
+                                <div class="ltn__car-dealer-form-item col-md-12 mt-4">
                                     <div class="btn-wrapper text-center mt-0">
                                         <button type="submit" id="submit-button" class="btn theme-btn-1 btn-effect-1 text-uppercase">Submit</button>
                                     </div>
@@ -175,12 +202,17 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
     </div>
 </div>
 <!-- Include jQuery (make sure it's before nice-select JS) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     $(document).ready(function() {
@@ -219,17 +251,17 @@
                 refundableChargeInput.value = `LKR ${refundableCharge.toFixed(2)}`;
                 totalAmountInput.value = `LKR ${totalAmount.toFixed(2)}`;
 
-                calculateDueAmounts(totalAmount);
+                calculateDueAmounts();
             }
         });
 
         var dueAmount;
 
-        function calculateDueAmounts(totalAmount) {
+        function calculateDueAmounts() {
             const amountPaidInput = document.getElementById('amount_paid');
             const dueAmountInput = document.getElementById('due_amount');
             dueAmountInput.value = totalAmount.toFixed(2);
-            
+
             amountPaidInput.addEventListener('input', function() {
                 const amountPaid = parseFloat(amountPaidInput.value) || 0;
                 dueAmount = totalAmount - amountPaid;
@@ -244,16 +276,21 @@
             const amountPaid = document.getElementById('paid_amount_box');
             const dueValue = document.getElementById('due_amount');
 
-            if (this.value === 'Bank Transfer') {
-                slipUploadField.style.display = 'block';
-            } else {
-                slipUploadField.style.display = 'none';
-            }
+            // if (this.value === 'Bank Transfer') {
+            //     slipUploadField.style.display = 'none';
+            //     amountPaid.style.display = 'none';
+            // } else {
+            //     slipUploadField.style.display = 'none';
+            // }
             if (this.value === 'At Hotel') {
                 amountPaid.style.display = 'none';
-                dueValue.value=totalAmount.toFixed(2);
+                dueValue.value = totalAmount.toFixed(2);
+            } else if (this.value === 'Bank Transfer') {
+                amountPaid.style.display = 'none';
+                dueValue.value = totalAmount.toFixed(2);
             } else {
                 amountPaid.style.display = 'block';
+                document.querySelector('input[name="amount_paid"]').value = '';
             }
         });
 
@@ -262,48 +299,77 @@
         $('#submit-button').on('click', function(e) {
             e.preventDefault();
 
-            const selectedRoomId = $('#room-select').val();
-            const paymentType = $('#payment_type').val();
-            let amountPaid = $('#amount_paid').val();
+            Swal.fire({
+                title: 'Are you sure you want to proceed with the booking?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, confirm!',
+                cancelButtonText: 'No, cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const selectedRoomId = $('#room-select').val();
+                    const paymentType = $('#payment_type').val();
+                    let amountPaid = $('#amount_paid').val();
+                    let dueAmount;
 
-            if(paymentType=='At Hotel'){
-                amountPaid=0;
-                dueAmount=0;
-            }
-            
-            const checkin = $('#checkin').val();
-            const checkout = $('#checkout').val();
-            const transferSlipImage = $('#transfer_slip_image').val();
+                    if (paymentType == 'At Hotel' || paymentType == 'Bank Transfer') {
+                        amountPaid = 0;
+                        dueAmount = 0;
+                    } else {
+                        dueAmount = parseFloat(totalAmount) - parseFloat(amountPaid || 0);
+                    }
 
-            $.ajax({
-                url: "{{route('onlinebooking.store')}}",
-                type: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    room_id: selectedRoomId,
-                    payment_type: paymentType,
-                    amount: totalRoomCharge,
-                    paid_amount: amountPaid,
-                    due_amount: dueAmount,
-                    service_charge: serviceCharge,
-                    refundable_charge: refundableCharge,
-                    total_cost: totalAmount,
-                    checkin: checkin,
-                    checkout: checkout,
-                    total_days: totalDays,
-                    term: term,
-                    transfer_slip_image: transferSlipImage
-                },
-                success: function(response) {
-                    // Handle success response (e.g., show confirmation message or redirect)
-                    alert('Booking & payment details saved successfully!');
-                },
-                error: function(error) {
-                    // Handle error response
-                    alert('There was an error saving payment details. Please try again.');
+                    const checkin = $('#checkin').val();
+                    const checkout = $('#checkout').val();
+                    const transferSlipImage = $('#transfer_slip_image').val();
+
+                    $.ajax({
+                        url: "{{route('onlinebooking.store')}}",
+                        type: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            room_id: selectedRoomId,
+                            payment_type: paymentType,
+                            amount: totalRoomCharge,
+                            paid_amount: amountPaid,
+                            due_amount: dueAmount,
+                            service_charge: serviceCharge,
+                            refundable_charge: refundableCharge,
+                            total_cost: totalAmount,
+                            checkin: checkin,
+                            checkout: checkout,
+                            total_days: totalDays,
+                            term: term,
+                            transfer_slip_image: transferSlipImage
+                        },
+                        success: function(response) {
+                            // Success message with booking ID and page reload
+                            Swal.fire({
+                                title: 'Booking Number - OB' + response.booking_id,
+                                text: 'Booking & payment details saved successfully!',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();     
+                                }
+                            });
+                        },
+                        error: function(error) {
+                            // error message
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'There was an error saving payment details. Please try again.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    });
                 }
             });
         });
+
+
 
     });
 </script>

@@ -46,7 +46,9 @@ Route::get('/about',[AboutController::class,'index'])->name('about');
 Route::get('/registerpage',[RegisterController::class,'index'])->name('registerpage');
 Route::post('/registerpage',[RegisterController::class,'register'])->name('registerpage.user');
 Route::get('/loginpage',[RegisterController::class,'login'])->name('loginpage');
-
+Route::get('/facilities',[HomeTemplateController::class,'showFacilities'])->name('facilities');
+Route::get('/makebooking',[HomeTemplateController::class,'makebooking'])->name('makebooking');
+Route::get('/myprofile',[HomeTemplateController::class,'myProfile'])->name('myProfile');
 
 
 
@@ -144,12 +146,17 @@ Route::delete('/admin/staff/{id}', [StaffController::class, 'destroy'])->name('s
 Route::post('/admin/categories', [CategoryController::class, 'store'])->name('categories.store');
 
 
-
+//online booking in web site
 Route::post('/check-availability', [OnlineBookingController::class, 'checkAvailability'])->name('checkAvailability');
 Route::get('/onlinebooking/create', [OnlineBookingController::class, 'create'])->name('onlinebooking.create');
 Route::post('/onlinebooking/store', [OnlineBookingController::class, 'store'])->name('onlinebooking.store');
 
 
+Route::get('/admin/online-bookings', [OnlineBookingController::class, 'index'])->name('viewOnlineBookings');
+Route::get('/admin/online-bookings-details/{id}', [OnlineBookingController::class, 'onlineBookingDetails'])->name('onlinebooking.details');
+Route::post('/admin/update-payment/{id}', [OnlineBookingController::class, 'updatePayment'])->name('updatePayment');
+Route::post('/admin/update-status/{id}', [OnlineBookingController::class, 'updateStatus'])->name('updateStatus');
+Route::get('/admin/booking-print/{id}', [OnlineBookingController::class, 'printView'])->name('bookingPrint');
 
 
 Route::get('/about', function () {

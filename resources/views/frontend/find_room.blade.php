@@ -10,7 +10,7 @@
                     <h1 class="page-title">{{$apartment->apartment_name}} - {{$apartment->location_name}}</h1>
                     <div class="ltn__breadcrumb-list">
                         <ul>
-                            <li><a href="/home"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
+                            <li><a href="{{route('home')}}"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
                             <li>Room Types</li>
                         </ul>
                     </div>
@@ -22,7 +22,7 @@
 <!-- BREADCRUMB AREA END -->
 
 
-<div class="container">
+<div class="container mt--65">
     <div class="row">
         @foreach($roomTypes as $roomType)
         <div class="col-lg-6 col-md-6 mb-4">
