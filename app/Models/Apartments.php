@@ -17,5 +17,7 @@ class Apartments extends Model
     {
         return $this->hasMany(Floor::class, 'apartment_id'); // Specify 'apartment_id' explicitly if needed
     }
+
+    
     
 }

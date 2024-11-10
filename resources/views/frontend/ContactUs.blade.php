@@ -1,39 +1,6 @@
-<!doctype html>
-<html class="no-js" lang="zxx">
+@extends ('frontend.master')
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Quarter - Real Estate HTML Template</title>
-    <meta name="robots" content="noindex, follow" />
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Place favicon.png in the root directory -->
-    <link rel="shortcut icon" href="frontend/img/N1-removebg-preview.png" type="image/x-icon" />
-    <!-- Font Icons css -->
-    <link rel="stylesheet" href="frontend/css/font-icons.css">
-    <!-- plugins css -->
-    <link rel="stylesheet" href="frontend/css/plugins.css">
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="frontend/css/style.css">
-    <!-- Responsive css -->
-    <link rel="stylesheet" href="frontend/css/responsive.css">
-</head>
-
-<body>
-    <!--[if lte IE 9]>
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-    <![endif]-->
-
-    <!-- Add your site or application content here -->
-
-<!-- Body main wrapper start -->
-<div class="body-wrapper">
-
-    <!-- HEADER AREA START (header-5) -->
-@include('frontend.header')
-    <!-- Utilize Mobile Menu End -->
+@section('content')
 
     <div class="ltn__utilize-overlay"></div>
 
@@ -157,39 +124,9 @@
     </div>
     <!-- GOOGLE MAP AREA END -->
 
-    <!-- CALL TO ACTION START (call-to-action-6) -->
-    <div class="ltn__call-to-action-area call-to-action-6 before-bg-bottom" data-bs-bg="img/1.jpg--">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="call-to-action-inner call-to-action-inner-6 ltn__secondary-bg position-relative text-center---">
-                        <div class="coll-to-info text-color-white">
-                            <h1>Looking for a dream home?</h1>
-                            <p>We can help you realize your dream of a new home</p>
-                        </div>
-                        <div class="btn-wrapper">
-                            <a class="btn btn-effect-3 btn-white" href="contact.html">Explore Properties <i class="icon-next"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- CALL TO ACTION END -->
+    
 
-    <!-- FOOTER AREA START -->
-    @include('frontend/footer')
-    <!-- FOOTER AREA END -->
-</div>
-<!-- Body main wrapper end -->
 
-    <!-- All JS Plugins -->
-    <script src="frontend/js/plugins.js"></script>
-    <!-- Contact Form -->
-    <script src="frontend/js/contact.js"></script>
-    <!-- Main JS -->
-    <script src="frontend/js/main.js"></script>
+    @endsection
 
-</body>
-</html>
 

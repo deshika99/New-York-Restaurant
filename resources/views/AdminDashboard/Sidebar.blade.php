@@ -1,8 +1,9 @@
 <aside class="navbar-aside" id="offcanvas_aside">
             <div class="aside-top">
-                <a href="index.html" class="brand-wrap">
-                    <img src="{{ asset('backend/assets/imgs/theme/logo.svg') }}" class="logo" alt="DK-Mart" />
+                <a href="#" class="brand-wrap">
+                    <img src="/frontend/img/ny logo.jpg" class="logo" alt="DK-Mart" />
                 </a>
+                <span>New York Guest House & Restaurant (PVT) LTD</span>
                 <div>
                     <button class="btn btn-icon btn-aside-minimize"><i class="text-muted material-icons md-menu_open"></i></button>
                 </div>
@@ -14,7 +15,7 @@
                             <i class="icon material-icons md-home"></i>
                             <span class="text">Dashboard</span>
                         </a>
-                    </li>
+                    </li>       
                     
                     <li class="menu-item has-submenu {{ request()->is('admin/apartments*') || request()->is('admin/floors*') || request()->is('admin/room-types*') || request()->is('admin/rooms*') ? 'active' : '' }}">
                         <a class="menu-link" href="#">
@@ -56,10 +57,17 @@
                         </div>
                     </li>
 
+                    <li class="menu-item">
+                        <a class="menu-link" href="{{ route('viewOnlineBookings') }}">
+                            <i class="icon material-icons md-event"></i>
+                            <span class="text">Online Bookings</span>
+                        </a>
+                    </li>
+
 
                     <li class="menu-item has-submenu {{ request()->is('admin/staff*') || request()->is('admin/position*') || request()->is('admin/department*') ? 'active' : '' }}">
                         <a class="menu-link" href="#">
-                            <i class="icon material-icons md-apartment"></i>
+                            <i class="icon material-icons md-group"></i>
                             <span class="text">Staff</span>
                         </a>
                         <div class="submenu {{ request()->is('admin/staff*') || request()->is('admin/position*') || request()->is('admin/department*') ? 'active' : '' }}">
@@ -79,7 +87,7 @@
                     
 
 
-                    <li class="menu-item has-submenu">
+                    <!-- <li class="menu-item has-submenu">
                         <a class="menu-link" href="page-orders-1.html">
                             <i class="icon material-icons md-shopping_cart"></i>
                             <span class="text">Orders</span>
@@ -148,7 +156,7 @@
                             <i class="icon material-icons md-pie_chart"></i>
                             <span class="text">Statistics</span>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
                 <hr />
                 <ul class="menu-aside">
@@ -162,12 +170,12 @@
                             <a href="page-settings-2.html">Setting sample 2</a>
                         </div>
                     </li>
-                    <li class="menu-item">
+                    <!-- <li class="menu-item">
                         <a class="menu-link" href="page-blank.html">
                             <i class="icon material-icons md-local_offer"></i>
                             <span class="text"> Starter page </span>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
                 <br />
                 <br />

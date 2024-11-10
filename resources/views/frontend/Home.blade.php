@@ -22,10 +22,8 @@
                                         <p>Experience luxury, comfort, and convenience at New York Guest House & Restaurant. Book your room or apartment for an unforgettable stay in the heart of the city.</p>
                                     </div>
                                     <div class="btn-wrapper animated">
-                                        <a href="about.html" class="theme-btn-1 btn btn-effect-1">Make A Reservation</a>
-                                        <a class="ltn__video-play-btn bg-white" href="https://www.youtube.com/embed/HnbMYzdjuBs?autoplay=1&amp;showinfo=0" data-rel="lightcase">
-                                            <i class="icon-play ltn__secondary-color"></i>
-                                        </a>
+                                        <a href="#" class="theme-btn-1 btn btn-effect-1">Make A Reservation ⇩</a>
+                                        <a href="{{route('facilities')}}" class="btn btn-transparent btn-effect-3">Facilities</a>
                                     </div>
                                 </div>
                             </div>
@@ -51,8 +49,8 @@
                                         <p>Indulge in elegance and style with premium rooms and fine dining. Our guest services ensure an exceptional stay for every guest.</p>
                                     </div>
                                     <div class="btn-wrapper animated">
-                                        <a href="services.html" class="theme-btn-1 btn btn-effect-1">Our Services</a>
-                                        <a href="about.html" class="btn btn-transparent btn-effect-3">Learn More</a>
+                                        <a href="{{route('contact')}}" class="theme-btn-1 btn btn-effect-1">Contact Us</a>
+                                        <a href="{{route('about')}}" class="btn btn-transparent btn-effect-3">Learn More</a>
                                     </div>
                                 </div>
                             </div>
@@ -82,48 +80,51 @@
                             <a data-bs-toggle="tab" href="#ltn__form_tab_1_2"><i class="far fa-building"></i>Find an Apartment</a>
                         </div>
                     </div>
-                    <div class="tab-content bg-white box-shadow-1 ltn__border position-relative pb-10">
+                    <div class="tab-content bg-white box-shadow-1 ltn__border position-relative pb-30">
                         <!-- Tab for Room Search -->
                         <div class="tab-pane fade active show" id="ltn__form_tab_1_1">
-                            <div class="car-dealer-form-inner">
-                                <form action="{{route('checkAvailability')}}" method="POST" class="ltn__car-dealer-form-box row">
+                            <div class="car-dealer-form-inner p-3 border rounded">
+                                <form action="{{ route('checkAvailability') }}" method="POST" class="ltn__car-dealer-form-box row gx-2 gy-3">
                                     @csrf
                                     <!-- Check-in Date -->
-                                    <div class="ltn__car-dealer-form-item ltn__custom-icon ltn__icon-calendar col-lg-2 col-md-6">
-                                        <input type="date" name="checkin" placeholder="Check-in Date" class="form-control">
+                                    <div class="col-lg-2 col-md-6">
+                                        <label for="checkin" class="form-label">Check-in Date</label>
+                                        <input type="date" name="checkin" id="checkin" placeholder="Check-in Date" class="form-control">
                                         @error('checkin')
                                         <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
+
                                     <!-- Check-out Date -->
-                                    <div class="ltn__car-dealer-form-item ltn__custom-icon ltn__icon-calendar col-lg-2 col-md-6">
-                                        <input type="date" name="checkout" placeholder="Check-out Date" class="form-control datepicker">
+                                    <div class="col-lg-2 col-md-6">
+                                        <label for="checkout" class="form-label">Check-out Date</label>
+                                        <input type="date" name="checkout" id="checkout" placeholder="Check-out Date" class="form-control">
                                         @error('checkout')
                                         <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
+
                                     <!-- Apartment Selection -->
-                                    <div class="ltn__car-dealer-form-item ltn__custom-icon---- ltn__icon-car----  col-lg-5 col-md-6">
+                                    <div class="col-lg-5 col-md-6">
 
-                                        <select name="apartment" class="nice-select" id="apartment">
-
-                                            <option>Select Apartment</option>
+                                        <select name="apartment" id="apartment" class="nice-select mt-3">
+                                            <option value="" disabled selected>Select Apartment</option>
                                             @foreach($apartments as $apartment)
                                             <option value="{{ $apartment->id }}">{{ $apartment->apartment_name }} - {{ $apartment->location_name }}</option>
-                                            @endforeach              
-                                        </select>                                             
+                                            @endforeach
+                                        </select>
                                         @error('apartment')
                                         <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
+
                                     <!-- Submit Button -->
-                                    <div class="ltn__car-dealer-form-item ltn__custom-icon ltn__icon-calendar col-lg-3 col-md-6">
-                                        <div class="btn-wrapper text-center mt-0">
-                                            <button type="submit" class="btn theme-btn-1 btn-effect-1 text-uppercase">Find Room</button>
-                                        </div>
+                                    <div class="col-lg-3 col-md-6 d-flex align-items-end">
+                                        <button type="submit" class="btn theme-btn-1 btn-effect-1 w-100 text-uppercase">Find</button>
                                     </div>
-                                </form>     
+                                </form>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -144,7 +145,7 @@
                     <div class="about-us-img-info about-us-img-info-2 about-us-img-info-3">
                         <div class="ltn__video-img ltn__animation-pulse1">
                             <img src="/frontend/img/others/ab2.jpg" alt="video popup bg image">
-                            <a class="ltn__video-icon-2 ltn__video-icon-2-border---" href="https://www.youtube.com/embed/X7R-q9rsrtU?autoplay=1&showinfo=0" data-rel="lightcase:myCollection">
+                            <a class="ltn__video-icon-2 ltn__video-icon-2-border---" href="" data-rel="lightcase:myCollection">
                                 <i class="fa fa-play"></i>
                             </a>
                         </div>
@@ -180,7 +181,7 @@
                         <p>"Experience unmatched hospitality and comfort in our premium accommodations."</p>
                     </div>
                     <div class="btn-wrapper animated">
-                        <a href="service.html" class="theme-btn-1 btn btn-effect-1">OUR SERVICES</a>
+                        <a href="{{route('about')}}" class="theme-btn-1 btn btn-effect-1">About Us</a>
                     </div>
                 </div>
             </div>
@@ -199,8 +200,8 @@
                     <div class="counter-icon">
                         <i class="flaticon-bed"></i>
                     </div>
-                    <h1><span class="counter">560</span><span class="counterUp-icon">+</span></h1>
-                    <h6>Rooms Available</h6>
+                    <h1><span class="counter">{{$roomCount}}</span><span class="counterUp-icon">+</span></h1>
+                    <h6>Rooms Available</h6> 
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 align-self-center">
@@ -208,7 +209,7 @@
                     <div class="counter-icon">
                         <i class="flaticon-building"></i>
                     </div>
-                    <h1><span class="counter">197</span><span class="counterUp-icon">+</span></h1>
+                    <h1><span class="counter">{{$apartmentCount}}</span><span class="counterUp-icon">+</span></h1>
                     <h6>Apartments</h6>
                 </div>
             </div>
@@ -217,7 +218,7 @@
                     <div class="counter-icon">
                         <i class="flaticon-house"></i>
                     </div>
-                    <h1><span class="counter">1200</span><span class="counterUp-icon">+</span></h1>
+                    <h1><span class="counter">{{$bookingCount}}</span><span class="counterUp-icon">+</span></h1>
                     <h6>Guests Served</h6>
                 </div>
             </div>
@@ -226,7 +227,7 @@
                     <div class="counter-icon">
                         <i class="flaticon-heart"></i>
                     </div>
-                    <h1><span class="counter">95</span><span class="counterUp-icon">%</span></h1>
+                    <h1><span class="counter">97</span><span class="counterUp-icon">%</span></h1>
                     <h6>Customer Satisfaction</h6>
                 </div>
             </div>
@@ -317,7 +318,7 @@
                     <div class="ltn__feature-info">
                         <h3><a href="service-details.html">Book an Apartment</a></h3>
                         <p>Choose from a variety of fully furnished apartments, providing comfort and convenience for your stay.</p>
-                        <a class="ltn__service-btn" href="service-details.html">View Apartments <i class="flaticon-right-arrow"></i></a>
+                        <!-- <a class="ltn__service-btn" href="service-details.html">View Apartments <i class="flaticon-right-arrow"></i></a> -->
                     </div>
                 </div>
             </div>
@@ -329,7 +330,7 @@
                     <div class="ltn__feature-info">
                         <h3><a href="service-details.html">Book a Room</a></h3>
                         <p>Find a great room that suits your needs, with options ranging from budget to luxury accommodations.</p>
-                        <a class="ltn__service-btn" href="service-details.html">Explore Rooms <i class="flaticon-right-arrow"></i></a>
+                        <!-- <a class="ltn__service-btn" href="service-details.html">Explore Rooms <i class="flaticon-right-arrow"></i></a> -->
                     </div>
                 </div>
             </div>
@@ -341,7 +342,7 @@
                     <div class="ltn__feature-info">
                         <h3><a href="service-details.html">Host an Event</a></h3>
                         <p>Our facilities are equipped to host your events of all kinds, from business conferences to weddings.</p>
-                        <a class="ltn__service-btn" href="service-details.html">Discover Venues <i class="flaticon-right-arrow"></i></a>
+                        <!-- <a class="ltn__service-btn" href="service-details.html">Discover Venues <i class="flaticon-right-arrow"></i></a> -->
                     </div>
                 </div>
             </div>
@@ -354,323 +355,7 @@
 
 <div class="ltn__product-slider-area ltn__product-gutter pt-115 pb-90 plr--7">
     <!-- PRODUCT SLIDER AREA START -->
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title-area ltn__section-title-2--- text-center">
-                    <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color">Accommodations</h6>
-                    <h1 class="section-title">Featured Rooms & Apartments</h1>
-                </div>
-            </div>
-            <div class="row ltn__product-slider-item-four-active-full-width slick-arrow-1">
-                <!-- ltn__product-item -->
-                <div class="col-lg-12">
-                    <div class="ltn__product-item ltn__product-item-4 text-center---">
-                        <div class="product-img">
-                            <a href="room-details.html"><img src="/frontend/img/product-3/1.jpg" alt="#"></a>
-                            <div class="product-badge">
-                                <ul>
-                                    <li class="sale-badge bg-green">For Rent</li>
-                                </ul>
-                            </div>
-                            <div class="product-img-location-gallery">
-                                <div class="product-img-location">
-                                    <ul>
-                                        <li>
-                                            <a href="locations.html"><i class="flaticon-pin"></i> Times Square, New York</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="product-img-gallery">
-                                    <ul>
-                                        <li>
-                                            <a href="room-details.html"><i class="fas fa-camera"></i> 6</a>
-                                        </li>
-                                        <li>
-                                            <a href="room-details.html"><i class="fas fa-film"></i> 1</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-price">
-                                <span>$200<label>/Night</label></span>
-                            </div>
-                            <h2 class="product-title"><a href="room-details.html">Deluxe King Room</a></h2>
-                            <div class="product-description">
-                                <p>Spacious deluxe room with king-sized bed, city views, and modern amenities for a relaxing stay.</p>
-                            </div>
-                            <ul class="ltn__list-item-2 ltn__list-item-2-before">
-                                <li><span>1 <i class="flaticon-bed"></i></span> Bedroom</li>
-                                <li><span>1 <i class="flaticon-clean"></i></span> Bathroom</li>
-                                <li><span>400 <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span> sq Ft</li>
-                            </ul>
-                        </div>
-                        <div class="product-info-bottom">
-                            <div class="real-estate-agent">
-                                <div class="agent-img">
-                                    <a href="team-details.html"><img src="/frontend/img/blog/manager.jpg" alt="#"></a>
-                                </div>
-                                <div class="agent-brief">
-                                    <h6><a href="team-details.html">Sarah Johnson</a></h6>
-                                    <small>Booking Manager</small>
-                                </div>
-                            </div>
-                            <div class="product-hover-action">
-                                <ul>
-                                    <li>
-                                        <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
-                                            <i class="flaticon-expand"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
-                                            <i class="flaticon-heart-1"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="room-details.html" title="Room Details">
-                                            <i class="flaticon-add"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Repeat similar blocks for other room or apartment listings -->
-                <!-- ltn__product-item -->
-                <div class="col-lg-12">
-                    <div class="ltn__product-item ltn__product-item-4 text-center---">
-                        <div class="product-img">
-                            <a href="room-details.html"><img src="/frontend/img/product-3/1.jpg" alt="#"></a>
-                            <div class="product-badge">
-                                <ul>
-                                    <li class="sale-badge bg-green">For Rent</li>
-                                </ul>
-                            </div>
-                            <div class="product-img-location-gallery">
-                                <div class="product-img-location">
-                                    <ul>
-                                        <li>
-                                            <a href="locations.html"><i class="flaticon-pin"></i> Times Square, New York</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="product-img-gallery">
-                                    <ul>
-                                        <li>
-                                            <a href="room-details.html"><i class="fas fa-camera"></i> 6</a>
-                                        </li>
-                                        <li>
-                                            <a href="room-details.html"><i class="fas fa-film"></i> 1</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-price">
-                                <span>$200<label>/Night</label></span>
-                            </div>
-                            <h2 class="product-title"><a href="room-details.html">Deluxe King Room</a></h2>
-                            <div class="product-description">
-                                <p>Spacious deluxe room with king-sized bed, city views, and modern amenities for a relaxing stay.</p>
-                            </div>
-                            <ul class="ltn__list-item-2 ltn__list-item-2-before">
-                                <li><span>1 <i class="flaticon-bed"></i></span> Bedroom</li>
-                                <li><span>1 <i class="flaticon-clean"></i></span> Bathroom</li>
-                                <li><span>400 <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span> sq Ft</li>
-                            </ul>
-                        </div>
-                        <div class="product-info-bottom">
-                            <div class="real-estate-agent">
-                                <div class="agent-img">
-                                    <a href="team-details.html"><img src="/frontend/img/blog/manager.jpg" alt="#"></a>
-                                </div>
-                                <div class="agent-brief">
-                                    <h6><a href="team-details.html">Sarah Johnson</a></h6>
-                                    <small>Booking Manager</small>
-                                </div>
-                            </div>
-                            <div class="product-hover-action">
-                                <ul>
-                                    <li>
-                                        <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
-                                            <i class="flaticon-expand"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
-                                            <i class="flaticon-heart-1"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="room-details.html" title="Room Details">
-                                            <i class="flaticon-add"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ltn__product-item -->
-                <div class="col-lg-12">
-                    <div class="ltn__product-item ltn__product-item-4 text-center---">
-                        <div class="product-img">
-                            <a href="room-details.html"><img src="/frontend/img/product-3/1.jpg" alt="#"></a>
-                            <div class="product-badge">
-                                <ul>
-                                    <li class="sale-badge bg-green">For Rent</li>
-                                </ul>
-                            </div>
-                            <div class="product-img-location-gallery">
-                                <div class="product-img-location">
-                                    <ul>
-                                        <li>
-                                            <a href="locations.html"><i class="flaticon-pin"></i> Times Square, New York</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="product-img-gallery">
-                                    <ul>
-                                        <li>
-                                            <a href="room-details.html"><i class="fas fa-camera"></i> 6</a>
-                                        </li>
-                                        <li>
-                                            <a href="room-details.html"><i class="fas fa-film"></i> 1</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-price">
-                                <span>$200<label>/Night</label></span>
-                            </div>
-                            <h2 class="product-title"><a href="room-details.html">Deluxe King Room</a></h2>
-                            <div class="product-description">
-                                <p>Spacious deluxe room with king-sized bed, city views, and modern amenities for a relaxing stay.</p>
-                            </div>
-                            <ul class="ltn__list-item-2 ltn__list-item-2-before">
-                                <li><span>1 <i class="flaticon-bed"></i></span> Bedroom</li>
-                                <li><span>1 <i class="flaticon-clean"></i></span> Bathroom</li>
-                                <li><span>400 <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span> sq Ft</li>
-                            </ul>
-                        </div>
-                        <div class="product-info-bottom">
-                            <div class="real-estate-agent">
-                                <div class="agent-img">
-                                    <a href="team-details.html"><img src="/frontend/img/blog/manager.jpg" alt="#"></a>
-                                </div>
-                                <div class="agent-brief">
-                                    <h6><a href="team-details.html">Sarah Johnson</a></h6>
-                                    <small>Booking Manager</small>
-                                </div>
-                            </div>
-                            <div class="product-hover-action">
-                                <ul>
-                                    <li>
-                                        <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
-                                            <i class="flaticon-expand"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
-                                            <i class="flaticon-heart-1"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="room-details.html" title="Room Details">
-                                            <i class="flaticon-add"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ltn__product-item -->
-                <div class="col-lg-12">
-                    <div class="ltn__product-item ltn__product-item-4 text-center---">
-                        <div class="product-img">
-                            <a href="room-details.html"><img src="/frontend/img/product-3/1.jpg" alt="#"></a>
-                            <div class="product-badge">
-                                <ul>
-                                    <li class="sale-badge bg-green">For Rent</li>
-                                </ul>
-                            </div>
-                            <div class="product-img-location-gallery">
-                                <div class="product-img-location">
-                                    <ul>
-                                        <li>
-                                            <a href="locations.html"><i class="flaticon-pin"></i> Times Square, New York</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="product-img-gallery">
-                                    <ul>
-                                        <li>
-                                            <a href="room-details.html"><i class="fas fa-camera"></i> 6</a>
-                                        </li>
-                                        <li>
-                                            <a href="room-details.html"><i class="fas fa-film"></i> 1</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-price">
-                                <span>$200<label>/Night</label></span>
-                            </div>
-                            <h2 class="product-title"><a href="room-details.html">Deluxe King Room</a></h2>
-                            <div class="product-description">
-                                <p>Spacious deluxe room with king-sized bed, city views, and modern amenities for a relaxing stay.</p>
-                            </div>
-                            <ul class="ltn__list-item-2 ltn__list-item-2-before">
-                                <li><span>1 <i class="flaticon-bed"></i></span> Bedroom</li>
-                                <li><span>1 <i class="flaticon-clean"></i></span> Bathroom</li>
-                                <li><span>400 <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span> sq Ft</li>
-                            </ul>
-                        </div>
-                        <div class="product-info-bottom">
-                            <div class="real-estate-agent">
-                                <div class="agent-img">
-                                    <a href="team-details.html"><img src="/frontend/img/blog/manager.jpg" alt="#"></a>
-                                </div>
-                                <div class="agent-brief">
-                                    <h6><a href="team-details.html">Sarah Johnson</a></h6>
-                                    <small>Booking Manager</small>
-                                </div>
-                            </div>
-                            <div class="product-hover-action">
-                                <ul>
-                                    <li>
-                                        <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
-                                            <i class="flaticon-expand"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
-                                            <i class="flaticon-heart-1"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="room-details.html" title="Room Details">
-                                            <i class="flaticon-add"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <!-- PRODUCT SLIDER AREA END -->
 
 
@@ -866,7 +551,7 @@
                 <!-- Parking -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                     <div class="ltn__category-item ltn__category-item-5 text-center">
-                        <a href="#">
+                        <a href="">
                             <span class="category-icon"><i class="flaticon-car"></i></span>
                             <span class="category-title">Free Parking</span>
                             <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
@@ -876,7 +561,7 @@
                 <!-- Swimming Pool -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                     <div class="ltn__category-item ltn__category-item-5 text-center">
-                        <a href="#">
+                        <a href="">
                             <span class="category-icon"><i class="flaticon-swimming"></i></span>
                             <span class="category-title">Swimming Pool</span>
                             <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
@@ -886,7 +571,7 @@
                 <!-- 24/7 Security -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                     <div class="ltn__category-item ltn__category-item-5 text-center">
-                        <a href="#">
+                        <a href="">
                             <span class="category-icon"><i class="flaticon-secure-shield"></i></span>
                             <span class="category-title">24/7 Security</span>
                             <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
@@ -896,7 +581,7 @@
                 <!-- Wellness Spa -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                     <div class="ltn__category-item ltn__category-item-5 text-center">
-                        <a href="#">
+                        <a href="">
                             <span class="category-icon"><i class="flaticon-stethoscope"></i></span>
                             <span class="category-title">Wellness Spa</span>
                             <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
@@ -906,7 +591,7 @@
                 <!-- In-Room Dining -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                     <div class="ltn__category-item ltn__category-item-5 text-center">
-                        <a href="#">
+                        <a href="">
                             <span class="category-icon"><i class="flaticon-dining-table-with-chairs"></i></span>
                             <span class="category-title">In-Room Dining</span>
                             <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
@@ -916,7 +601,7 @@
                 <!-- Comfortable Bedding -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                     <div class="ltn__category-item ltn__category-item-5 text-center">
-                        <a href="#">
+                        <a href="">
                             <span class="category-icon"><i class="flaticon-bed-1"></i></span>
                             <span class="category-title">Comfortable Beds</span>
                             <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
@@ -926,7 +611,7 @@
                 <!-- Smart Room Features -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                     <div class="ltn__category-item ltn__category-item-5 text-center">
-                        <a href="#">
+                        <a href="">
                             <span class="category-icon"><i class="flaticon-apartment"></i></span>
                             <span class="category-title">Smart Room</span>
                             <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
@@ -936,7 +621,7 @@
                 <!-- Kids’ Play Area -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                     <div class="ltn__category-item ltn__category-item-5 text-center">
-                        <a href="#">
+                        <a href="">
                             <span class="category-icon"><i class="flaticon-slider"></i></span>
                             <span class="category-title">Kids’ Play Area</span>
                             <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
