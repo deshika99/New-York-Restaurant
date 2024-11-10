@@ -12,13 +12,13 @@
     <!-- Place favicon.png in the root directory -->
     <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
     <!-- Font Icons css -->
-    <link rel="stylesheet" href="frontend/css/font-icons.css">
+    <link rel="stylesheet" href="{{asset('frontend/css/font-icons.css')}}">
     <!-- plugins css -->
-    <link rel="stylesheet" href="frontend/css/plugins.css">
+    <link rel="stylesheet" href="{{asset('frontend/css/plugins.css')}}">
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="frontend/css/style.css">
+    <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
     <!-- Responsive css -->
-    <link rel="stylesheet" href="frontend/css/responsive.css">
+    <link rel="stylesheet" href="{{asset('frontend/css/responsive.css')}}">
 </head>
 
 <body>
@@ -64,9 +64,10 @@
         <!-- preloader area end -->
 
         <!-- All JS Plugins -->
-        <script src="frontend/js/plugins.js"></script>
+        <script src="{{asset('frontend/js/plugins.js')}}"></script>
         <!-- Main JS -->
-        <script src="frontend/js/main.js"></script>
+        <script src="{{asset('frontend/js/main.js')}}"></script>
+        
 
 </body>
 
