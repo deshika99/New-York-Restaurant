@@ -142,8 +142,6 @@ Route::delete('/admin/staff/{id}', [StaffController::class, 'destroy'])->name('s
 Route::post('/admin/categories', [CategoryController::class, 'store'])->name('categories.store');
 
 
-Route::get('/about', function () {
-    return view('frontend.AboutUs');
-});
+
 
 require __DIR__.'/auth.php';
