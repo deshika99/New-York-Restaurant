@@ -87,7 +87,7 @@
                     
 
 
-                    <li class="menu-item has-submenu">
+                    <!-- <li class="menu-item has-submenu">
                         <a class="menu-link" href="page-orders-1.html">
                             <i class="icon material-icons md-shopping_cart"></i>
                             <span class="text">Orders</span>
@@ -156,7 +156,7 @@
                             <i class="icon material-icons md-pie_chart"></i>
                             <span class="text">Statistics</span>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
                 <hr />
                 <ul class="menu-aside">
@@ -170,12 +170,12 @@
                             <a href="page-settings-2.html">Setting sample 2</a>
                         </div>
                     </li>
-                    <li class="menu-item">
+                    <!-- <li class="menu-item">
                         <a class="menu-link" href="page-blank.html">
                             <i class="icon material-icons md-local_offer"></i>
                             <span class="text"> Starter page </span>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
                 <br />
                 <br />
