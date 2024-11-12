@@ -11,16 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customer_registers', function (Blueprint $table) {
+        Schema::create('customer_register', function (Blueprint $table) {
             $table->id();
             $table->string('fname');
             $table->string('lname');
             $table->string('email')->unique();
             $table->string('phone_number');
             $table->string('address');
-            $table->string('password');
+            $table->string('password')->nullable(); // Make password nullable
+            $table->string('whatsapp_number')->nullable(); // Add whatsapp_number as nullable
+            $table->text('note')->nullable(); // Add note as nullable
             $table->timestamps();
         });
+
     }
 
     /**

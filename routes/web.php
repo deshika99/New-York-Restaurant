@@ -49,6 +49,17 @@ Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/registerpage',[RegisterController::class,'index'])->name('registerpage');
 Route::post('/registerpage',[RegisterController::class,'register'])->name('registerpage.user');
 Route::get('/loginpage',[RegisterController::class,'login'])->name('loginpage');
+Route::post('/login-validate', [RegisterController::class, 'loginvalidate'])->name('loginvalidate');
+Route::get('/logout', [RegisterController::class, 'logoutt'])->name('logoutt');
+
+Route::get('/admin/customers/add', [RegisterController::class, 'create'])->name('customers.create');
+Route::post('/admin/customers/store', [RegisterController::class, 'storess'])->name('store.customers');
+Route::get('/admin/customers/list', [RegisterController::class, 'showlist'])->name('customers.showlist');
+Route::get('/admin/customers/{id}', [RegisterController::class, 'showone'])->name('customers.show');
+Route::get('/admin/customers/{id}/edit', [RegisterController::class, 'edit'])->name('customers.edit');
+Route::put('/admin/customers/{id}', [RegisterController::class, 'update'])->name('customers.update');
+Route::delete('/admin/customers/{id}', [RegisterController::class, 'destroy'])->name('customers.destroy');
+
 
 
 Route::get('/facilities',[HomeTemplateController::class,'showFacilities'])->name('facilities');

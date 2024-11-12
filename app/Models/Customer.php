@@ -15,6 +15,7 @@ class Customer extends Model
         'email',
         'phone_number',
         'address',
+        'whatsapp_number', 
         'password',
     ];
 }

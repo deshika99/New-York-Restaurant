@@ -38,11 +38,19 @@
                         </div>
                     </li>
 
-                    <li class="menu-item has-submenu">
-                        <a class="menu-link" href="page-products-list.html">
-                            <i class="icon material-icons md-shopping_bag"></i>
+                    <li class="menu-item has-submenu {{ request()->is('admin/customers*') ? 'active' : '' }}">
+                        <a class="menu-link" href="#">
+                            <i class="icon material-icons md-people"></i>
                             <span class="text">Customer Section</span>
                         </a>
+                        <div class="submenu {{ request()->is('admin/customers*') ? 'show' : '' }}">
+                            <a href="{{ route('customers.create') }}" class="{{ request()->is('admin/customers/create') ? 'active' : '' }}">
+                                Add Customer
+                            </a>
+                            <a href="{{ route('customers.showlist') }}" class="{{ request()->is('admin/customers') ? 'active' : '' }}">
+                                All Customers
+                            </a>
+                        </div>
                     </li>
 
                     <!-- <li class="menu-item has-submenu">
@@ -52,8 +60,6 @@
                         </a>
                         <div class="submenu">
                             <a href="page-form-product-1.html">Add Booking</a>
-                            <a href="page-form-product-2.html"></a>
-                            <a href="page-form-product-3.html"></a>
                         </div>
                     </li> -->
 

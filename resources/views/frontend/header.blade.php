@@ -118,18 +118,31 @@
                         </div>
                     </div>
                     <!-- user-menu -->
+                    <!-- user-menu -->
+                    <!-- user-menu -->
                     <div class="ltn__drop-menu user-menu">
                         <ul>
                             <li>
                                 <a href="#"><i class="icon-user"></i></a>
                                 <ul>
-                                    <li><a href="{{route('loginpage')}}">Sign in</a></li>
-                                    <li><a href="{{route('registerpage')}}">Register</a></li>
-                                    <li><a href="{{route('myProfile')}}">My Account</a></li>
+                                    @if(session()->has('customer_id'))
+                                        <!-- If the user is logged in -->
+                                        <li><a href="{{ route('myProfile') }}">My Account</a></li>
+                                        <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            Logout <i class="fas fa-sign-out-alt"></i>
+                                        </a></li>
+                                        
+                                    @else
+                                        <!-- If the user is not logged in -->
+                                        <li><a href="{{ route('loginpage') }}">Sign in</a></li>
+                                        <li><a href="{{ route('registerpage') }}">Register</a></li>
+                                    @endif
                                 </ul>
                             </li>
                         </ul>
                     </div>
+
+
                    
                     <!-- Mobile Menu Button -->
                     <div class="mobile-menu-toggle d-xl-none">
