@@ -45,7 +45,7 @@
                         </a>
                     </li>
 
-                    <li class="menu-item has-submenu">
+                    <!-- <li class="menu-item has-submenu">
                         <a class="menu-link" href="page-orders-1.html">
                             <i class="icon material-icons md-shopping_cart"></i>
                             <span class="text">Order Management</span>
@@ -55,7 +55,7 @@
                             <a href="page-form-product-2.html"></a>
                             <a href="page-form-product-3.html"></a>
                         </div>
-                    </li>
+                    </li> -->
 
                     <li class="menu-item">
                         <a class="menu-link" href="{{ route('viewOnlineBookings') }}">
@@ -87,6 +87,20 @@
                             <a href="{{ route('department_management') }}" class="{{ request()->is('admin/department') ? 'active' : '' }}">
                                 Department Management 
                             </a>
+                        </div>
+                    </li>
+
+                    <li class="menu-item has-submenu">
+                        <a class="menu-link" href="page-orders-1.html">
+                            <i class="icon material-icons md-description"></i>
+                            <span class="text">Reports</span>
+                        </a>
+                        <div class="submenu">
+                            <a href="{{route('staffReport')}}">Staff Report</a>
+                            <a href="{{route('roomReport')}}">Rooms Report</a>            
+                            <a href="{{route('customerReport')}}">Customers Report</a>
+                            <a href="{{route('onlineBookingReport')}}">Online Bookings Report</a>
+                            <a href="{{route('officeBookingReport')}}">In-Office Bookings Report</a>
                         </div>
                     </li>
 
