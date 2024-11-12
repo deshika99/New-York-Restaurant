@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apartments;
-
 use App\Models\Booking;
+use App\Models\Customer;
 use App\Models\Payment;
 use App\Models\Room;
 use App\Models\RoomTypes;
@@ -13,50 +13,29 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-use Illuminate\Support\Facades\Session;
-
-class OnlineBookingController extends Controller
+class OfficeBookingController extends Controller
 {
-
-    public function checkAvailability(Request $request)
+    public function create()
     {
 
-
-        $validatedData = $request->validate([
-            'checkin' => 'required|date|after_or_equal:today',
-            'checkout' => 'required|date|after:checkin',
-            'apartment' => 'required|exists:apartments,id'
-        ]);
-
-
-
-        $checkin = $validatedData['checkin'];
-        $checkout = $validatedData['checkout'];
-        $apartmentId = $validatedData['apartment'];
-
-
-        $apartment = Apartments::findOrFail($apartmentId);
-
+        $customer = Customer::findOrFail(1); //change customer id
+        $apartments = Apartments::all();
         $roomTypes = RoomTypes::all();
 
-        return view('frontend.find_room', compact(
+        return view('AdminDashboard.OfficeBookings.create_booking', compact(
+            'customer',
+            'apartments',
             'roomTypes',
-            'apartment',
-            'checkin',
-            'checkout',
-            'apartmentId'
+
         ));
     }
 
-    public function create(Request $request)
+    public function getAvailableRooms(Request $request)
     {
-        $roomTypeId = $request->query('room_type_id');
-        $apartmentId = $request->query('apartment_id');
-        $checkin = $request->query('checkin');
-        $checkout = $request->query('checkout');
-
-        $apartment = Apartments::findOrFail($apartmentId);
-        $roomType = RoomTypes::findOrFail($roomTypeId);
+        $apartmentId = $request->input('apartment_id');
+        $roomTypeId = $request->input('room_type_id');
+        $checkin = $request->input('checkin');
+        $checkout = $request->input('checkout');
 
         $availableRooms = Room::where('apartment_id', $apartmentId)
             ->where('room_type_id', $roomTypeId)
@@ -71,71 +50,48 @@ class OnlineBookingController extends Controller
                         });
                 });
             })
-            ->get();
+            ->with('floor')
+            ->get(['id', 'room_number', 'rental_price', 'floor_id']);
 
-        $checkinDate = new DateTime($checkin);
-        $checkoutDate = new DateTime($checkout);
-        $interval = $checkinDate->diff($checkoutDate);
-        $totalDays = $interval->days + 1;
-        $term = null;
-        if ($totalDays > 15) {
-            $term = "Long-Term";
-        } elseif ($totalDays <= 15) {
-            $term = "Short-Term";
-        }
-
-        return view('frontend.booking', compact(
-            'roomType',
-            'apartment',
-            'checkin',
-            'checkout',
-            'availableRooms',
-            'totalDays',
-            'term'
-        ));
+        return response()->json(['rooms' => $availableRooms]);
     }
 
 
-    public function store(Request $request)
-    {
-        //Log::info('Store request data: ', $request->all());
-
+    public function store(Request $request,$id){
+        
+        Log::info('Store request data: ', $request->all());
+        
         $request->validate([
+            'checkin' => 'required|date',
+            'checkout' => 'required|date|after:checkin',
+            'term' => 'required|string',
+            'apartment_id' => 'required|exists:apartments,id',
+            'room_type_id' => 'required|exists:room_types,id',
             'room_id' => 'required|exists:rooms,id',
-            'payment_type' => 'required|string',
-            'amount' => 'required|numeric',
-            'paid_amount' => 'required|numeric',
-            'due_amount' => 'required|numeric',
+            'total_room_charge' => 'required|numeric',
             'service_charge' => 'required|numeric',
             'refundable_charge' => 'required|numeric',
             'total_cost' => 'required|numeric',
-            'checkin' => 'required|date',
-            'checkout' => 'required|date',
-            'total_days' => 'required|integer',
-            'term' => 'required|string',
-            'transfer_slip_image' => 'nullable|string'
+            'discount' => 'nullable|numeric',
+            'discounted_total' => 'required|numeric',
+            'payment_type' => 'required|string',
+            'amount_paid' => 'required|numeric',
+            'due_amount' => 'required|numeric',
         ]);
 
-        $dueAmount = $request->due_amount;
-        $paidAmount = $request->paid_amount;
-        if ($request->payment_type == 'At Hotel') {
-            $dueAmount = $request->total_cost;
-            $paidAmount = 0;
-        }
+        $checkinDate = new DateTime($request->checkin);
+        $checkoutDate = new DateTime($request->checkout);
+        $interval = $checkinDate->diff($checkoutDate);
+        $totalDays = $interval->days + 1;
+        $term = "Short-Term";
+        if ($totalDays > 15) {
+            $term = "Long-Term";
+        } 
 
-        if ($request->payment_type == 'Bank Transfer') {
-            $dueAmount = $request->total_cost;
-            $paidAmount = 0;
-        }
 
         $confirmationStatus = 'Not Relevant';
         if ($request->payment_type == 'Bank Transfer') {
-            $confirmationStatus = 'Awaiting Bank Slip';
-        }
-
-        $bookingStatus = 'Pending';
-        if ($paidAmount == $request->total_cost) {
-            $bookingStatus = 'Confirmed';
+            $confirmationStatus = 'Confirmed';
         }
 
         DB::beginTransaction();
@@ -143,41 +99,42 @@ class OnlineBookingController extends Controller
         try {
 
             $booking = Booking::create([
-                'customer_id' => 1, // change logged-in customer
+                'customer_id' => $id, 
                 'room_id' => $request->room_id,
                 'booking_date' => now(),
                 'start_date' => $request->checkin,
                 'end_date' => $request->checkout,
-                'term' => $request->term,
-                'booking_type' => 'Online',
+                'term' => $term,
+                'booking_type' => 'Office',
                 'payment_type' => $request->payment_type,
                 'service_charge' => $request->service_charge,
                 'total_cost' => $request->total_cost,
-                'discount_applied' => 0,
-                'booking_status' => $bookingStatus,
+                'discount_applied' => $request->discount ?? '0',
+                'booking_status' => 'Confirmed',
                 'confirmation_status' => $confirmationStatus
-            ]);
+            ]);    
 
             $advancedPayment = 0;
-            if ($paidAmount > 0 && $dueAmount > 0) {
+            if ($request->amount_paid > 0 && $request->due_amount > 0) {
                 $advancedPayment = 1;
             }
-
+            
             $paymentStatus = null;
-            if ($paidAmount > 0 && $dueAmount > 0) {
+            if ($request->amount_paid > 0 && $request->due_amount > 0) {
                 $paymentStatus = 'Partial Payment';
-            } elseif ($dueAmount == 0) {
+            } elseif ($request->due_amount == 0) {
                 $paymentStatus = 'Completed';
-            } elseif ($dueAmount == $request->total_cost) {
+            } elseif ($request->due_amount == $request->total_cost) {
                 $paymentStatus = 'Not Paid';
             }
 
+
             $payment = Payment::create([
                 'booking_id' => $booking->id,
-                'total_room_charge' => $request->amount,
+                'total_room_charge' => $request->total_room_charge,
                 'total_amount' => $request->total_cost,
-                'paid_amount' => $paidAmount,
-                'due_amount' => $dueAmount,
+                'paid_amount' => $request->amount_paid,
+                'due_amount' => $request->due_amount,
                 'payment_type' => $request->payment_type,
                 'payment_date' => now(),
                 'service_charge_applied' => $request->service_charge > 0 ? 1 : 0,
@@ -186,18 +143,18 @@ class OnlineBookingController extends Controller
                 'refund_status' => $request->refundable_charge > 0 ? 'Pending' : 'No Charge',
                 'bank_transfer_confirmation' => $request->payment_type === 'Bank Transfer' ? 1 : 0,
 
-                'discounted_total' => $request->total_cost,
-                'partial_payment' => $advancedPayment,
+                'discounted_total' => $request->discounted_total,
+                'partial_payment' =>$advancedPayment,
                 'payment_status' => $paymentStatus
             ]);
 
             DB::commit();
 
-            return response()->json(['message' => 'Booking and payment details saved successfully!', 'booking_id' => $booking->id], 201);
+            return redirect()->route('viewOfficeBookings')->with('success', 'Booking created successfully.');
         } catch (\Exception $e) {
             DB::rollback();
-            //Log::error('Error storing booking and payment details: ', ['error' => $e->getMessage()]);
-            return response()->json(['message' => 'An error occurred while saving booking details. Please try again.'], 500);
+            Log::error('Error storing booking and payment details: ', ['error' => $e->getMessage()]);
+            return back()->withErrors(['error' => 'Failed to create booking: ' . $e->getMessage()]);
         }
 
     }
@@ -205,17 +162,17 @@ class OnlineBookingController extends Controller
     public function index()
     {
         $bookings = Booking::with('payment')
-            ->where('booking_type', 'Online')
+            ->where('booking_type', 'Office')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('AdminDashboard.OnlineBookings.index', compact('bookings'));
+        return view('AdminDashboard.OfficeBookings.index', compact('bookings'));
     }
 
-    public function onlineBookingDetails($id)
+    public function officeBookingDetails($id) 
     {
         $booking = Booking::with('payment')->where('id', $id)->firstOrFail();
-        return view('AdminDashboard.OnlineBookings.viewDetails', compact('booking'));
+        return view('AdminDashboard.OfficeBookings.viewDetails', compact('booking'));
     }
 
     public function updatePayment(Request $request, $id)
@@ -229,7 +186,7 @@ class OnlineBookingController extends Controller
 
         $newPayment = $request->input('amount_paid');
         $updatedPaidAmount = $payment->paid_amount + $newPayment;
-        $totalAmount = $payment->total_amount;
+        $totalAmount = $payment->discounted_total;
         $dueAmount = $totalAmount - $updatedPaidAmount;
 
         $dueAmount = max(0, $dueAmount);
@@ -291,6 +248,7 @@ class OnlineBookingController extends Controller
     public function printView($id){
         $currentDateTime = now();
         $booking = Booking::with('payment')->where('id', $id)->firstOrFail();
-        return view('AdminDashboard.OnlineBookings.bookingPrint',compact('booking','currentDateTime'));
+        return view('AdminDashboard.OfficeBookings.officeBookingPrint',compact('booking','currentDateTime'));
     }
+
 }

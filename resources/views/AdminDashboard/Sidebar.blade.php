@@ -62,6 +62,13 @@
                             <i class="icon material-icons md-event"></i>
                             <span class="text">Online Bookings</span>
                         </a>
+                    </li> 
+
+                    <li class="menu-item">
+                        <a class="menu-link" href="{{route('viewOfficeBookings')}}">
+                            <i class="icon material-icons md-beenhere"></i>
+                            <span class="text">In-Office Bookings</span>
+                        </a>
                     </li>
 
 

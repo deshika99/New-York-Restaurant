@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FloorController;
+use App\Http\Controllers\OfficeBookingController;
 use App\Http\Controllers\OnlineBookingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
@@ -166,6 +167,19 @@ Route::get('/admin/online-bookings-details/{id}', [OnlineBookingController::clas
 Route::post('/admin/update-payment/{id}', [OnlineBookingController::class, 'updatePayment'])->name('updatePayment');
 Route::post('/admin/update-status/{id}', [OnlineBookingController::class, 'updateStatus'])->name('updateStatus');
 Route::get('/admin/booking-print/{id}', [OnlineBookingController::class, 'printView'])->name('bookingPrint');
+
+
+
+Route::get('/admin/office-bookings', [OfficeBookingController::class, 'index'])->name('viewOfficeBookings');
+Route::get('/admin/officebooking/create', [OfficeBookingController::class, 'create'])->name('officebooking.create');
+Route::post('/admin/officebooking/store/{id}', [OfficeBookingController::class, 'store'])->name('officebooking.store');
+Route::post('/get-available-rooms', [OfficeBookingController::class, 'getAvailableRooms'])->name('get.available.rooms');
+Route::get('/admin/office-bookings-details/{id}', [OfficeBookingController::class, 'officeBookingDetails'])->name('officebooking.details');
+Route::post('/admin/office-update-payment/{id}', [OfficeBookingController::class, 'updatePayment'])->name('office.updatePayment');
+Route::post('/admin/office-update-status/{id}', [OfficeBookingController::class, 'updateStatus'])->name('office.updateStatus');
+Route::get('/admin/office-booking-print/{id}', [OfficeBookingController::class, 'printView'])->name('office.bookingPrint');
+
+
 
 
 
