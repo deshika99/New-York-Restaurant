@@ -55,7 +55,7 @@ class RegisterController extends Controller
         $request->validate([
             'fname' => 'required',
             'lname' => 'required',
-            'email' => 'required|email|unique:customer_register,email',
+            'email' => 'required|email|unique:customer_registers,email',
             'phone_number' => 'required',
             'address' => 'required',
             'password' => 'required|min:6',
