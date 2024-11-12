@@ -133,7 +133,7 @@
                 <tr>
                     <td class="label">Name:</td>
                     <td>{{$booking->customer->fname}} {{$booking->customer->lname}}</td>
-                    <td class="label">Contact:</td>         
+                    <td class="label">Contact:</td>                     
                     <td>{{$booking->customer->phone_number}}</td>
                 </tr>
             </table>
@@ -162,7 +162,7 @@
                 <tr>
                     <td class="label">Check-in Date:</td>
                     <td>{{$booking->start_date}}</td>
-                    <td class="label">Check-out Date:</td>
+                    <td class="label">Check-out Date:</td> 
                     <td>{{$booking->end_date}}</td>
                 </tr>
             </table>
@@ -187,7 +187,7 @@
                 </tr>
                 <tr>
                     <td class="label">Refundable Charge (LKR): 
-                    @if ($booking->payment->refundable_amount>0)
+                    @if ($booking->payment->refundable_amount>0)    
                         (Refunded Status: {{$booking->payment->refund_status}})
                         @endif
                     </td>
@@ -199,6 +199,16 @@
                     <td class="label"><strong>Total Cost (LKR):</strong></td>
                     <td style="text-align: right;"><strong>{{$booking->payment->total_amount}}</strong></td>
                 </tr>
+                @if ($booking->discount_applied)
+                <tr>
+                    <td class="label"><strong>Discount (LKR)</strong></td>
+                    <td style="text-align: right;"><strong>{{$booking->discount_applied}}</strong></td>
+                </tr>
+                <tr>
+                    <td class="label"><strong>Discounted Total (LKR):</strong></td>
+                    <td style="text-align: right;"><strong>{{$booking->payment->discounted_total}}</strong></td>
+                </tr>
+                @endif
             </table>
         </div>
 

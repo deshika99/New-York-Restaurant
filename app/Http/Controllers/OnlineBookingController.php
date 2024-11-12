@@ -221,16 +221,24 @@ class OnlineBookingController extends Controller
     public function updatePayment(Request $request, $id)
     {
         $request->validate([
+            'discount' => 'nullable|numeric|min:0',
             'amount_paid' => 'required|numeric|min:0',
             'payment_type' => 'required|string',
         ]);
 
         $payment = Payment::findOrFail($id);
+        $booking = Booking::findOrFail($payment->booking_id);
 
+        $totalAmount = $payment->total_amount;
+
+        $discount = $request->input('discount') ?? 0;
+        $updatedDiscount = $booking->discount_applied + $discount;
+        $discountedTotal = $payment->discounted_total;
+        $newDiscountedTotal = $totalAmount - $updatedDiscount;
+        
         $newPayment = $request->input('amount_paid');
         $updatedPaidAmount = $payment->paid_amount + $newPayment;
-        $totalAmount = $payment->total_amount;
-        $dueAmount = $totalAmount - $updatedPaidAmount;
+        $dueAmount = $newDiscountedTotal - $updatedPaidAmount;
 
         $dueAmount = max(0, $dueAmount);
 
@@ -246,10 +254,10 @@ class OnlineBookingController extends Controller
             'due_amount' => $dueAmount,
             'payment_type' => $request->input('payment_type'),
             'payment_status' => $paymentStatus,
+            'discounted_total' => $newDiscountedTotal,
         ]);
 
-        $booking = Booking::findOrFail($payment->booking_id);
-
+        
         $confirmationStatus = 'Not Relevant';
         if ($request->input('payment_type') == 'Bank Transfer' && $booking->payment_type == 'Bank Transfer') {
             $confirmationStatus = 'Confirmed';
@@ -260,6 +268,7 @@ class OnlineBookingController extends Controller
         $booking->update([
             'booking_status' => 'Confirmed',
             'confirmation_status' => $confirmationStatus,
+            'discount_applied' => $updatedDiscount,
         ]);
 
         return redirect()->back()->with('success', 'Payment updated successfully.');
