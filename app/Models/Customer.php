@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     use HasFactory;
-    protected $table = 'customer_register';
+    protected $table = 'customer_registers';
     protected $fillable = [
         'fname',
         'lname',
