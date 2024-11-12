@@ -63,7 +63,7 @@
                                     </div>
                                     
                                     <div class="mb-4">
-                                        <label for="total_units" class="form-label">Total Units </label>
+                                        <label for="total_units" class="form-label">Total Rooms </label>
                                         <input type="number" placeholder="Enter number of units" class="form-control" id="total_units" name="total_units"  />
                                     </div>
                                     
@@ -73,7 +73,7 @@
                                     </div>
                                     
                                     <div class="mb-4">
-                                        <label for="amenities" class="form-label">Amenities </label>
+                                        <label for="amenities" class="form-label">Facilities <span class="text-danger">*</span> </label>
                                         <input type="text" placeholder="Enter amenities separated by commas" class="form-control" id="amenities" name="amenities"  />
                                     </div>
                                     

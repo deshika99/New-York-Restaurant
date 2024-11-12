@@ -21,6 +21,19 @@
     <link rel="stylesheet" href="frontend/css/responsive.css">
 </head>
 
+
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('error') }}
+    </div>
+@endif
+
 <body>
     <!--[if lte IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
@@ -94,17 +107,20 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="account-login-inner">
-                        <form action="#" class="ltn__form-box contact-form-box">
-                            @csrf
-                            <input type="text" name="email" placeholder="Email*">
-                            <input type="password" name="password" placeholder="Password*">
-                            <div class="btn-wrapper mt-0">
-                                <button class="theme-btn-1 btn btn-block" type="submit">SIGN IN</button>
-                            </div>
-                            <div class="go-to-btn mt-20">
-                                <a  href="#" title="Forgot Password?" data-bs-toggle="modal" data-bs-target="#ltn_forget_password_modal"><small>FORGOTTEN YOUR PASSWORD?</small></a>
-                            </div>
-                        </form>
+                    <form action="{{ route('loginvalidate') }}" method="POST" class="ltn__form-box contact-form-box">
+                        @csrf
+                        <input type="text" name="email" placeholder="Email*" required>
+                        <input type="password" name="password" placeholder="Password*" required>
+                        <div class="btn-wrapper mt-0">
+                            <button class="theme-btn-1 btn btn-block" type="submit">SIGN IN</button>
+                        </div>
+                        <div class="go-to-btn mt-20">
+                            <a href="#" title="Forgot Password?" data-bs-toggle="modal" data-bs-target="#ltn_forget_password_modal">
+                                <small>FORGOTTEN YOUR PASSWORD?</small>
+                            </a>
+                        </div>
+                    </form>
+
                     </div>
                 </div>
                 <div class="col-lg-6">
