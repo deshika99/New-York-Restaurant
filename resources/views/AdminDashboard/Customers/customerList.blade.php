@@ -45,6 +45,7 @@
                                     <td>{{ $customer->created_at->format('Y-m-d') }}</td>
                                     
                                     <td>
+                                        <a href="{{ route('officebooking.create', $customer->id) }}" class="btn btn-success btn-sm">Booking</a>
                                         <a href="{{ route('customers.show', $customer->id) }}" class="btn btn-info btn-sm">View</a>
                                         <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                         <form action="{{ route('customers.destroy', $customer->id) }}" method="POST" style="display:inline;">

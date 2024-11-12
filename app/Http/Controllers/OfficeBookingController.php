@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Log;
 
 class OfficeBookingController extends Controller
 {
-    public function create()
+    public function create($id)
     {
 
-        $customer = Customer::findOrFail(1); //change customer id
+        $customer = Customer::findOrFail($id); //change customer id
         $apartments = Apartments::all();
         $roomTypes = RoomTypes::all();
 

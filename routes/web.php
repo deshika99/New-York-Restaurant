@@ -180,7 +180,7 @@ Route::get('/admin/booking-print/{id}', [OnlineBookingController::class, 'printV
 
 //in-office booking
 Route::get('/admin/office-bookings', [OfficeBookingController::class, 'index'])->name('viewOfficeBookings');
-Route::get('/admin/officebooking/create', [OfficeBookingController::class, 'create'])->name('officebooking.create');
+Route::get('/admin/officebooking/create/{id}', [OfficeBookingController::class, 'create'])->name('officebooking.create');
 Route::post('/admin/officebooking/store/{id}', [OfficeBookingController::class, 'store'])->name('officebooking.store');
 Route::post('/get-available-rooms', [OfficeBookingController::class, 'getAvailableRooms'])->name('get.available.rooms');
 Route::get('/admin/office-bookings-details/{id}', [OfficeBookingController::class, 'officeBookingDetails'])->name('officebooking.details');
