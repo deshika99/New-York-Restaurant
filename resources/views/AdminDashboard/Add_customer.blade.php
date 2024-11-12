@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div>
-            <a href="{{ route('customer_section') }}" class="btn btn-primary">Save</a>
+                <button type="submit" class="btn btn-primary">Save</button>
         </div>
 
             </form>

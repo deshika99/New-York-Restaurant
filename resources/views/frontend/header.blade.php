@@ -1,3 +1,90 @@
+<style>
+.header-icons-container {
+    display: flex;
+    align-items: center;
+    gap: 250px; /* Spacing between cart and user menu */
+}
+
+.ltn__drop-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ltn__drop-menu li a {
+    text-decoration: none;
+    color: #333; /* Adjust as needed */
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Increase spacing between icon and username */
+}
+
+.ltn__drop-menu li ul {
+    display: none;
+    position: absolute;
+    top: calc(100% + 5px); /* Add some spacing below the profile section */
+    left: 0;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    min-width: 150px;
+    z-index: 10;
+    border-radius: 4px;
+}
+
+.ltn__drop-menu li:hover ul {
+    display: block; /* Show dropdown on hover */
+}
+
+.mini-cart-icon a {
+    color: #333; /* Adjust color */
+    text-decoration: none;
+}
+
+/* Optional: Add hover or active state styling for better UI */
+.ltn__drop-menu li ul li a {
+    padding: 5px 10px;
+    display: block;
+    color: #333;
+}
+
+.ltn__drop-menu li ul li a:hover {
+    background-color: #f5f5f5;
+    color: #000;
+}
+
+button[type="submit"] {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+    padding: 5px 10px;
+    text-align: left;
+    width: 100%;
+}
+
+button[type="submit"]:hover {
+    background-color: #f5f5f5;
+    color: #000;
+}
+.ltn__drop-menu .user-menu span:first-child {
+    color: #007bff; /* Highlight first letter */
+    font-size: 1.2em;
+    margin-right: 5px;
+}
+
+.ltn__drop-menu .user-menu span {
+    color: #333; /* Default color for the full name */
+}
+
+
+
+
+
+
+
+
+</style>
 <header class="ltn__header-area ltn__header-5 ltn__header-transparent--- gradient-color-4---">
     <!-- ltn__header-top-area start -->
     <div class="ltn__header-top-area section-bg-6 top-area-color-white---">
@@ -117,27 +204,47 @@
                             </form>
                         </div>
                     </div>
-                    <!-- user-menu -->
-                    <div class="ltn__drop-menu user-menu">
-                        <ul>
-                            <li>
-                                <a href="#"><i class="icon-user"></i></a>
-                                <ul>
-                                    <li><a href="{{route('loginpage')}}">Sign in</a></li>
-                                    <li><a href="{{route('registerpage')}}">Register</a></li>
-                                    <li><a href="account.html">My Account</a></li>
-                                    <li><a href="wishlist.html">Wishlist</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- mini-cart -->
-                    <div class="mini-cart-icon">
+
+                     <!-- mini-cart -->
+                     <div class="mini-cart-icon">
                         <a href="#ltn__utilize-cart-menu" class="ltn__utilize-toggle">
                             <i class="icon-shopping-cart"></i>
                             <sup>2</sup>
                         </a>
                     </div>
+                    <!-- user-menu -->
+                    
+                    <div class="ltn__drop-menu user-menu"> 
+                      <ul style="list-style: none; margin: 0; padding: 0;">
+                            <li style="position: relative;">
+                                <a href="#" style="display: flex; align-items: center; gap: 10px;">
+                                    @if(session()->has('user_name'))
+                                         <span style="font-weight: bold;">{{ substr(session('user_name'), 0, 1) }}</span>
+                                         <span>{{ session('user_name') }}</span>
+                                    @else
+                                          <i class="icon-user"></i>
+                                    @endif
+                                </a>
+                            <ul>
+                                @if(!session()->has('user_name'))
+                                   <li><a href="{{ route('loginpage') }}">Sign in</a></li>
+                                   <li><a href="{{ route('registerpage') }}">Register</a></li>
+                                @else
+                                   <li><a href="account.html">My Account</a></li>
+                                   <li><a href="wishlist.html">Wishlist</a></li>
+                                   <li>
+                                       <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                             <button type="submit">Logout</button>
+                                        </form>
+                                   </li>
+                                @endif
+                           </ul>
+                         </li>
+                      </ul>
+                    </div>
+
+                   
                     <!-- mini-cart -->
                     <!-- Mobile Menu Button -->
                     <div class="mobile-menu-toggle d-xl-none">
@@ -305,3 +412,4 @@
         </div>
     </div>
 </div>
+

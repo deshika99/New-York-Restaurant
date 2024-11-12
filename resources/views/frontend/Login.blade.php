@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -61,25 +62,26 @@
 
     <div class="ltn__login-area pb-65">
         @if (session()->has("success"))
-    <div class="alert alert-warning alert-dismissible fade show" role="alert" width="300px">
-        {{ session()->get("success") }}
-    </div>
-@endif
-@if (session()->has("error"))
-    <div class="alert alert-warning alert-dismissible fade show" role="alert" width="300px">
-        {{ session()->get("error") }}
-    </div>
-@endif
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" width="300px">
+                {{ session()->get("success") }}
+            </div>
+        @endif
+        @if (session()->has("error"))
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" width="300px">
+                {{ session()->get("error") }}
+            </div>
+        @endif
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+               <ul>
+                    @foreach ($errors->all() as $error)
+                       <li>{{ $error }}</li>
+                    @endforeach
+               </ul>
+            </div>
+        @endif
+
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -94,17 +96,14 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="account-login-inner">
-                        <form action="#" class="ltn__form-box contact-form-box">
-                            @csrf
-                            <input type="text" name="email" placeholder="Email*">
-                            <input type="password" name="password" placeholder="Password*">
-                            <div class="btn-wrapper mt-0">
-                                <button class="theme-btn-1 btn btn-block" type="submit">SIGN IN</button>
-                            </div>
-                            <div class="go-to-btn mt-20">
-                                <a  href="#" title="Forgot Password?" data-bs-toggle="modal" data-bs-target="#ltn_forget_password_modal"><small>FORGOTTEN YOUR PASSWORD?</small></a>
-                            </div>
-                        </form>
+                    <form action="{{ route('login.check') }}" method="POST" class="ltn__form-box contact-form-box">
+                    @csrf
+                        <input type="text" name="email" placeholder="Email*" required>
+                        <input type="password" name="password" placeholder="Password*" required>
+                    <div class="btn-wrapper mt-0">
+                         <button class="theme-btn-1 btn btn-block" type="submit">SIGN IN</button>
+                    </div>
+                    </form>
                     </div>
                 </div>
                 <div class="col-lg-6">

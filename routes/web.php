@@ -19,7 +19,7 @@ use App\Http\Controllers\ContactTemplateController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PositionController;
 
-
+use App\Http\Controllers\ReportController;
 
 
 Route::get('/', function () {
@@ -45,6 +45,19 @@ Route::get('/registerpage',[RegisterController::class,'index'])->name('registerp
 Route::post('/registerpage',[RegisterController::class,'register'])->name('registerpage.user');
 Route::get('/loginpage',[RegisterController::class,'login'])->name('loginpage');
 
+//loging
+
+Route::get('/loginpage', [RegisterController::class, 'login'])->name('loginpage');
+Route::post('/loginpage', [RegisterController::class, 'login'])->name('login');
+Route::get('/logout', [RegisterController::class, 'logout'])->name('logout');
+Route::get('/login', [RegisterController::class, 'login'])->name('loginpage');
+Route::post('/login-check', [RegisterController::class, 'loginCheck'])->name('login.check');
+
+Route::post('/logout', function () {
+    session()->flush();
+    return redirect()->route('home');
+})->name('logout');
+
 
 
 
@@ -52,22 +65,27 @@ Route::view('/AdminDashboard/customer_section', 'AdminDashboard.customer_section
 Route::view('/AdminDashboard/Add_customer', 'AdminDashboard.Add_customer')->name('Add_customer');
 
 
+Route::get('/AdminDashboard/customers', [AddCustomerController::class, 'index'])->name('customer_section');
 Route::get('/AdminDashboard/customers/create', [AddCustomerController::class, 'create'])->name('Add_customer');
 Route::post('/AdminDashboard/customers/store', [AddCustomerController::class, 'store'])->name('customers.store');
-Route::get('/AdminDashboard/customer_section', [AddCustomerController::class, 'index'])->name('customer_section');
-Route::get('/AdminDashboard/customer-section', [AddCustomerController::class, 'showCustomerSection'])->name('customer.section');
-Route::get('/AdminDashboard/customers', [AddCustomerController::class, 'showCustomerSection'])->name('customer_section');
 
-Route::view('/AdminDashboard/add_order', 'AdminDashboard.add_order')->name('add_order');
-Route::view('/AdminDashboard/create_order', 'AdminDashboard.create_order')->name('create_order');
-Route::view('/AdminDashboard/online_order', 'AdminDashboard.online_order')->name('online_order');
-Route::view('/AdminDashboard/all_booking', 'AdminDashboard.all_booking')->name('all_booking');
+
+Route::get('/AdminDashboard/create_order', [OrderController::class, 'create'])->name('create_order');
+Route::post('/AdminDashboard/orders/store', [OrderController::class, 'store'])->name('orders.store');
+Route::get('/AdminDashboard/add_order', [OrderController::class, 'showAddOrderForm'])->name('add_order');
+Route::get('/AdminDashboard/orders/create', [OrderController::class, 'create'])->name('AdminDashboard.create_order');
+Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
+Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
+
+
 
 //create booking
 
 Route::get('/AdminDashboard/creat_order/create', [OrderController::class, 'create'])->name('order.create');
 Route::get('/AdminDashboard/add_order', [OrderController::class, 'showAddOrderForm'])->name('add_order');
 Route::get('/AdminDashboard/orders/store', [OrderController::class, 'store'])->name('orders.store');
+Route::get('/AdminDashboard/orders/report', [OrderController::class, 'orderReport'])->name('AdminDashboard.order_report');
+
 
 
 //Apartments and Romms Section
@@ -79,6 +97,15 @@ Route::get('/admin/rooms', [RoomController::class, 'index'])->name('room_managem
 
 
 Route::post('/admin/categories', [CategoryController::class, 'store'])->name('categories.store');
+
+Route::view('/AdminDashboard/report', 'AdminDashboard.report')->name('report');
+Route::get('/AdminDashboard/report', [ReportController::class, 'showReports'])->name('report');
+Route::get('/AdminDashboard/report-analysis', [ReportController::class, 'showReportAnalysis'])->name('report.analysis');
+Route::get('/admin/report', [ReportController::class, 'showReport'])->name('admin.report');
+
+
+
+
 
 
 //Apartments Section
@@ -145,8 +172,3 @@ Route::delete('/admin/staff/{id}', [StaffController::class, 'destroy'])->name('s
 Route::post('/admin/categories', [CategoryController::class, 'store'])->name('categories.store');
 
 
-Route::get('/about', function () {
-    return view('frontend.AboutUs');
-});
-
-require __DIR__.'/auth.php';

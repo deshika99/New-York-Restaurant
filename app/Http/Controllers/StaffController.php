@@ -131,4 +131,19 @@ class StaffController extends Controller
         // Redirect back with a success message
         return redirect()->route('staff_management')->with('success', 'Staff member deleted successfully.');
     }
+
+    public function report()
+{
+    $staffData = Staff::select('department_id', \DB::raw('count(*) as total'))
+                        ->groupBy('department_id')
+                        ->with('department')
+                        ->get();
+
+    $departments = $staffData->pluck('department.name'); // Department names
+    $totals = $staffData->pluck('total'); // Staff count per department
+
+    return view('AdminDashboard..report', compact('departments', 'totals'));
+}
+
+
 }

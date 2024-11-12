@@ -16,8 +16,8 @@ class Order extends Model
     protected $fillable = [
         'customer_id',
         'name',
-        'phone_number',
         'email',
+        'phone_number',
         'bookingType',
         'roomSelection',
         'startDate',
@@ -25,9 +25,8 @@ class Order extends Model
         'paymentTerms',
         'paymentMethod',
         'discount',
-        'serviceCharge'
+        'serviceCharge',
     ];
-
     // Define relationship with User (Customer)
     public function customer()
     {

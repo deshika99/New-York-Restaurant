@@ -38,83 +38,85 @@
         </div>
         <div class="card-body">
         <form action="{{ route('orders.store') }}" method="POST">
-        @csrf
-                <div class="row">
-                    <div class="col-lg-12 mb-4">
-                        <label for="first_name" class="form-label">Customer Name</label>
-                        <input type="text" name="name" class="form-control" id="name" required />
-                    </div>
-                </div>
-                <div class="row">
-                <div class="col-lg-6 mb-4">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control" id="email" required />
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <label for="phone_number" class="form-label">Phone Number</label>
-                        <input type="text" name="phone_number" class="form-control" id="phone_number" required />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 mb-4">
-                        <label for="bookingType"class="form-label">Booking Type</label>
-                            <select id="bookingType" class="form-control" required>
-                                <option value="online">Online</option>
-                                <option value="in-office">In-Office</option>
-                            </select>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <label for="roomSelection"class="form-label">Room Section</label>
-                            <select id="roomSelection" class="form-control" required>
-                                <option value="room1">Room 1</option>
-                                <option value="room2">Room 2</option>
-                                <option value="room3">Room 3</option>
-                            </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 mb-4">
-                        <label for="startDate"class="form-label">Booking Start Date</label>
-                            <input type="date" class="form-control" id="startDate" required onchange="calculateBookingDuration()">
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <label for="endDate"class="form-label">Booking End Date</label>
-                           <input type="date" class="form-control" id="endDate"  required onchange="calculateBookingDuration()">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 mb-4">
-                        <label for="paymentTerms"class="form-label">Payment Terms</label>
-                            <select id="paymentTerms" class="form-control" required>
-                                 <option value="short">Short-Term Booking</option>
-                                 <option value="long">Long-Term Booking</option>
-                            </select>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <label for="paymentMethod"class="form-label">Payment Method</label>
-                            <select id="paymentMethod" class="form-control" required>
-                                <option value="cash">Cash</option>
-                                <option value="card">Card</option>
-                                <option value="bank">Bank Transfer</option>
-                            </select>
-                    </div>
-                </div>    
-                <div class="row">
-                    <div class="col-lg-6 mb-4">
-                        <label for="discount"class="form-label">Discount (%)</label>
-                            <input type="number" class="form-control" id="discount" min="0" max="100" value="0" oninput="calculateTotal()">
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <label for="service"class="form-label">Service Charge</label>
-                            <input type="text" class="form-control" id="serviceCharge" readonly>
-                    </div>    
-                </div>    
+    @csrf
 
-                <div>
-                     <a href="{{ route('add_order') }}" class="btn btn-primary">Add</a>
-                </div>
+    <input type="hidden" name="customer_id" value="{{ $customer->id ?? '' }}">
+    
+    <div class="row">
+        <div class="col-lg-12 mb-4">
+            <label for="name" class="form-label">Customer Name</label>
+            <input type="text" name="name" class="form-control" id="name" required />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" id="email" required />
+        </div>
+        <div class="col-lg-6 mb-4">
+            <label for="phone_number" class="form-label">Phone Number</label>
+            <input type="text" name="phone_number" class="form-control" id="phone_number" required />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <label for="bookingType" class="form-label">Booking Type</label>
+            <select name="bookingType" id="bookingType" class="form-control" required>
+                <option value="online">Online</option>
+                <option value="in-office">In-Office</option>
+            </select>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <label for="roomSelection" class="form-label">Room Section</label>
+            <select name="roomSelection" id="roomSelection" class="form-control" required>
+                <option value="room1">Room 1</option>
+                <option value="room2">Room 2</option>
+                <option value="room3">Room 3</option>
+            </select>
+        </div>
+    </div>
+    <!-- Start and End Date -->
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <label for="startDate" class="form-label">Booking Start Date</label>
+            <input type="date" name="startDate" class="form-control" id="startDate" required />
+        </div>
+        <div class="col-lg-6 mb-4">
+            <label for="endDate" class="form-label">Booking End Date</label>
+            <input type="date" name="endDate" class="form-control" id="endDate" required />
+        </div>
+    </div>
+    <!-- Payment Details -->
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <label for="paymentTerms" class="form-label">Payment Terms</label>
+            <select name="paymentTerms" id="paymentTerms" class="form-control" required>
+                <option value="short">Short-Term</option>
+                <option value="long">Long-Term</option>
+            </select>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <label for="paymentMethod" class="form-label">Payment Method</label>
+            <select name="paymentMethod" id="paymentMethod" class="form-control" required>
+                <option value="cash">Cash</option>
+                <option value="card">Card</option>
+                <option value="bank">Bank Transfer</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <label for="discount" class="form-label">Discount (%)</label>
+            <input type="number" name="discount" class="form-control" id="discount" min="0" max="100" />
+        </div>
+        <div class="col-lg-6 mb-4">
+            <label for="serviceCharge" class="form-label">Service Charge</label>
+            <input type="text" name="serviceCharge" class="form-control" id="serviceCharge" readonly />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 
-            </form>
         </div>
     </div>
 </div>
