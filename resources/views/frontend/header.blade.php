@@ -128,9 +128,9 @@
                                     @if(session()->has('customer_id'))
                                         <!-- If the user is logged in -->
                                         <li><a href="{{ route('myProfile') }}">My Account</a></li>
-                                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             Logout <i class="fas fa-sign-out-alt"></i>
-                                        </a>
+                                        </a></li>
                                         
                                     @else
                                         <!-- If the user is not logged in -->
