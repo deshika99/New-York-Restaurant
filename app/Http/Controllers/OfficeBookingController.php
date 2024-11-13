@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Apartments;
 use App\Models\Booking;
+use App\Models\CompanyDetails;
 use App\Models\Customer;
 use App\Models\Payment;
 use App\Models\Room;
@@ -164,7 +165,7 @@ class OfficeBookingController extends Controller
         $bookings = Booking::with('payment')
             ->where('booking_type', 'Office')
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->get();
 
         return view('AdminDashboard.OfficeBookings.index', compact('bookings'));
     }
@@ -209,7 +210,7 @@ class OfficeBookingController extends Controller
 
         $confirmationStatus = 'Not Relevant';
         if ($request->input('payment_type') == 'Bank Transfer' && $booking->payment_type == 'Bank Transfer') {
-            $confirmationStatus = 'Confirmed';
+            $confirmationStatus = 'Confirmed'; 
         }else if($booking->confirmation_status == 'Confirmed'){
             $confirmationStatus = 'Confirmed';
         }
@@ -239,23 +240,24 @@ class OfficeBookingController extends Controller
         $booking->confirmation_status = $request->input('bank_transfer_status');
         $booking->booking_status = $request->input('booking_status');
 
-        $payment->save();
-        $booking->save();
+        $payment->save();  
+        $booking->save();  
 
         return redirect()->back()->with('success', 'Status updated successfully.');
     }
 
     public function printView($id){
         $currentDateTime = now();
+        $companyDetails = CompanyDetails::first();
         $booking = Booking::with('payment')->where('id', $id)->firstOrFail();
-        return view('AdminDashboard.OfficeBookings.officeBookingPrint',compact('booking','currentDateTime'));
+        return view('AdminDashboard.OfficeBookings.officeBookingPrint',compact('booking','currentDateTime','companyDetails'));
     }
 
     public function destroy($id)
     {
         $booking = Booking::findOrFail($id);
-        $booking->delete();
-
+        $booking->delete(); 
+                 
         return redirect()->back()->with('success', 'Booking deleted successfully.');
     }
 

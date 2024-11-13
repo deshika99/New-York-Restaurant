@@ -56,7 +56,7 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table id="tableData" class="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">Booking ID</th>
@@ -101,14 +101,7 @@
     </div>
     <!-- card end// -->
 
-    <!-- Pagination Section -->
-    <div class="pagination-area mt-15 mb-50">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-start">
-                {{ $bookings->links() }}
-            </ul>
-        </nav>
-    </div>
+    
 </section>
 
 
@@ -127,6 +120,44 @@
     <script src="backend/assets/js/vendors/perfect-scrollbar.js"></script>
     <script src="backend/assets/js/vendors/jquery.fullscreen.min.js"></script>
     <script src="backend/assets/js/main.js?v=6.0" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function() {
+            var table = $('#tableData').DataTable({
+                dom: 'Bfrtip', // Layout for DataTables with Buttons
+                buttons: [{
+                        extend: 'copyHtml5',
+                        footer: true
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        footer: true
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        footer: true
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        footer: true,
+                        title: 'Online Bookings Report',
+                        customize: function(doc) {
+                            // Set a margin for the footer
+                            doc.content[1].margin = [0, 0, 0, 20];
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        footer: true,
+                        title: 'Online Bookings Report',
+                    }
+                ],
+
+            });
+
+
+        });
+    </script>
 </body>
 
 </html>

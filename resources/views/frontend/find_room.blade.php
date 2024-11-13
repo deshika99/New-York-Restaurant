@@ -35,7 +35,7 @@
                     <div class="carousel-inner">
                         @foreach(json_decode($roomType->images) as $index => $image)
                         <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                            <img src="{{ asset('storage/' . $image) }}" class="d-block w-100" alt="{{ $roomType->type_name }}">
+                            <img src="{{ asset('storage/' . $image) }}" class="d-block w-100" style="width: 600px; height: 400px; object-fit: cover;" alt="{{ $roomType->type_name }}">
                         </div>
 
                         @endforeach

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Apartments;
 use App\Models\Booking;
+use App\Models\CompanyDetails;
 use App\Models\Customer;
 use App\Models\Room;
 use App\Models\RoomTypes;

@@ -46,7 +46,7 @@
 
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table class="table table-hover">
+                            <table id="tableData" class="table table-hover">
                                 <thead>
                                     <tr>
 
@@ -101,19 +101,7 @@
         <!-- card .// -->
     </section>
     <!-- content-main end// -->
-    <footer class="main-footer font-xs">
-        <div class="row pb-30 pt-15">
-            <div class="col-sm-6">
-                <script>
-                    document.write(new Date().getFullYear());
-                </script>
-                &copy; e-support Technologies .
-            </div>
-            <div class="col-sm-6">
-                <div class="text-sm-end">All rights reserved</div>
-            </div>
-        </div>
-    </footer>
+    
 
     <!-- JavaScript to handle delete confirmation -->
     <script>
@@ -131,6 +119,44 @@
     <script src="backend/assets/js/vendors/jquery.fullscreen.min.js"></script>
     <!-- Main Script -->
     <script src="backend/assets/js/main.js?v=6.0" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function() {
+            var table = $('#tableData').DataTable({
+                dom: 'Bfrtip', // Layout for DataTables with Buttons
+                buttons: [{
+                        extend: 'copyHtml5',
+                        footer: true
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        footer: true
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        footer: true
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        footer: true,
+                        title: 'Staff Report',
+                        customize: function(doc) {
+                            // Set a margin for the footer
+                            doc.content[1].margin = [0, 0, 0, 20];
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        footer: true,
+                        title: 'Staff Report',
+                    }
+                ],
+
+            });
+
+
+        });
+    </script>
 </body>
 
 </html>

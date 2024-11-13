@@ -29,7 +29,7 @@ class ReportController extends Controller
         $bookings = Booking::with('payment')
         ->where('booking_type', 'Online')
         ->orderBy('created_at', 'desc')
-        ->paginate(10);
+        ->get();
 
         return view('Admindashboard.ReportSection.online_booking_report',compact('bookings'));
     }
@@ -37,8 +37,7 @@ class ReportController extends Controller
     public function officeBookingReport(){
         $bookings = Booking::with('payment')
         ->where('booking_type', 'Office')
-        ->orderBy('created_at', 'desc')
-        ->paginate(10);
+        ->orderBy('created_at', 'desc');
 
         return view('Admindashboard.ReportSection.office_booking_report',compact('bookings'));
     }
