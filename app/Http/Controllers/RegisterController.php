@@ -85,13 +85,7 @@ public function loginCheck(Request $request)
 
     if ($user && Hash::check($request->password, $user->password)) {
         // Store the user's first name in session
-        session(['user_name' => $user->fname]);
-        
-
-        session()->put('user_fname', $user->fname);
-        session()->put('user_lname', $user->lname);
-
-
+        session(['user_name' => $user->fname. ' ' . $user->lname]);
         // Redirect to home page if credentials are correct
         return redirect()->route('home')->with('success', 'Login Successful');
     } else {
