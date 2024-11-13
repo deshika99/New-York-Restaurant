@@ -33,7 +33,7 @@
                         <!-- Room Table -->
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table id="tableData" class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>No.</th>
@@ -85,6 +85,44 @@
         <script src="backend/assets/js/vendors/perfect-scrollbar.js"></script>
         <script src="backend/assets/js/vendors/jquery.fullscreen.min.js"></script>
         <script src="backend/assets/js/main.js?v=6.0" type="text/javascript"></script>
+
+        <script>
+        $(document).ready(function() {
+            var table = $('#tableData').DataTable({
+                dom: 'Bfrtip', // Layout for DataTables with Buttons
+                buttons: [{
+                        extend: 'copyHtml5',
+                        footer: true
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        footer: true
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        footer: true
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        footer: true,
+                        title: 'Rooms Report',
+                        customize: function(doc) {
+                            // Set a margin for the footer
+                            doc.content[1].margin = [0, 0, 0, 20];
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        footer: true,
+                        title: 'Rooms Report',
+                    }
+                ],
+
+            });
+
+
+        });
+    </script>
     </body>
 </html>
 @endsection

@@ -1,7 +1,10 @@
 <aside class="navbar-aside" id="offcanvas_aside">
+@php
+    $companyDetails = app(\App\Http\Controllers\SettingsController::class)->getCompanyDetails();
+    @endphp
             <div class="aside-top">
                 <a href="#" class="brand-wrap">
-                    <img src="/frontend/img/ny logo.jpg" class="logo" alt="DK-Mart" />
+                    <img src="{{ Storage::url($companyDetails->company_logo) }}" class="logo" alt="DK-Mart" />
                 </a>
                 <span>New York Guest House & Restaurant (PVT) LTD</span>
                 <div>
@@ -193,8 +196,8 @@
                             <span class="text">Settings</span>
                         </a>
                         <div class="submenu">
-                            <a href="page-settings-1.html">Setting sample 1</a>
-                            <a href="page-settings-2.html">Setting sample 2</a>
+                            <a href="{{route('companyDetails')}}">Company Details</a>
+                            <a href="{{route('bankDetails')}}">Bank Details</a>
                         </div>
                     </li>
                     <!-- <li class="menu-item">

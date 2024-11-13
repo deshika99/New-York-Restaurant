@@ -58,7 +58,7 @@
                                 @if(is_array($images))
                                     @foreach($images as $index => $image)
                                         <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                            <img src="{{ asset('storage/' .$image) }}" class="d-block w-100" alt="Apartment Image">
+                                            <img src="{{ asset('storage/' .$image) }}" class="d-block w-100" style="width: 600px; height: 400px; object-fit: cover;" alt="Apartment Image">
                                         </div>
                                     @endforeach
                                 @endif
@@ -95,7 +95,7 @@
                                 @if(is_array($images))
                                     @foreach($images as $index => $image)
                                         <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                            <img src="{{ asset('storage/' .$image) }}" class="d-block w-100" alt="Room Type Image">
+                                            <img src="{{ asset('storage/' .$image) }}" class="d-block w-100" style="width: 600px; height: 400px; object-fit: cover;" alt="Room Type Image">
                                         </div>
                                     @endforeach
                                 @endif

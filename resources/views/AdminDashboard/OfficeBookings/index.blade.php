@@ -28,39 +28,21 @@
             <div>
                 <h2 class="content-title card-title">In-Office Bookings</h2>
             </div>
-            <div>
-                <input type="text" placeholder="Search ID" class="form-control bg-white" />
-            </div>
+            
         </div>
 
         <div class="card mb-4">
             <header class="card-header">
                 <div class="row gx-3">
-                    <div class="col-lg-4 col-md-6 me-auto">
-                        <input type="text" placeholder="Search..." class="form-control" />
-                    </div>
-                    <div class="col-lg-2 col-6 col-md-3">
-                        <select class="form-select">
-                            <option>Status</option>
-                            <option>Active</option>
-                            <option>Disabled</option>
-                            <option>Show all</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-2 col-6 col-md-3">
-                        <select class="form-select">
-                            <option>Show 20</option>
-                            <option>Show 30</option>
-                            <option>Show 40</option>
-                        </select>
-                    </div>
+                    
+                    
                 </div>
             </header>
             <!-- card-header end// -->
 
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table id="tableData" class="table table-hover display">
                         <thead>
                             <tr>
                                 <th>#ID</th>
@@ -80,7 +62,7 @@
                         <tbody>
                             @foreach($bookings as $booking)
                             <tr>
-                                <td>IB{{ $booking->id }}</td>
+                                <td>IB{{ $booking->id }}</td>                         
                                 <td>{{ $booking->customer->fname }} {{ $booking->customer->lname }}</td>
                                 <td>{{ $booking->customer->phone_number }}</td>
                                 <td>{{ $booking->booking_date }}</td>
@@ -97,7 +79,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger " onclick="return confirm('Are you sure?')"><i class="material-icons md-delete"></i></button>
-                                    </form>
+                                    </form>       
                                 </td>
                             </tr>
                             @endforeach
@@ -110,14 +92,7 @@
         </div>
         <!-- card end// -->
 
-        <!-- Pagination Section -->
-        <div class="pagination-area mt-15 mb-50">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-start">
-                    {{ $bookings->links() }}
-                </ul>
-            </nav>
-        </div>
+        
     </section>
 
 
@@ -136,6 +111,18 @@
     <script src="backend/assets/js/vendors/perfect-scrollbar.js"></script>
     <script src="backend/assets/js/vendors/jquery.fullscreen.min.js"></script>
     <script src="backend/assets/js/main.js?v=6.0" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function() {
+            var table = $('#tableData').DataTable({
+
+
+                "searching": true, // Enable search functionality
+                "paging": true, // Enable pagination
+                "ordering": true // Enable column ordering
+            });
+        });
+    </script>
 </body>
 
 </html>

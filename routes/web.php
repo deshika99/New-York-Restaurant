@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomTypeController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminTemplateController;
@@ -200,6 +201,11 @@ Route::get('/admin/report/onlinebooking', [ReportController::class, 'onlineBooki
 Route::get('/admin/report/officebooking', [ReportController::class, 'officeBookingReport'])->name('officeBookingReport');
 
 
+
+Route::get('/admin/company-details', [SettingsController::class, 'companyDetails'])->name('companyDetails');
+Route::post('/admin/store-company-details', [SettingsController::class, 'storeCompanyDetails'])->name('companyDetails.store');
+Route::get('/admin/bank-details', [SettingsController::class, 'bankDetails'])->name('bankDetails');
+Route::post('/admin/store-bank-details', [SettingsController::class, 'storeBankDetails'])->name('bankDetails.store');
 
 
 

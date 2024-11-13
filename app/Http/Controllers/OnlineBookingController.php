@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apartments;
-
+use App\Models\BankDetails;
 use App\Models\Booking;
+use App\Models\CompanyDetails;
 use App\Models\Payment;
 use App\Models\Room;
 use App\Models\RoomTypes;
@@ -84,6 +85,8 @@ class OnlineBookingController extends Controller
             $term = "Short-Term";
         }
 
+        $bankDetails = BankDetails::first();
+
         return view('frontend.booking', compact(
             'roomType',
             'apartment',
@@ -91,7 +94,8 @@ class OnlineBookingController extends Controller
             'checkout',
             'availableRooms',
             'totalDays',
-            'term'
+            'term',
+            'bankDetails'
         ));
     }
 
@@ -207,7 +211,7 @@ class OnlineBookingController extends Controller
         $bookings = Booking::with('payment')
             ->where('booking_type', 'Online')
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->get();    
 
         return view('AdminDashboard.OnlineBookings.index', compact('bookings'));
     }
@@ -227,7 +231,7 @@ class OnlineBookingController extends Controller
         ]);
 
         $payment = Payment::findOrFail($id);
-        $booking = Booking::findOrFail($payment->booking_id);
+        $booking = Booking::findOrFail($payment->booking_id);     
 
         $totalAmount = $payment->total_amount;
 
@@ -238,8 +242,8 @@ class OnlineBookingController extends Controller
         
         $newPayment = $request->input('amount_paid');
         $updatedPaidAmount = $payment->paid_amount + $newPayment;
-        $dueAmount = $newDiscountedTotal - $updatedPaidAmount;
-
+        $dueAmount = $newDiscountedTotal - $updatedPaidAmount;  
+ 
         $dueAmount = max(0, $dueAmount);
 
         $paymentStatus = null;
@@ -267,8 +271,8 @@ class OnlineBookingController extends Controller
 
         $booking->update([
             'booking_status' => 'Confirmed',
-            'confirmation_status' => $confirmationStatus,
-            'discount_applied' => $updatedDiscount,
+            'confirmation_status' => $confirmationStatus,                     
+            'discount_applied' => $updatedDiscount,  
         ]);
 
         return redirect()->back()->with('success', 'Payment updated successfully.');
@@ -298,9 +302,10 @@ class OnlineBookingController extends Controller
     }
 
     public function printView($id){
+        $companyDetails = CompanyDetails::first();
         $currentDateTime = now();
         $booking = Booking::with('payment')->where('id', $id)->firstOrFail();
-        return view('AdminDashboard.OnlineBookings.bookingPrint',compact('booking','currentDateTime'));
+        return view('AdminDashboard.OnlineBookings.bookingPrint',compact('booking','currentDateTime','companyDetails'));
     }
 
     public function destroy($id)

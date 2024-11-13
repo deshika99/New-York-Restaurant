@@ -1,13 +1,17 @@
 <header class="ltn__header-area ltn__header-5 ltn__header-transparent--- gradient-color-4---">
     <!-- ltn__header-top-area start -->
+    @php
+    $companyDetails = app(\App\Http\Controllers\SettingsController::class)->getCompanyDetails();
+    @endphp
+
     <div class="ltn__header-top-area section-bg-6 top-area-color-white---">
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
                     <div class="ltn__top-bar-menu">
                         <ul>
-                            <li><a href="mailto:info@webmail.com?Subject=Flower%20greetings%20to%20you"><i class="icon-mail"></i> info@webmail.com</a></li>
-                            <li><a href="locations.html"><i class="icon-placeholder"></i> 15/A, Nest Tower, NYC</a></li>
+                            <li><a href="mailto:{{ $companyDetails->email ?? '' }}?Subject=Flower%20greetings%20to%20you"><i class="icon-mail"></i> {{ $companyDetails->email ?? '' }}</a></li>
+                            <li><a href="locations.html"><i class="icon-placeholder"></i> {{ $companyDetails->address ?? '' }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -36,10 +40,10 @@
                                     <!-- ltn__social-media -->
                                     <div class="ltn__social-media">
                                         <ul>
-                                            <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                                            <li><a href="{{ $companyDetails->facebook ?? '' }}" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                            
 
-                                            <li><a href="#" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                                            <li><a href="{{ $companyDetails->instagram ?? '' }}" title="Instagram"><i class="fab fa-instagram"></i></a></li>
                                             <li><a href="#" title="Dribbble"><i class="fab fa-dribbble"></i></a></li>
                                         </ul>
                                     </div>
@@ -66,7 +70,7 @@
                 <div class="col">
                     <div class="site-logo-wrap">
                         <div class="site-logo">
-                            <a href="#"><img src="/frontend/img/ny logo.jpg" alt="Logo"></a>
+                            <a href="#"><img src="{{ Storage::url($companyDetails->company_logo) }}" alt="Logo"></a>
                         </div>
                         <div class="get-support clearfix d-none">
                             <div class="get-support-icon">
@@ -109,8 +113,8 @@
                             </div>
                         </div>
                         <div class="header-search-1-form">
-                            <form id="#" method="get"  action="#">
-                                <input type="text" name="search" value="" placeholder="Search here..."/>
+                            <form id="#" method="get" action="#">
+                                <input type="text" name="search" value="" placeholder="Search here..." />
                                 <button type="submit">
                                     <span><i class="icon-search"></i></span>
                                 </button>
@@ -126,16 +130,16 @@
                                 <a href="#"><i class="icon-user"></i></a>
                                 <ul>
                                     @if(session()->has('customer_id'))
-                                        <!-- If the user is logged in -->
-                                        <li><a href="{{ route('myProfile') }}">My Account</a></li>
-                                        <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <!-- If the user is logged in -->
+                                    <li><a href="{{ route('myProfile') }}">My Account</a></li>
+                                    <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             Logout <i class="fas fa-sign-out-alt"></i>
                                         </a></li>
-                                        
+
                                     @else
-                                        <!-- If the user is not logged in -->
-                                        <li><a href="{{ route('loginpage') }}">Sign in</a></li>
-                                        <li><a href="{{ route('registerpage') }}">Register</a></li>
+                                    <!-- If the user is not logged in -->
+                                    <li><a href="{{ route('loginpage') }}">Sign in</a></li>
+                                    <li><a href="{{ route('registerpage') }}">Register</a></li>
                                     @endif
                                 </ul>
                             </li>
@@ -143,7 +147,7 @@
                     </div>
 
 
-                   
+
                     <!-- Mobile Menu Button -->
                     <div class="mobile-menu-toggle d-xl-none">
                         <a href="#ltn__utilize-mobile-menu" class="ltn__utilize-toggle">
