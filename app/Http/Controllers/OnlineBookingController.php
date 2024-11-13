@@ -302,4 +302,12 @@ class OnlineBookingController extends Controller
         $booking = Booking::with('payment')->where('id', $id)->firstOrFail();
         return view('AdminDashboard.OnlineBookings.bookingPrint',compact('booking','currentDateTime'));
     }
+
+    public function destroy($id)
+    {
+        $booking = Booking::findOrFail($id);
+        $booking->delete();
+
+        return redirect()->back()->with('success', 'Booking deleted successfully.');
+    }
 }

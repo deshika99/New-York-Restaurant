@@ -59,7 +59,7 @@ class OfficeBookingController extends Controller
 
     public function store(Request $request,$id){
         
-        Log::info('Store request data: ', $request->all());
+        //Log::info('Store request data: ', $request->all());
         
         $request->validate([
             'checkin' => 'required|date',
@@ -153,7 +153,7 @@ class OfficeBookingController extends Controller
             return redirect()->route('viewOfficeBookings')->with('success', 'Booking created successfully.');
         } catch (\Exception $e) {
             DB::rollback();
-            Log::error('Error storing booking and payment details: ', ['error' => $e->getMessage()]);
+            //Log::error('Error storing booking and payment details: ', ['error' => $e->getMessage()]);
             return back()->withErrors(['error' => 'Failed to create booking: ' . $e->getMessage()]);
         }
 
@@ -249,6 +249,14 @@ class OfficeBookingController extends Controller
         $currentDateTime = now();
         $booking = Booking::with('payment')->where('id', $id)->firstOrFail();
         return view('AdminDashboard.OfficeBookings.officeBookingPrint',compact('booking','currentDateTime'));
+    }
+
+    public function destroy($id)
+    {
+        $booking = Booking::findOrFail($id);
+        $booking->delete();
+
+        return redirect()->back()->with('success', 'Booking deleted successfully.');
     }
 
 }
