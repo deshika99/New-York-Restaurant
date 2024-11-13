@@ -24,61 +24,61 @@
     @endif
 
     <section class="content-main">
-    <div class="content-header">
-        <div>
-            <h2 class="content-title card-title">Online Bookings</h2>
-        </div>
-        <div>
-            <input type="text" placeholder="Search ID" class="form-control bg-white" />
-        </div>
-    </div>
-
-    <div class="card mb-4">
-        <header class="card-header">
-            <div class="row gx-3">
-                <div class="col-lg-4 col-md-6 me-auto">
-                    <input type="text" placeholder="Search..." class="form-control" />
-                </div>
-                <div class="col-lg-2 col-6 col-md-3">
-                    <select class="form-select">
-                        <option>Status</option>
-                        <option>Active</option>
-                        <option>Disabled</option>
-                        <option>Show all</option>
-                    </select>
-                </div>
-                <div class="col-lg-2 col-6 col-md-3">
-                    <select class="form-select">
-                        <option>Show 20</option>
-                        <option>Show 30</option>
-                        <option>Show 40</option>
-                    </select>
-                </div>
+        <div class="content-header">
+            <div>
+                <h2 class="content-title card-title">Online Bookings</h2>
             </div>
-        </header>
-        <!-- card-header end// -->
+            <div>
+                <input type="text" placeholder="Search ID" class="form-control bg-white" />
+            </div>
+        </div>
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>#ID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Contact</th>
-                            <th scope="col">Booking Date</th>
-                            <th scope="col">Room</th>
-                            <th scope="col">Apartment</th>
-                            <th scope="col">Checkin-Date</th>
-                            <th scope="col">Checkout-Date</th>
-                            <th scope="col">Booking Status</th>
-                            <th scope="col">Payment Type</th>
-                            <th scope="col">Payment Status</th>
-                            <th scope="col" class="text-end">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($bookings as $booking)
+        <div class="card mb-4">
+            <header class="card-header">
+                <div class="row gx-3">
+                    <div class="col-lg-4 col-md-6 me-auto">
+                        <input type="text" placeholder="Search..." class="form-control" />
+                    </div>
+                    <div class="col-lg-2 col-6 col-md-3">
+                        <select class="form-select">
+                            <option>Status</option>
+                            <option>Active</option>
+                            <option>Disabled</option>
+                            <option>Show all</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2 col-6 col-md-3">
+                        <select class="form-select">
+                            <option>Show 20</option>
+                            <option>Show 30</option>
+                            <option>Show 40</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+            <!-- card-header end// -->
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Contact</th>
+                                <th scope="col">Booking Date</th>
+                                <th scope="col">Room</th>
+                                <th scope="col">Apartment</th>
+                                <th scope="col">Checkin-Date</th>
+                                <th scope="col">Checkout-Date</th>
+                                <th scope="col">Booking Status</th>
+                                <th scope="col">Payment Type</th>
+                                <th scope="col">Payment Status</th>
+                                <th scope="col" class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($bookings as $booking)
                             <tr>
                                 <td>OB{{ $booking->id }}</td>
                                 <td>{{ $booking->customer->fname }} {{ $booking->customer->lname }}</td>
@@ -92,28 +92,33 @@
                                 <td>{{ $booking->payment->payment_type }}</td>
                                 <td>{{ $booking->payment->payment_status }}</td>
                                 <td class="text-end">
-                                <a href="{{ route('onlinebooking.details', $booking->id) }}" class="btn btn-success font-sm"><i class="material-icons md-visibility"></i></a>
-                                </td> 
+                                    <a href="{{ route('onlinebooking.details', $booking->id) }}" class="btn btn-success font-sm"><i class="material-icons md-visibility"></i></a>
+                                    <form action="{{ route('onlinebooking.destroy', $booking->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger " onclick="return confirm('Are you sure?')"><i class="material-icons md-delete"></i></button>
+                                    </form>
+                                </td>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <!-- table-responsive //end -->
             </div>
-            <!-- table-responsive //end -->
+            <!-- card-body end// -->
         </div>
-        <!-- card-body end// -->
-    </div>
-    <!-- card end// -->
+        <!-- card end// -->
 
-    <!-- Pagination Section -->
-    <div class="pagination-area mt-15 mb-50">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-start">
-                {{ $bookings->links() }}
-            </ul>
-        </nav>
-    </div>
-</section>
+        <!-- Pagination Section -->
+        <div class="pagination-area mt-15 mb-50">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-start">
+                    {{ $bookings->links() }}
+                </ul>
+            </nav>
+        </div>
+    </section>
 
 
     <!-- JavaScript to handle delete confirmation -->

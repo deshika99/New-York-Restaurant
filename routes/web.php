@@ -176,6 +176,7 @@ Route::get('/admin/online-bookings-details/{id}', [OnlineBookingController::clas
 Route::post('/admin/update-payment/{id}', [OnlineBookingController::class, 'updatePayment'])->name('updatePayment');
 Route::post('/admin/update-status/{id}', [OnlineBookingController::class, 'updateStatus'])->name('updateStatus');
 Route::get('/admin/booking-print/{id}', [OnlineBookingController::class, 'printView'])->name('bookingPrint');
+Route::delete('/admin/online-booking/destroy/{id}', [OnlineBookingController::class, 'destroy'])->name('onlinebooking.destroy');
 
 
 //in-office booking
@@ -187,6 +188,7 @@ Route::get('/admin/office-bookings-details/{id}', [OfficeBookingController::clas
 Route::post('/admin/office-update-payment/{id}', [OfficeBookingController::class, 'updatePayment'])->name('office.updatePayment');
 Route::post('/admin/office-update-status/{id}', [OfficeBookingController::class, 'updateStatus'])->name('office.updateStatus');
 Route::get('/admin/office-booking-print/{id}', [OfficeBookingController::class, 'printView'])->name('office.bookingPrint');
+Route::delete('/admin/office-booking/destroy/{id}', [OfficeBookingController::class, 'destroy'])->name('officebooking.destroy');
 
 
 
