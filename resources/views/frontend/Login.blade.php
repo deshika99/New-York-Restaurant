@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Place favicon.png in the root directory -->
-    <link rel="shortcut icon" href="frontend/img/favicon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ asset('/frontend/img/ny logo.jpg') }}" />
     <!-- Font Icons css -->
     <link rel="stylesheet" href="frontend/css/font-icons.css">
     <!-- plugins css -->
@@ -129,7 +129,7 @@
                         <p>Add items to your wishlistget personalised recommendations <br>
                             check out more quickly track your orders register</p>
                         <div class="btn-wrapper">
-                            <a href="register.html" class="theme-btn-1 btn black-btn">CREATE ACCOUNT</a>
+                            <a href="{{ 'registerpage' }}"  class="theme-btn-1 btn black-btn">CREATE ACCOUNT</a>
                         </div>
                     </div>
                 </div>
@@ -137,26 +137,6 @@
         </div>
     </div>
     <!-- LOGIN AREA END -->
-
-    <!-- CALL TO ACTION START (call-to-action-6) -->
-    <div class="ltn__call-to-action-area call-to-action-6 before-bg-bottom" data-bs-bg="frontend/img/1.jpg--">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="call-to-action-inner call-to-action-inner-6 ltn__secondary-bg position-relative text-center---">
-                        <div class="coll-to-info text-color-white">
-                            <h1>Looking for a dream home?</h1>
-                            <p>We can help you realize your dream of a new home</p>
-                        </div>
-                        <div class="btn-wrapper">
-                            <a class="btn btn-effect-3 btn-white" href="contact.html">Explore Properties <i class="icon-next"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- CALL TO ACTION END -->
 
     <!-- FOOTER AREA START -->
     @include('frontend.footer')

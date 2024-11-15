@@ -328,7 +328,7 @@
                         <img src="/frontend/img/icons/icon-img/21.png" alt="Apartment Booking">
                     </div>
                     <div class="ltn__feature-info">
-                        <h3><a href="#">Book an Apartment</a></h3>
+                        <h3><a >Book an Apartment</a></h3>
                         <p>Choose from a variety of fully furnished apartments, providing comfort and convenience for your stay.</p>
                         <!-- <a class="ltn__service-btn" href="service-details.html">View Apartments <i class="flaticon-right-arrow"></i></a> -->
                     </div>
@@ -340,7 +340,7 @@
                         <img src="/frontend/img/icons/icon-img/22.png" alt="Room Booking">
                     </div>
                     <div class="ltn__feature-info">
-                        <h3><a href="#">Book a Room</a></h3>
+                        <h3><a >Book a Room</a></h3>
                         <p>Find a great room that suits your needs, with options ranging from budget to luxury accommodations.</p>
                         <!-- <a class="ltn__service-btn" href="service-details.html">Explore Rooms <i class="flaticon-right-arrow"></i></a> -->
                     </div>
@@ -352,7 +352,7 @@
                         <img src="/frontend/img/icons/icon-img/23.png" alt="Event Hosting">
                     </div>
                     <div class="ltn__feature-info">
-                        <h3><a href="#">Host an Event</a></h3>
+                        <h3><a >Host an Event</a></h3>
                         <p>Our facilities are equipped to host your events of all kinds, from business conferences to weddings.</p>
                         <!-- <a class="ltn__service-btn" href="service-details.html">Discover Venues <i class="flaticon-right-arrow"></i></a> -->
                     </div>
@@ -566,7 +566,7 @@
                         <a >
                             <span class="category-icon"><i class="flaticon-car"></i></span>
                             <span class="category-title">Free Parking</span>
-                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                            
                         </a>
                     </div>
                 </div>
@@ -576,7 +576,7 @@
                         <a >
                             <span class="category-icon"><i class="flaticon-swimming"></i></span>
                             <span class="category-title">Swimming Pool</span>
-                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                            
                         </a>
                     </div>
                 </div>
@@ -586,7 +586,7 @@
                         <a >
                             <span class="category-icon"><i class="flaticon-secure-shield"></i></span>
                             <span class="category-title">24/7 Security</span>
-                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                            
                         </a>
                     </div>
                 </div>
@@ -596,7 +596,7 @@
                         <a >
                             <span class="category-icon"><i class="flaticon-stethoscope"></i></span>
                             <span class="category-title">Wellness Spa</span>
-                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                            
                         </a>
                     </div>
                 </div>
@@ -606,7 +606,7 @@
                         <a >
                             <span class="category-icon"><i class="flaticon-dining-table-with-chairs"></i></span>
                             <span class="category-title">In-Room Dining</span>
-                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                            
                         </a>
                     </div>
                 </div>
@@ -616,7 +616,7 @@
                         <a >
                             <span class="category-icon"><i class="flaticon-bed-1"></i></span>
                             <span class="category-title">Comfortable Beds</span>
-                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                            
                         </a>
                     </div>
                 </div>
@@ -626,7 +626,7 @@
                         <a >
                             <span class="category-icon"><i class="flaticon-apartment"></i></span>
                             <span class="category-title">Smart Room</span>
-                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                            
                         </a>
                     </div>
                 </div>
@@ -636,7 +636,7 @@
                         <a >
                             <span class="category-icon"><i class="flaticon-slider"></i></span>
                             <span class="category-title">Kids’ Play Area</span>
-                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                           
                         </a>
                     </div>
                 </div>

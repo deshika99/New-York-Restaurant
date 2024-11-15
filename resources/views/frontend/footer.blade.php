@@ -30,7 +30,7 @@
                     <div class="footer-widget footer-about-widget">
                         <div class="footer-logo">
                             <div class="site-logo">
-                                <img src="{{ Storage::url($companyDetails->company_logo) }}" alt="Logo">
+                                <img src="{{ Storage::url(optional($companyDetails)->company_logo) }}" alt="Logo">
                             </div>
 
                         </div>
@@ -117,16 +117,12 @@
             <div class="row">
                 <div class="col-md-6 col-12">
                     <div class="ltn__copyright-design clearfix">
-                        <p>All Rights Reserved @ Company <span class="current-year"></span></p>
+                        <p>All Rights Reserved. New York Guest House & Restaurant (PVT) LTD <span class="current-year"></span></p>
                     </div>
                 </div>
                 <div class="col-md-6 col-12 align-self-center">
                     <div class="ltn__copyright-menu text-end">
-                        <ul>
-                            <li><a href="#">Terms & Conditions</a></li>
-                            <li><a href="#">Claim</a></li>
-                            <li><a href="#">Privacy & Policy</a></li>
-                        </ul>
+                        <p>Developed by <a href="https://esupport.live/">e-support Technologies.</a>  <span class="current-year"></span></p>
                     </div>
                 </div>
             </div>
