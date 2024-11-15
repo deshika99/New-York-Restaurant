@@ -18,7 +18,9 @@
 </div> -->
     <!-- CALL TO ACTION END -->
 
-
+@php
+    $companyDetails = app(\App\Http\Controllers\SettingsController::class)->getCompanyDetails();
+    @endphp
 
 <footer class="ltn__footer-area ">
     <div class="footer-top-area  section-bg-2 plr--5">
@@ -28,7 +30,7 @@
                     <div class="footer-widget footer-about-widget">
                         <div class="footer-logo">
                             <div class="site-logo">
-                                <img src="/frontend/img/N1-removebg-preview.png" alt="Logo">
+                                <img src="{{ Storage::url($companyDetails->company_logo) }}" alt="Logo">
                             </div>
 
                         </div>
@@ -36,7 +38,7 @@
                         
                         <div class="ltn__social-media mt-20">
                             <ul>
-                                <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="{{ $companyDetails->facebook ?? '' }}" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
                                 <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
                                 <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
                                 <li><a href="#" title="Youtube"><i class="fab fa-youtube"></i></a></li>
@@ -54,7 +56,7 @@
                                         <i class="icon-placeholder"></i>
                                     </div>
                                     <div class="footer-address-info">
-                                        <p>Brooklyn, New York, United States</p>
+                                        <p>{{ $companyDetails->address ?? '' }}</p>
                                     </div>
                                 </li>
                                 <li>
@@ -62,7 +64,7 @@
                                         <i class="icon-call"></i>
                                     </div>
                                     <div class="footer-address-info">
-                                        <p><a href="tel:+0123-456789">+0123-456789</a></p>
+                                        <p><a href="tel:+0123-456789">{{ $companyDetails->contact ?? '' }}</a></p>
                                     </div>
                                 </li>
                                 <li>
@@ -70,7 +72,7 @@
                                         <i class="icon-mail"></i>
                                     </div>
                                     <div class="footer-address-info">
-                                        <p><a href="mailto:example@example.com">example@example.com</a></p>
+                                        <p><a href="mailto:example@example.com">{{ $companyDetails->email ?? '' }}</a></p>
                                     </div>
                                 </li>
                             </ul>

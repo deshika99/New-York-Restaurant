@@ -110,12 +110,13 @@
         <!-- Header Section -->
         <div class="header">
             <div class="logo">
-                <img src="/frontend/img/ny logo.jpg" alt="Hotel Logo" style="width: 100px; height: auto;">
+                <img src="{{ Storage::url($companyDetails->company_logo) }}" alt="Hotel Logo" style="width: 100px; height: auto;">
             </div>
             <div class="company-info">
-                <h1>New York Guest House & Restaurant (PVT) LTD</h1>
-                <p>Address: [Hotel Address]</p>
-                <p>Contact: [Hotel Contact]</p>
+                <h1>{{ $companyDetails->company_name ?? '' }}</h1>
+                <p>{{ $companyDetails->address ?? '' }}</p>
+                <p>{{ $companyDetails->email ?? '' }}</p>
+                <p>{{ $companyDetails->contact ?? '' }}</p>
 
             </div>
         </div>
@@ -133,7 +134,7 @@
                 <tr>
                     <td class="label">Name:</td>
                     <td>{{$booking->customer->fname}} {{$booking->customer->lname}}</td>
-                    <td class="label">Contact:</td>         
+                    <td class="label">Contact:</td>                     
                     <td>{{$booking->customer->phone_number}}</td>
                 </tr>
             </table>
@@ -162,7 +163,7 @@
                 <tr>
                     <td class="label">Check-in Date:</td>
                     <td>{{$booking->start_date}}</td>
-                    <td class="label">Check-out Date:</td>
+                    <td class="label">Check-out Date:</td> 
                     <td>{{$booking->end_date}}</td>
                 </tr>
             </table>
@@ -187,7 +188,7 @@
                 </tr>
                 <tr>
                     <td class="label">Refundable Charge (LKR): 
-                    @if ($booking->payment->refundable_amount>0)
+                    @if ($booking->payment->refundable_amount>0)    
                         (Refunded Status: {{$booking->payment->refund_status}})
                         @endif
                     </td>
@@ -199,6 +200,16 @@
                     <td class="label"><strong>Total Cost (LKR):</strong></td>
                     <td style="text-align: right;"><strong>{{$booking->payment->total_amount}}</strong></td>
                 </tr>
+                @if ($booking->discount_applied)
+                <tr>
+                    <td class="label"><strong>Discount (LKR)</strong></td>
+                    <td style="text-align: right;"><strong>{{$booking->discount_applied}}</strong></td>
+                </tr>
+                <tr>
+                    <td class="label"><strong>Discounted Total (LKR):</strong></td>
+                    <td style="text-align: right;"><strong>{{$booking->payment->discounted_total}}</strong></td>
+                </tr>
+                @endif
             </table>
         </div>
 

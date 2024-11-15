@@ -137,11 +137,11 @@
                                     <span class="">
                                         For Bank Transfer payments, please use the following bank details:
                                         <br><br>
-                                        <strong>Bank Name:</strong> [Your Bank Name] <br>
-                                        <strong>Account Number:</strong> [Your Account Number] <br>
-                                        <strong>Account Holder:</strong> [Account Holder's Name] <br>
-                                        <strong>Branch:</strong> [Branch Name] <br><br>
-                                        After completing the transfer, send a clear image of your bank slip along with your Booking Number and your details to WhatsApp number: <strong>077 123 4567</strong>.
+                                        <strong>Bank Name:</strong> {{ $bankDetails->bank_name ?? '' }} <br>
+                                        <strong>Account Number:</strong> {{ $bankDetails->account_number ?? '' }} <br>
+                                        <strong>Account Holder:</strong> {{ $bankDetails->account_holder ?? '' }} <br>
+                                        <strong>Branch:</strong> {{ $bankDetails->branch ?? '' }} <br><br>
+                                        After completing the transfer, send a clear image of your bank slip along with your Booking Number and your details to WhatsApp number: <strong>{{ $bankDetails->whatsapp_number ?? '' }}</strong>.
                                     </span>
                                 </div>
 

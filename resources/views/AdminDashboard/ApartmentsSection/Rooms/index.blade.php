@@ -98,7 +98,7 @@
                                             <th>Floor</th>
                                             <th>Room Type</th>
                                             <th>Room Number</th>
-                                            <th>Rental Price</th>
+                                            <th>Rental Price (LKR)</th>
                                             <th>Status</th>
                                             <th class="text-end">Actions</th>
                                         </tr>
@@ -111,7 +111,7 @@
                                             <td>{{ $room->floor->floor_number }}</td>
                                             <td>{{ $room->roomType->type_name }}</td>
                                             <td>{{ $room->room_number }}</td>
-                                            <td>${{ $room->rental_price }}</td>
+                                            <td>{{ $room->rental_price }}</td>
                                             <td>{{ ucfirst($room->occupancy_status) }}</td>
                                             <td class="text-end">
                                                 <a href="{{ route('rooms.edit', $room->id) }}" class="btn btn-warning btn-sm" title="Edit">

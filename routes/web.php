@@ -4,8 +4,10 @@ use App\Http\Controllers\FloorController;
 use App\Http\Controllers\OfficeBookingController;
 use App\Http\Controllers\OnlineBookingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomTypeController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminTemplateController;
@@ -173,18 +175,35 @@ Route::get('/admin/online-bookings-details/{id}', [OnlineBookingController::clas
 Route::post('/admin/update-payment/{id}', [OnlineBookingController::class, 'updatePayment'])->name('updatePayment');
 Route::post('/admin/update-status/{id}', [OnlineBookingController::class, 'updateStatus'])->name('updateStatus');
 Route::get('/admin/booking-print/{id}', [OnlineBookingController::class, 'printView'])->name('bookingPrint');
+Route::delete('/admin/online-booking/destroy/{id}', [OnlineBookingController::class, 'destroy'])->name('onlinebooking.destroy');
 
 
-
+//in-office booking
 Route::get('/admin/office-bookings', [OfficeBookingController::class, 'index'])->name('viewOfficeBookings');
-Route::get('/admin/officebooking/create', [OfficeBookingController::class, 'create'])->name('officebooking.create');
+Route::get('/admin/officebooking/create/{id}', [OfficeBookingController::class, 'create'])->name('officebooking.create');
 Route::post('/admin/officebooking/store/{id}', [OfficeBookingController::class, 'store'])->name('officebooking.store');
 Route::post('/get-available-rooms', [OfficeBookingController::class, 'getAvailableRooms'])->name('get.available.rooms');
 Route::get('/admin/office-bookings-details/{id}', [OfficeBookingController::class, 'officeBookingDetails'])->name('officebooking.details');
 Route::post('/admin/office-update-payment/{id}', [OfficeBookingController::class, 'updatePayment'])->name('office.updatePayment');
 Route::post('/admin/office-update-status/{id}', [OfficeBookingController::class, 'updateStatus'])->name('office.updateStatus');
 Route::get('/admin/office-booking-print/{id}', [OfficeBookingController::class, 'printView'])->name('office.bookingPrint');
+Route::delete('/admin/office-booking/destroy/{id}', [OfficeBookingController::class, 'destroy'])->name('officebooking.destroy');
 
+
+
+//report
+Route::get('/admin/report/staff', [ReportController::class, 'staffReport'])->name('staffReport');
+Route::get('/admin/report/room', [ReportController::class, 'roomReport'])->name('roomReport');
+Route::get('/admin/report/customer', [ReportController::class, 'customerReport'])->name('customerReport');
+Route::get('/admin/report/onlinebooking', [ReportController::class, 'onlineBookingReport'])->name('onlineBookingReport');
+Route::get('/admin/report/officebooking', [ReportController::class, 'officeBookingReport'])->name('officeBookingReport');
+
+
+
+Route::get('/admin/company-details', [SettingsController::class, 'companyDetails'])->name('companyDetails');
+Route::post('/admin/store-company-details', [SettingsController::class, 'storeCompanyDetails'])->name('companyDetails.store');
+Route::get('/admin/bank-details', [SettingsController::class, 'bankDetails'])->name('bankDetails');
+Route::post('/admin/store-bank-details', [SettingsController::class, 'storeBankDetails'])->name('bankDetails.store');
 
 
 

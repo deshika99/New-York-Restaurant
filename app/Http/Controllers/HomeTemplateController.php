@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Apartments;
 use App\Models\Booking;
+use App\Models\CompanyDetails;
 use App\Models\Customer;
 use App\Models\Room;
 use App\Models\RoomTypes;
@@ -63,7 +64,7 @@ class HomeTemplateController extends Controller
             'fname' => 'required|string|max:255',
             'lname' => 'required|string|max:255',
             'contact' => 'required|string|max:15',
-            'email' => 'required|email|max:255|unique:customer_registers,email,' . $id,
+            'email' => 'required|email|max:255|unique:customer_register,email,' . $id,
             'address' => 'nullable|string|max:255',
         ]);
 
