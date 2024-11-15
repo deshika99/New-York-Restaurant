@@ -83,9 +83,8 @@
                         <div class="footer-menu">
                             <ul>
                                 <li><a href="{{route('about')}}">About</a></li>
-                                <li><a href="#">Location Map</a></li>
+                                <li><a href="{{route('facilities')}}">Facilities</a></li>
                                 <li><a href="{{route('contact')}}">Contact us</a></li>
-                                <li><a href="#">login</a></li>
                             </ul>
                         </div>
                     </div>
