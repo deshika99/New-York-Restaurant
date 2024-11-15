@@ -206,6 +206,11 @@ Route::get('/admin/bank-details', [SettingsController::class, 'bankDetails'])->n
 Route::post('/admin/store-bank-details', [SettingsController::class, 'storeBankDetails'])->name('bankDetails.store');
 
 
+//adminlogin
+Route::get('/staff/login', [StaffController::class, 'showLoginForm'])->name('staff_login');
+Route::post('/staff/login', [StaffController::class, 'login'])->name('staff_login_post');
+Route::post('/staff/logout', [StaffController::class, 'logout'])->name('staff_logout');
+
 
 
 Route::get('/about', function () {
