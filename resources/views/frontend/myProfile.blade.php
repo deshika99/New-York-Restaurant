@@ -26,23 +26,29 @@
         <div class="row">
             <div class="col-md-6">
 
-                <!-- Flash messages -->
-                @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                @endif
+            @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
 
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
+            @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
 
             </div>
         </div>
@@ -70,8 +76,8 @@
                                         <a data-bs-toggle="tab" href="#ltn_tab_1_4">Update Details <i class="fas fa-edit"></i></a>
                                         <a data-bs-toggle="tab" href="#ltn_tab_1_9">Change Password <i class="fa-solid fa-lock"></i></a>
                                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            Logout <i class="fas fa-sign-out-alt"></i>                    
-                                        </a>      
+                                            Logout <i class="fas fa-sign-out-alt"></i>
+                                        </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="GET" style="display: none;">
                                             @csrf
@@ -234,15 +240,32 @@
                                     <div class="tab-pane fade" id="ltn_tab_1_9">
                                         <div class="ltn__myaccount-tab-content-inner">
                                             <div class="account-login-inner">
-                                                <form action="#" class="ltn__form-box contact-form-box">
+                                                <form action="{{ route('updatePassword',$customer->id) }}" method="POST" class="ltn__form-box contact-form-box">
+                                                    @csrf
                                                     <h5 class="mb-30">Change Password</h5>
-                                                    <input type="password" name="password" placeholder="Current Password*">
-                                                    <input type="password" name="password" placeholder="New Password*">
-                                                    <input type="password" name="password" placeholder="Confirm New Password*">
+
+                                                    <!-- Current Password -->
+                                                    <input type="password" name="current_password" placeholder="Current Password*" required>
+                                                    @error('current_password')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+
+                                                    <!-- New Password -->
+                                                    <input type="password" name="new_password" placeholder="New Password*" required>
+                                                    @error('new_password')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+
+                                                    <!-- Confirm New Password -->
+                                                    <input type="password" name="new_password_confirmation" placeholder="Confirm New Password*" required>
+
                                                     <div class="btn-wrapper mt-0">
                                                         <button class="theme-btn-1 btn btn-block" type="submit">Save Changes</button>
                                                     </div>
+
+
                                                 </form>
+
                                             </div>
                                         </div>
                                     </div>

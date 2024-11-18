@@ -22,14 +22,14 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table id="tableData" class="table table-hover display">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone Number</th>
-                                <th>Total Bookings</th>
+                                <!-- <th>Total Bookings</th> -->
                                 <th>Date Joined</th>
                                 <th>Actions</th>
                             </tr>
@@ -41,7 +41,7 @@
                                     <td>{{ $customer->fname }} {{ $customer->lname }}</td>
                                     <td>{{ $customer->email }}</td>
                                     <td>{{ $customer->phone_number }}</td>
-                                    <td>{{ $customer->total_bookings?? '0' }}</td>
+                                    <!-- <td>{{ $customer->total_bookings?? '0' }}</td> -->
                                     <td>{{ $customer->created_at->format('Y-m-d') }}</td>
                                     
                                     <td>
@@ -62,4 +62,16 @@
             </div>
         </div>
     </section>
+
+    <script>
+        $(document).ready(function() {
+            var table = $('#tableData').DataTable({
+
+
+                "searching": true, // Enable search functionality
+                "paging": true, // Enable pagination
+                "ordering": true // Enable column ordering
+            });
+        });
+    </script>
 @endsection

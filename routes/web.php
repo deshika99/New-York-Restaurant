@@ -65,6 +65,7 @@ Route::get('/facilities',[HomeTemplateController::class,'showFacilities'])->name
 Route::get('/makebooking',[HomeTemplateController::class,'makebooking'])->name('makebooking');
 Route::get('/myprofile',[HomeTemplateController::class,'myProfile'])->name('myProfile');
 Route::post('/update-cus-profile/{id}',[HomeTemplateController::class,'updateCusProfile'])->name('updateCusProfile');
+Route::post('/update-password/{id}', [HomeTemplateController::class, 'updatePassword'])->name('updatePassword');
 
 
 Route::view('/AdminDashboard/customer_section', 'AdminDashboard.customer_section')->name('customer_section');
@@ -212,6 +213,7 @@ Route::post('/staff/login', [StaffController::class, 'login'])->name('staff_logi
 Route::get('/staff/logout', [StaffController::class, 'logout'])->name('staff_logout');
 Route::get('/admin/profile', [StaffController::class, 'viewAdminProfile'])->name('viewAdminProfile');
 Route::put('/admin/profile/update/{id}', [StaffController::class, 'updateAdminProfile'])->name('updateAdminProfile');
+
 
 Route::get('/about', function () {
     return view('frontend.AboutUs');
