@@ -66,16 +66,15 @@ class RegisterController extends Controller
         'password' => Hash::make($request->password),
     ]);
 
-    // Email එක session එකට store කරන්න
+    
     session(['registered_email' => $request->email]);
 
     return redirect()->route('loginpage')->with('success', 'Registration successful! Please log in.');
 }
 
 public function loginCheck(Request $request)
-{
-    // Validate user input
-    $request->validate([
+    {
+        $request->validate([
         'email' => 'required|email',
         'password' => 'required|min:6',
     ]);
@@ -92,6 +91,6 @@ public function loginCheck(Request $request)
         // Redirect back with error if credentials are incorrect
         return back()->with('error', 'Invalid Email or Password');
     }
-}
+    }
 
 }

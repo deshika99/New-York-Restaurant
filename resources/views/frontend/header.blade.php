@@ -137,18 +137,19 @@
                             <sup>2</sup>
                         </a>
                     </div>
+
                     <!-- user-menu -->
-                    
+
                     <div class="ltn__drop-menu user-menu"> 
                        <ul>
                           <li>
-                              <a href="#">
+                            <a href="#">
                                @if(session()->has('user_name'))
                                     <span class="user-initial">{{ substr(session('user_name'), 0, 1) }}</span> 
                                @else
                                     <i class="icon-user"></i>
                                @endif
-                               </a>
+                            </a>
                             <ul>
                                 @if(!session()->has('user_name'))
                                    <li><a href="{{ route('loginpage') }}">Sign in</a></li>
@@ -167,12 +168,12 @@
                          </li>
                          @if(session()->has('user_name'))
                             <span>{{ session('user_name') }}</span>
-                        @endif
-
+                         @endif
                       </ul>
                     </div>
-
+                    
                     <!-- Mobile Menu Button -->
+
                     <div class="mobile-menu-toggle d-xl-none">
                         <a href="#ltn__utilize-mobile-menu" class="ltn__utilize-toggle">
                             <svg viewBox="0 0 800 600">
