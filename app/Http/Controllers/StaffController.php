@@ -79,10 +79,10 @@ class StaffController extends Controller
         $departments = Department::all();
         $positions = Position::all();
 
-        return view('AdminDashboard.StaffSection.Staff.edit', compact('staffMember','positions','departments'));
+        return view('AdminDashboard.StaffSection.Staff.edit', compact('staffMember', 'positions', 'departments'));
     }
 
-   
+
 
     public function update(Request $request, $id)
     {
@@ -101,7 +101,7 @@ class StaffController extends Controller
         ]);
 
         $staffMember = Staff::findOrFail($id);
-    
+
         $staffMember->update([
             'first_name' => $validated['first_name'],
             'last_name' => $validated['last_name'],
@@ -115,7 +115,7 @@ class StaffController extends Controller
             'notes' => $validated['notes'],
             'status' => $validated['status'],
         ]);
-    
+
 
         return redirect()->route('staff_management')->with('success', 'Staff member updated successfully.');
     }
@@ -170,5 +170,39 @@ class StaffController extends Controller
     {
         Session::forget('staff');
         return redirect()->route('staff_login')->with('success', 'Logged out successfully.');
+    }
+
+    public function viewAdminProfile()
+    {
+        $loggedUser = Session::get('staff');
+        if ($loggedUser) {
+            $staffMember = Staff::findOrFail($loggedUser->id);
+            return view('AdminDashboard.Settings.profile', compact('staffMember'));
+        } else {
+            return redirect()->back()->with('error', 'Please Login First');
+        }
+    }
+
+    public function updateAdminProfile(Request $request, $id)
+    {
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'contact' => 'required|numeric',
+            'email' => 'required|email|max:255',
+            'address' => 'nullable|string|max:500',
+        ]);
+
+        $staffMember = Staff::findOrFail($id);
+
+        $staffMember->first_name = $request->input('first_name');
+        $staffMember->last_name = $request->input('last_name');
+        $staffMember->contact = $request->input('contact');
+        $staffMember->email = $request->input('email');
+        $staffMember->address = $request->input('address');
+
+        $staffMember->save();
+
+        return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 }

@@ -91,7 +91,7 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-6 offset-lg-3">
+                <div class="col-lg-6 offset-lg-3">             
                     <div class="account-login-inner">
                         <form action="{{route('registerpage.user')}}" method="post" class="ltn__form-box contact-form-box">
                         @csrf
@@ -103,8 +103,8 @@
                             <input type="password" name="password" placeholder="Password*">
                            <!-- <input type="password" name="confirmpassword" placeholder="Confirm Password*">-->
                             
-                            <label class="checkbox-inline">
-                                <input type="checkbox" value="">
+                            <label class="checkbox-inline">           
+                                <input type="checkbox" value="">       
                                 By clicking "create account", I consent to the privacy policy.
                             </label>
                             <div class="btn-wrapper">

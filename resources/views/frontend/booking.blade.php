@@ -21,6 +21,34 @@
 </div>
 <!-- BREADCRUMB AREA END -->
 
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+    </div>
+</div>
+
 <div class="ltn__checkout-area mb-105 mt--65">
     <div class="container">
         <div class="row">
@@ -78,7 +106,7 @@
                                         <select name="room" class="nice-select" id="room-select">
                                             <option value="">Select Room</option>
                                             @foreach ($availableRooms as $room)
-                                            <option value="{{$room->id}}" data-price="{{ $room->rental_price }}">{{$room->room_number}} - LKR {{ $room->rental_price }} ({{ $room->facilities }})</option>
+                                            <option value="{{$room->id}}" data-price="{{ $room->rental_price }}">Room {{$room->room_number}} (Floor no. {{$room->floor->floor_number}}) - LKR {{ $room->rental_price }} ({{ $room->facilities }})</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -351,15 +379,15 @@
                                 confirmButtonText: 'OK'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    location.reload();     
+                                    location.reload();
                                 }
                             });
                         },
-                        error: function(error) {
-                            // error message
+                        error: function(xhr, status, error) {
+                            var errorMessage = xhr.responseJSON ? xhr.responseJSON.message : 'An unexpected error occurred. Please try again.';
                             Swal.fire({
                                 title: 'Error!',
-                                text: 'There was an error saving payment details. Please try again.',
+                                text: errorMessage,
                                 icon: 'error',
                                 confirmButtonText: 'OK'
                             });
