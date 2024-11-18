@@ -32,9 +32,8 @@ class AdminTemplateController extends Controller
 
         // Get available rooms
         $currentDate = now();
-        $bookedRoomIds = Booking::where('end_date', '>=', $currentDate)
-            ->where('start_date', '<=', $currentDate)
-            ->pluck('room_id');
+        $bookedRoomIds = Booking::where('end_date', '>', $currentDate)
+            ->pluck('room_id');                          
         $availableRooms = Room::whereNotIn('id', $bookedRoomIds)->count();
 
         // Get total revenue

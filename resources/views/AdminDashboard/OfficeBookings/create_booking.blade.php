@@ -263,12 +263,21 @@
                     .then(response => response.json())
                     .then(data => {
                         const roomSelect = document.getElementById("room_id");
-                        roomSelect.innerHTML = '<option value="">Select room</option>';
-                        data.rooms.forEach(room => {
-                            roomSelect.innerHTML += `<option value="${room.id}" data-price="${room.rental_price}">Room ${room.room_number}  (Floor no. ${room.floor.floor_number})  -  LKR ${room.rental_price} </option>`;
-                        });
+                        roomSelect.innerHTML = ''; // Clear previous options
+
+                        if (data.rooms && data.rooms.length > 0) {
+                            roomSelect.innerHTML = '<option value="">Select room</option>';
+                            data.rooms.forEach(room => {
+                                roomSelect.innerHTML += `
+                        <option value="${room.id}" data-price="${room.rental_price}">
+                            Room ${room.room_number} (Floor no. ${room.floor.floor_number}) - LKR ${room.rental_price}
+                        </option>`;
+                            });
+                        } else {
+                            roomSelect.innerHTML = '<option value="">No available rooms</option>';
+                        }
                     })
-                    .catch(error => console.error("Error fetching rooms:", error)); 
+                    .catch(error => console.error("Error fetching rooms:", error));
             }
         }
 

@@ -104,10 +104,17 @@
                                     <h6>Room</h6>
                                     <div class="input-item ">
                                         <select name="room" class="nice-select" id="room-select">
+                                            @if ($availableRooms->isEmpty())
+                                            <option value="">No rooms available in this room type</option>
+                                            @else
                                             <option value="">Select Room</option>
                                             @foreach ($availableRooms as $room)
-                                            <option value="{{$room->id}}" data-price="{{ $room->rental_price }}">Room {{$room->room_number}} (Floor no. {{$room->floor->floor_number}}) - LKR {{ $room->rental_price }} ({{ $room->facilities }})</option>
+                                            <option value="{{ $room->id }}" data-price="{{ $room->rental_price }}">
+                                                Room {{ $room->room_number }} (Floor no. {{ $room->floor->floor_number }}) -
+                                                LKR {{ $room->rental_price }} ({{ $room->facilities }})
+                                            </option>
                                             @endforeach
+                                            @endif
                                         </select>
                                     </div>
                                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CompanyDetails;
 use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\User;
@@ -12,7 +13,8 @@ class RegisterController extends Controller
 {
     public function index()
     {
-        return view('frontend.Register');
+        $companyDetails = CompanyDetails::all();
+        return view('frontend.Register',compact('companyDetails'));
     }
 
     public function login()
@@ -101,6 +103,7 @@ class RegisterController extends Controller
         $customer->phone_number = $request->input('phone_number');
         $customer->whatsapp_number = $request->input('whatsapp_number');
         $customer->address = $request->input('address');
+        $customer->password = Hash::make($request->input('phone_number'));
 
         $customer->save();
 
