@@ -74,9 +74,7 @@
                     <div class="ltn__callout bg-overlay-theme-05 mt-30">
                         <p>"Experience unmatched hospitality and comfort in our premium accommodations."</p>
                     </div>
-                    <div class="btn-wrapper animated">
-                        <a href="{{route('about')}}" class="theme-btn-1 btn btn-effect-1">About Us</a>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -109,7 +107,7 @@
                         <img src="/frontend/img/icons/icon-img/21.png" alt="Apartment Booking">
                     </div>
                     <div class="ltn__feature-info">
-                        <h3><a href="service-details.html">Book an Apartment</a></h3>
+                        <h3><a>Book an Apartment</a></h3>
                         <p>Choose from a variety of fully furnished apartments, providing comfort and convenience for your stay.</p>
                         <!-- <a class="ltn__service-btn" href="service-details.html">View Apartments <i class="flaticon-right-arrow"></i></a> -->
                     </div>
@@ -121,7 +119,7 @@
                         <img src="/frontend/img/icons/icon-img/22.png" alt="Room Booking">
                     </div>
                     <div class="ltn__feature-info">
-                        <h3><a href="service-details.html">Book a Room</a></h3>
+                        <h3><a >Book a Room</a></h3>
                         <p>Find a great room that suits your needs, with options ranging from budget to luxury accommodations.</p>
                         <!-- <a class="ltn__service-btn" href="service-details.html">Explore Rooms <i class="flaticon-right-arrow"></i></a> -->
                     </div>
@@ -133,7 +131,7 @@
                         <img src="/frontend/img/icons/icon-img/23.png" alt="Event Hosting">
                     </div>
                     <div class="ltn__feature-info">
-                        <h3><a href="service-details.html">Host an Event</a></h3>
+                        <h3><a >Host an Event</a></h3>
                         <p>Our facilities are equipped to host your events of all kinds, from business conferences to weddings.</p>
                         <!-- <a class="ltn__service-btn" href="service-details.html">Discover Venues <i class="flaticon-right-arrow"></i></a> -->
                     </div>

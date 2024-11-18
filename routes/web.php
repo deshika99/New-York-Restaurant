@@ -26,9 +26,7 @@ use App\Http\Controllers\PositionController;
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -42,7 +40,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('/admin',[AdminTemplateController::class,'index'])->name('admin');
-Route::get('/home',[HomeTemplateController::class,'index'])->name('home');
+Route::get('/',[HomeTemplateController::class,'index'])->name('home');
 Route::get('/contact',[ContactTemplateController::class,'index'])->name('contact');
 Route::get('/aboutus',[AboutController::class,'index'])->name('about');
 Route::get('/about',[AboutController::class,'index'])->name('about');
@@ -207,6 +205,11 @@ Route::post('/admin/store-company-details', [SettingsController::class, 'storeCo
 Route::get('/admin/bank-details', [SettingsController::class, 'bankDetails'])->name('bankDetails');
 Route::post('/admin/store-bank-details', [SettingsController::class, 'storeBankDetails'])->name('bankDetails.store');
 
+
+//adminlogin
+Route::get('/staff/login', [StaffController::class, 'showLoginForm'])->name('staff_login');
+Route::post('/staff/login', [StaffController::class, 'login'])->name('staff_login_post');
+Route::post('/staff/logout', [StaffController::class, 'logout'])->name('staff_logout');
 
 
 

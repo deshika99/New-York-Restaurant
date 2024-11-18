@@ -16,6 +16,7 @@
 @endif
 
 
+
 <div class="ltn__utilize-overlay"></div>
 
 <!-- SLIDER AREA START (slider-3) -->
@@ -35,7 +36,7 @@
                                         <p>Experience luxury, comfort, and convenience at New York Guest House & Restaurant. Book your room or apartment for an unforgettable stay in the heart of the city.</p>
                                     </div>
                                     <div class="btn-wrapper animated">
-                                        <a href="#" class="theme-btn-1 btn btn-effect-1">Make A Reservation ⇩</a>
+                                        <a href="{{route('makebooking')}}" class="theme-btn-1 btn btn-effect-1">Make A Reservation ⇩</a>
                                         <a href="{{route('facilities')}}" class="btn btn-transparent btn-effect-3">Facilities</a>
                                     </div>
                                 </div>
@@ -63,7 +64,7 @@
                                     </div>
                                     <div class="btn-wrapper animated">
                                         <a href="{{route('contact')}}" class="theme-btn-1 btn btn-effect-1">Contact Us</a>
-                                        <a href="{{route('about')}}" class="btn btn-transparent btn-effect-3">Learn More</a>
+                                        <a href="{{route('about')}}" class="btn btn-transparent btn-effect-3">About Us</a>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +121,7 @@
                                     <!-- Apartment Selection -->
                                     <div class="col-lg-5 col-md-6">
 
-                                        <select name="apartment" id="apartment" class="nice-select mt-3">
+                                        <select name="apartment" id="apartment" class="nice-select mt-3" >
                                             <option value="" disabled selected>Select Apartment</option>
                                             @foreach($apartments as $apartment)
                                             <option value="{{ $apartment->id }}">{{ $apartment->apartment_name }} - {{ $apartment->location_name }}</option>
@@ -158,9 +159,7 @@
                     <div class="about-us-img-info about-us-img-info-2 about-us-img-info-3">
                         <div class="ltn__video-img ltn__animation-pulse1">
                             <img src="/frontend/img/others/ab2.jpg" alt="video popup bg image">
-                            <a class="ltn__video-icon-2 ltn__video-icon-2-border---" href="" data-rel="lightcase:myCollection">
-                                <i class="fa fa-play"></i>
-                            </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -329,7 +328,7 @@
                         <img src="/frontend/img/icons/icon-img/21.png" alt="Apartment Booking">
                     </div>
                     <div class="ltn__feature-info">
-                        <h3><a href="service-details.html">Book an Apartment</a></h3>
+                        <h3><a >Book an Apartment</a></h3>
                         <p>Choose from a variety of fully furnished apartments, providing comfort and convenience for your stay.</p>
                         <!-- <a class="ltn__service-btn" href="service-details.html">View Apartments <i class="flaticon-right-arrow"></i></a> -->
                     </div>
@@ -341,7 +340,7 @@
                         <img src="/frontend/img/icons/icon-img/22.png" alt="Room Booking">
                     </div>
                     <div class="ltn__feature-info">
-                        <h3><a href="service-details.html">Book a Room</a></h3>
+                        <h3><a >Book a Room</a></h3>
                         <p>Find a great room that suits your needs, with options ranging from budget to luxury accommodations.</p>
                         <!-- <a class="ltn__service-btn" href="service-details.html">Explore Rooms <i class="flaticon-right-arrow"></i></a> -->
                     </div>
@@ -353,7 +352,7 @@
                         <img src="/frontend/img/icons/icon-img/23.png" alt="Event Hosting">
                     </div>
                     <div class="ltn__feature-info">
-                        <h3><a href="service-details.html">Host an Event</a></h3>
+                        <h3><a >Host an Event</a></h3>
                         <p>Our facilities are equipped to host your events of all kinds, from business conferences to weddings.</p>
                         <!-- <a class="ltn__service-btn" href="service-details.html">Discover Venues <i class="flaticon-right-arrow"></i></a> -->
                     </div>
@@ -564,80 +563,80 @@
                 <!-- Parking -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                     <div class="ltn__category-item ltn__category-item-5 text-center">
-                        <a href="">
+                        <a >
                             <span class="category-icon"><i class="flaticon-car"></i></span>
                             <span class="category-title">Free Parking</span>
-                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                            
                         </a>
                     </div>
                 </div>
                 <!-- Swimming Pool -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                     <div class="ltn__category-item ltn__category-item-5 text-center">
-                        <a href="">
+                        <a >
                             <span class="category-icon"><i class="flaticon-swimming"></i></span>
                             <span class="category-title">Swimming Pool</span>
-                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                            
                         </a>
                     </div>
                 </div>
                 <!-- 24/7 Security -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                     <div class="ltn__category-item ltn__category-item-5 text-center">
-                        <a href="">
+                        <a >
                             <span class="category-icon"><i class="flaticon-secure-shield"></i></span>
                             <span class="category-title">24/7 Security</span>
-                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                            
                         </a>
                     </div>
                 </div>
                 <!-- Wellness Spa -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                     <div class="ltn__category-item ltn__category-item-5 text-center">
-                        <a href="">
+                        <a >
                             <span class="category-icon"><i class="flaticon-stethoscope"></i></span>
                             <span class="category-title">Wellness Spa</span>
-                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                            
                         </a>
                     </div>
                 </div>
                 <!-- In-Room Dining -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                     <div class="ltn__category-item ltn__category-item-5 text-center">
-                        <a href="">
+                        <a >
                             <span class="category-icon"><i class="flaticon-dining-table-with-chairs"></i></span>
                             <span class="category-title">In-Room Dining</span>
-                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                            
                         </a>
                     </div>
                 </div>
                 <!-- Comfortable Bedding -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                     <div class="ltn__category-item ltn__category-item-5 text-center">
-                        <a href="">
+                        <a >
                             <span class="category-icon"><i class="flaticon-bed-1"></i></span>
                             <span class="category-title">Comfortable Beds</span>
-                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                            
                         </a>
                     </div>
                 </div>
                 <!-- Smart Room Features -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                     <div class="ltn__category-item ltn__category-item-5 text-center">
-                        <a href="">
+                        <a >
                             <span class="category-icon"><i class="flaticon-apartment"></i></span>
                             <span class="category-title">Smart Room</span>
-                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                            
                         </a>
                     </div>
                 </div>
                 <!-- Kids’ Play Area -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                     <div class="ltn__category-item ltn__category-item-5 text-center">
-                        <a href="">
+                        <a >
                             <span class="category-icon"><i class="flaticon-slider"></i></span>
                             <span class="category-title">Kids’ Play Area</span>
-                            <span class="category-btn"><i class="flaticon-right-arrow"></i></span>
+                           
                         </a>
                     </div>
                 </div>

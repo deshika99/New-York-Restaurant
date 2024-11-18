@@ -6,6 +6,7 @@ use App\Models\Department;
 use App\Models\Position;
 use App\Models\Staff;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class StaffController extends Controller
 {
@@ -130,5 +131,44 @@ class StaffController extends Controller
 
         // Redirect back with a success message
         return redirect()->route('staff_management')->with('success', 'Staff member deleted successfully.');
+    }
+
+    public function showLoginForm()
+    {
+        return view('AdminDashboard.login');
+    }
+
+    // Login method
+    public function login(Request $request)
+    {
+        //dd($request);
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        // Find staff by email
+        $staff = Staff::where('email', $request->input('email'))->first();
+
+        if (!$staff) {
+            return redirect()->back()->with('error', 'Invalid email or password.');
+        }
+
+        // Check the password (assuming it is '123@AdminNewyork')
+        if ($request->input('password') !== '123@AdminNewyork') {
+            return redirect()->back()->with('error', 'Invalid email or password.');
+        }
+
+        // Store staff information in the session
+        Session::put('staff', $staff);
+
+        return redirect()->route('admin')->with('success', 'Login successful.');
+    }
+
+    // Logout method
+    public function logout()
+    {
+        Session::forget('staff');
+        return redirect()->route('staff_login')->with('success', 'Logged out successfully.');
     }
 }

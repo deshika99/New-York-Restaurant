@@ -70,7 +70,7 @@
                 <div class="col">
                     <div class="site-logo-wrap">
                         <div class="site-logo">
-                            <a href="#"><img src="{{ Storage::url($companyDetails->company_logo) }}" alt="Logo"></a>
+                            <img src="{{ Storage::url(optional($companyDetails)->company_logo) }}" alt="Logo">
                         </div>
                         <div class="get-support clearfix d-none">
                             <div class="get-support-icon">

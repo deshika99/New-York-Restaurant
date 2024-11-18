@@ -4,9 +4,8 @@
     @endphp
             <div class="aside-top">
                 <a href="#" class="brand-wrap">
-                    <img src="{{ Storage::url($companyDetails->company_logo) }}" class="logo" alt="DK-Mart" />
+                    <img src="{{ Storage::url(optional($companyDetails)->company_logo) }}" alt="Logo" style="height:80px; margin-left:100%; ">
                 </a>
-                <span>New York Guest House & Restaurant (PVT) LTD</span>
                 <div>
                     <button class="btn btn-icon btn-aside-minimize"><i class="text-muted material-icons md-menu_open"></i></button>
                 </div>

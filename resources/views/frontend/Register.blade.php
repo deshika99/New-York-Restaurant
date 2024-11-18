@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Place favicon.png in the root directory -->
-    <link rel="shortcut icon" href="frontend/img/favicon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ asset('/frontend/img/ny logo.jpg') }}" />
     <!-- Font Icons css -->
     <link rel="stylesheet" href="frontend/css/font-icons.css">
     <!-- plugins css -->
@@ -102,10 +102,7 @@
                             <input type="text" name="address" placeholder="Address">
                             <input type="password" name="password" placeholder="Password*">
                            <!-- <input type="password" name="confirmpassword" placeholder="Confirm Password*">-->
-                            <label class="checkbox-inline">
-                                <input type="checkbox" value="">
-                                I consent to Herboil processing my personal data in order to send personalized marketing material in accordance with the consent form and the privacy policy.
-                            </label>
+                            
                             <label class="checkbox-inline">
                                 <input type="checkbox" value="">
                                 By clicking "create account", I consent to the privacy policy.
@@ -118,7 +115,7 @@
                             <p>By creating an account, you agree to our:</p>
                             <p><a href="#">TERMS OF CONDITIONS  &nbsp; &nbsp; | &nbsp; &nbsp;  PRIVACY POLICY</a></p>
                             <div class="go-to-btn mt-50">
-                                <a href="login.html">ALREADY HAVE AN ACCOUNT ?</a>
+                                <a href="{{route('loginpage')}}" >ALREADY HAVE AN ACCOUNT ?</a>
                             </div>
                         </div>
                     </div>
@@ -128,25 +125,7 @@
     </div>
     <!-- LOGIN AREA END -->
 
-    <!-- CALL TO ACTION START (call-to-action-6) -->
-    <div class="ltn__call-to-action-area call-to-action-6 before-bg-bottom" data-bs-bg="frontend/img/1.jpg--">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="call-to-action-inner call-to-action-inner-6 ltn__secondary-bg position-relative text-center---">
-                        <div class="coll-to-info text-color-white">
-                            <h1>Looking for a dream home?</h1>
-                            <p>We can help you realize your dream of a new home</p>
-                        </div>
-                        <div class="btn-wrapper">
-                            <a class="btn btn-effect-3 btn-white" href="contact.html">Explore Properties <i class="icon-next"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- CALL TO ACTION END -->
+    
 
     <!-- FOOTER AREA START -->
     @include('frontend.footer')
