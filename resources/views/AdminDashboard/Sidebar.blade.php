@@ -82,7 +82,7 @@
 
                     <li class="menu-item has-submenu {{ request()->is('admin/staff*') || request()->is('admin/position*') || request()->is('admin/department*') ? 'active' : '' }}">
                         <a class="menu-link" href="#">
-                            <i class="icon material-icons md-group"></i>
+                            <i class="icon material-icons md-assignment_ind"></i>
                             <span class="text">Staff</span>
                         </a>
                         <div class="submenu {{ request()->is('admin/staff*') || request()->is('admin/position*') || request()->is('admin/department*') ? 'active' : '' }}">

@@ -70,8 +70,8 @@
                                         <a data-bs-toggle="tab" href="#ltn_tab_1_4">Update Details <i class="fas fa-edit"></i></a>
                                         <a data-bs-toggle="tab" href="#ltn_tab_1_9">Change Password <i class="fa-solid fa-lock"></i></a>
                                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            Logout <i class="fas fa-sign-out-alt"></i>
-                                        </a>
+                                            Logout <i class="fas fa-sign-out-alt"></i>                    
+                                        </a>      
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="GET" style="display: none;">
                                             @csrf

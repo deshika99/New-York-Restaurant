@@ -73,7 +73,7 @@
                                 <td>{{ $booking->end_date }}</td>
                                 <td>{{ $booking->booking_status }}</td>
                                 <td>{{ $booking->payment->payment_type }}</td>
-                                <td>{{ $booking->payment->payment_status }}</td>
+                                <td>{{ $booking->payment->payment_status }}</td>     
                                 <td class="text-end">
                                     <a href="{{ route('onlinebooking.details', $booking->id) }}" class="btn btn-success font-sm"><i class="material-icons md-visibility"></i></a>
                                     <form action="{{ route('onlinebooking.destroy', $booking->id) }}" method="POST" style="display:inline;">

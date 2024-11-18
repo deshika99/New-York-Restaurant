@@ -102,108 +102,114 @@ class OnlineBookingController extends Controller
 
     public function store(Request $request)
     {
-        //Log::info('Store request data: ', $request->all());
+        $loggedCustomerId = session('customer_id');
+        if ($loggedCustomerId) {
 
-        $request->validate([
-            'room_id' => 'required|exists:rooms,id',
-            'payment_type' => 'required|string',
-            'amount' => 'required|numeric',
-            'paid_amount' => 'required|numeric',
-            'due_amount' => 'required|numeric',
-            'service_charge' => 'required|numeric',
-            'refundable_charge' => 'required|numeric',
-            'total_cost' => 'required|numeric',
-            'checkin' => 'required|date',
-            'checkout' => 'required|date',
-            'total_days' => 'required|integer',
-            'term' => 'required|string',
-            'transfer_slip_image' => 'nullable|string'
-        ]);
 
-        $dueAmount = $request->due_amount;
-        $paidAmount = $request->paid_amount;
-        if ($request->payment_type == 'At Hotel') {
-            $dueAmount = $request->total_cost;
-            $paidAmount = 0;
-        }
+            //Log::info('Store request data: ', $request->all());
 
-        if ($request->payment_type == 'Bank Transfer') {
-            $dueAmount = $request->total_cost;
-            $paidAmount = 0;
-        }
-
-        $confirmationStatus = 'Not Relevant';
-        if ($request->payment_type == 'Bank Transfer') {
-            $confirmationStatus = 'Awaiting Bank Slip';
-        }
-
-        $bookingStatus = 'Pending';
-        if ($paidAmount == $request->total_cost) {
-            $bookingStatus = 'Confirmed';
-        }
-
-        DB::beginTransaction();
-
-        try {
-
-            $booking = Booking::create([
-                'customer_id' => 1, // change logged-in customer
-                'room_id' => $request->room_id,
-                'booking_date' => now(),
-                'start_date' => $request->checkin,
-                'end_date' => $request->checkout,
-                'term' => $request->term,
-                'booking_type' => 'Online',
-                'payment_type' => $request->payment_type,
-                'service_charge' => $request->service_charge,
-                'total_cost' => $request->total_cost,
-                'discount_applied' => 0,
-                'booking_status' => $bookingStatus,
-                'confirmation_status' => $confirmationStatus
+            $request->validate([
+                'room_id' => 'required|exists:rooms,id',
+                'payment_type' => 'required|string',
+                'amount' => 'required|numeric',
+                'paid_amount' => 'required|numeric',
+                'due_amount' => 'required|numeric',
+                'service_charge' => 'required|numeric',
+                'refundable_charge' => 'required|numeric',
+                'total_cost' => 'required|numeric',
+                'checkin' => 'required|date',
+                'checkout' => 'required|date',
+                'total_days' => 'required|integer',
+                'term' => 'required|string',
+                'transfer_slip_image' => 'nullable|string'
             ]);
 
-            $advancedPayment = 0;
-            if ($paidAmount > 0 && $dueAmount > 0) {
-                $advancedPayment = 1;
+            $dueAmount = $request->due_amount;
+            $paidAmount = $request->paid_amount;
+            if ($request->payment_type == 'At Hotel') {
+                $dueAmount = $request->total_cost;
+                $paidAmount = 0;
             }
 
-            $paymentStatus = null;
-            if ($paidAmount > 0 && $dueAmount > 0) {
-                $paymentStatus = 'Partial Payment';
-            } elseif ($dueAmount == 0) {
-                $paymentStatus = 'Completed';
-            } elseif ($dueAmount == $request->total_cost) {
-                $paymentStatus = 'Not Paid';
+            if ($request->payment_type == 'Bank Transfer') {
+                $dueAmount = $request->total_cost;
+                $paidAmount = 0;
             }
 
-            $payment = Payment::create([
-                'booking_id' => $booking->id,
-                'total_room_charge' => $request->amount,
-                'total_amount' => $request->total_cost,
-                'paid_amount' => $paidAmount,
-                'due_amount' => $dueAmount,
-                'payment_type' => $request->payment_type,
-                'payment_date' => now(),
-                'service_charge_applied' => $request->service_charge > 0 ? 1 : 0,
-                'advance_payment' => $advancedPayment,
-                'refundable_amount' => $request->refundable_charge ?? 0,
-                'refund_status' => $request->refundable_charge > 0 ? 'Pending' : 'No Charge',
-                'bank_transfer_confirmation' => $request->payment_type === 'Bank Transfer' ? 1 : 0,
+            $confirmationStatus = 'Not Relevant';
+            if ($request->payment_type == 'Bank Transfer') {
+                $confirmationStatus = 'Awaiting Bank Slip';
+            }
 
-                'discounted_total' => $request->total_cost,
-                'partial_payment' => $advancedPayment,
-                'payment_status' => $paymentStatus
-            ]);
+            $bookingStatus = 'Pending';
+            if ($paidAmount == $request->total_cost) {
+                $bookingStatus = 'Confirmed';
+            }
 
-            DB::commit();
+            DB::beginTransaction();
 
-            return response()->json(['message' => 'Booking and payment details saved successfully!', 'booking_id' => $booking->id], 201);
-        } catch (\Exception $e) {
-            DB::rollback();
-            //Log::error('Error storing booking and payment details: ', ['error' => $e->getMessage()]);
-            return response()->json(['message' => 'An error occurred while saving booking details. Please try again.'], 500);
+            try {
+
+                $booking = Booking::create([
+                    'customer_id' => $loggedCustomerId,
+                    'room_id' => $request->room_id,
+                    'booking_date' => now(),
+                    'start_date' => $request->checkin,
+                    'end_date' => $request->checkout,
+                    'term' => $request->term,
+                    'booking_type' => 'Online',
+                    'payment_type' => $request->payment_type,
+                    'service_charge' => $request->service_charge,
+                    'total_cost' => $request->total_cost,
+                    'discount_applied' => 0,
+                    'booking_status' => $bookingStatus,
+                    'confirmation_status' => $confirmationStatus
+                ]);
+
+                $advancedPayment = 0;
+                if ($paidAmount > 0 && $dueAmount > 0) {
+                    $advancedPayment = 1;
+                }
+
+                $paymentStatus = null;
+                if ($paidAmount > 0 && $dueAmount > 0) {
+                    $paymentStatus = 'Partial Payment';
+                } elseif ($dueAmount == 0) {
+                    $paymentStatus = 'Completed';
+                } elseif ($dueAmount == $request->total_cost) {
+                    $paymentStatus = 'Not Paid';
+                }
+
+                $payment = Payment::create([
+                    'booking_id' => $booking->id,
+                    'total_room_charge' => $request->amount,
+                    'total_amount' => $request->total_cost,
+                    'paid_amount' => $paidAmount,
+                    'due_amount' => $dueAmount,
+                    'payment_type' => $request->payment_type,
+                    'payment_date' => now(),
+                    'service_charge_applied' => $request->service_charge > 0 ? 1 : 0,
+                    'advance_payment' => $advancedPayment,
+                    'refundable_amount' => $request->refundable_charge ?? 0,
+                    'refund_status' => $request->refundable_charge > 0 ? 'Pending' : 'No Charge',
+                    'bank_transfer_confirmation' => $request->payment_type === 'Bank Transfer' ? 1 : 0,
+
+                    'discounted_total' => $request->total_cost,
+                    'partial_payment' => $advancedPayment,
+                    'payment_status' => $paymentStatus
+                ]);
+
+                DB::commit();
+
+                return response()->json(['message' => 'Booking and payment details saved successfully!', 'booking_id' => $booking->id], 201);
+            } catch (\Exception $e) {
+                DB::rollback();
+                //Log::error('Error storing booking and payment details: ', ['error' => $e->getMessage()]);
+                return response()->json(['message' => 'An error occurred while saving booking details. Please try again.'], 500);
+            }
+        } else {
+            return response()->json(['message' => 'Please login first.'], 500);
         }
-
     }
 
     public function index()
@@ -211,7 +217,7 @@ class OnlineBookingController extends Controller
         $bookings = Booking::with('payment')
             ->where('booking_type', 'Online')
             ->orderBy('created_at', 'desc')
-            ->get();    
+            ->get();
 
         return view('AdminDashboard.OnlineBookings.index', compact('bookings'));
     }
@@ -231,7 +237,7 @@ class OnlineBookingController extends Controller
         ]);
 
         $payment = Payment::findOrFail($id);
-        $booking = Booking::findOrFail($payment->booking_id);     
+        $booking = Booking::findOrFail($payment->booking_id);
 
         $totalAmount = $payment->total_amount;
 
@@ -239,11 +245,11 @@ class OnlineBookingController extends Controller
         $updatedDiscount = $booking->discount_applied + $discount;
         $discountedTotal = $payment->discounted_total;
         $newDiscountedTotal = $totalAmount - $updatedDiscount;
-        
+
         $newPayment = $request->input('amount_paid');
         $updatedPaidAmount = $payment->paid_amount + $newPayment;
-        $dueAmount = $newDiscountedTotal - $updatedPaidAmount;  
- 
+        $dueAmount = $newDiscountedTotal - $updatedPaidAmount;
+
         $dueAmount = max(0, $dueAmount);
 
         $paymentStatus = null;
@@ -261,18 +267,18 @@ class OnlineBookingController extends Controller
             'discounted_total' => $newDiscountedTotal,
         ]);
 
-        
+
         $confirmationStatus = 'Not Relevant';
         if ($request->input('payment_type') == 'Bank Transfer' && $booking->payment_type == 'Bank Transfer') {
             $confirmationStatus = 'Confirmed';
-        }else if($booking->confirmation_status == 'Confirmed'){
+        } else if ($booking->confirmation_status == 'Confirmed') {
             $confirmationStatus = 'Confirmed';
         }
 
         $booking->update([
             'booking_status' => 'Confirmed',
-            'confirmation_status' => $confirmationStatus,                     
-            'discount_applied' => $updatedDiscount,  
+            'confirmation_status' => $confirmationStatus,
+            'discount_applied' => $updatedDiscount,
         ]);
 
         return redirect()->back()->with('success', 'Payment updated successfully.');
@@ -301,11 +307,12 @@ class OnlineBookingController extends Controller
         return redirect()->back()->with('success', 'Status updated successfully.');
     }
 
-    public function printView($id){
+    public function printView($id)
+    {
         $companyDetails = CompanyDetails::first();
         $currentDateTime = now();
         $booking = Booking::with('payment')->where('id', $id)->firstOrFail();
-        return view('AdminDashboard.OnlineBookings.bookingPrint',compact('booking','currentDateTime','companyDetails'));
+        return view('AdminDashboard.OnlineBookings.bookingPrint', compact('booking', 'currentDateTime', 'companyDetails'));
     }
 
     public function destroy($id)
