@@ -209,9 +209,9 @@ Route::post('/admin/store-bank-details', [SettingsController::class, 'storeBankD
 //adminlogin
 Route::get('/staff/login', [StaffController::class, 'showLoginForm'])->name('staff_login');
 Route::post('/staff/login', [StaffController::class, 'login'])->name('staff_login_post');
-Route::post('/staff/logout', [StaffController::class, 'logout'])->name('staff_logout');
-
-
+Route::get('/staff/logout', [StaffController::class, 'logout'])->name('staff_logout');
+Route::get('/admin/profile', [StaffController::class, 'viewAdminProfile'])->name('viewAdminProfile');
+Route::put('/admin/profile/update/{id}', [StaffController::class, 'updateAdminProfile'])->name('updateAdminProfile');
 
 Route::get('/about', function () {
     return view('frontend.AboutUs');

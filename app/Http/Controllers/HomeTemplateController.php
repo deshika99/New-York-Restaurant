@@ -51,7 +51,8 @@ class HomeTemplateController extends Controller
     public function myProfile()
     {
 
-        $customer = Customer::findOrFail(1);  //change id to logged customer id
+        $loggedCustomerId = session('customer_id');
+        $customer = Customer::findOrFail($loggedCustomerId);  //change id to logged customer id
         $bookings = Booking::with('payment')
             ->where('customer_id', $customer->id)->get();
 
