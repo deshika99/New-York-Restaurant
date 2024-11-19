@@ -9,6 +9,7 @@ use App\Models\Customer;
 use App\Models\Room;
 use App\Models\RoomTypes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class HomeTemplateController extends Controller
 {
@@ -80,5 +81,28 @@ class HomeTemplateController extends Controller
         $customer->save();
 
         return redirect()->back()->with('success', 'Profile updated successfully!');
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+        // Validate input fields
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed', // 'confirmed' checks for new_password_confirmation
+        ]);
+
+        $user = Customer::findOrFail($id);
+
+        // Check if current password matches
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'Current password is incorrect.']);
+        }
+
+        // Update to the new password
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        // Success message
+        return back()->with('success', 'Your password has been updated successfully!');
     }
 }

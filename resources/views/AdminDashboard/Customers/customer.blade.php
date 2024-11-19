@@ -74,10 +74,10 @@
                     <textarea name="address" id="address" class="form-control"></textarea>
                 </div>
 
-                <div class="mb-4">
+                <!-- <div class="mb-4">
                     <label for="note" class="form-label">Notes (Optional)</label>
                     <textarea name="note" id="note" class="form-control"></textarea>
-                </div>
+                </div> -->
 
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Save Customer</button>
