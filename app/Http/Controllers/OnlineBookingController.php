@@ -25,7 +25,7 @@ class OnlineBookingController extends Controller
 
         $validatedData = $request->validate([
             'checkin' => 'required|date|after_or_equal:today',
-            'checkout' => 'required|date|after:checkin',
+            'checkout' => 'required|date|after_or_equal:checkin',        //changed
             'apartment' => 'required|exists:apartments,id'
         ]);
 
@@ -77,7 +77,10 @@ class OnlineBookingController extends Controller
         $checkinDate = new DateTime($checkin);
         $checkoutDate = new DateTime($checkout);
         $interval = $checkinDate->diff($checkoutDate);
-        $totalDays = $interval->days + 1;
+        $totalDays = $interval->days ;                                  //changed
+        if($interval->days==0){                                         //added
+            $totalDays = $interval->days+1; 
+        }
         $term = null;
         if ($totalDays > 15) {
             $term = "Long-Term";

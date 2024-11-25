@@ -12,17 +12,17 @@ class ReportController extends Controller
 {
     public function staffReport(){
         $staffMembers = Staff::all();
-        return view('Admindashboard.ReportSection.staff_report',compact('staffMembers'));
+        return view('AdminDashboard.ReportSection.staff_report',compact('staffMembers'));
     }
 
     public function roomReport(){
         $rooms = Room::all();
-        return view('Admindashboard.ReportSection.room_report',compact('rooms'));
+        return view('AdminDashboard.ReportSection.room_report',compact('rooms'));
     }
 
     public function customerReport(){
         $customers = Customer::all();
-        return view('Admindashboard.ReportSection.customer_report',compact('customers'));
+        return view('AdminDashboard.ReportSection.customer_report',compact('customers'));
     }
 
     public function onlineBookingReport(){
@@ -31,7 +31,7 @@ class ReportController extends Controller
         ->orderBy('created_at', 'desc')
         ->get();
 
-        return view('Admindashboard.ReportSection.online_booking_report',compact('bookings'));
+        return view('AdminDashboard.ReportSection.online_booking_report',compact('bookings'));
     }
 
     public function officeBookingReport(){
@@ -39,6 +39,6 @@ class ReportController extends Controller
         ->where('booking_type', 'Office')
         ->orderBy('created_at', 'desc');
 
-        return view('Admindashboard.ReportSection.office_booking_report',compact('bookings'));
+        return view('AdminDashboard.ReportSection.office_booking_report',compact('bookings'));
     }
 }

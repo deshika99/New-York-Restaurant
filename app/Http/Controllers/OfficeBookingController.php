@@ -64,7 +64,7 @@ class OfficeBookingController extends Controller
         
         $request->validate([
             'checkin' => 'required|date',
-            'checkout' => 'required|date|after:checkin',
+            'checkout' => 'required|date|after_or_equal:checkin',   //changed
             'term' => 'required|string',
             'apartment_id' => 'required|exists:apartments,id',
             'room_type_id' => 'required|exists:room_types,id',
@@ -83,7 +83,10 @@ class OfficeBookingController extends Controller
         $checkinDate = new DateTime($request->checkin);
         $checkoutDate = new DateTime($request->checkout);
         $interval = $checkinDate->diff($checkoutDate);
-        $totalDays = $interval->days + 1;
+        $totalDays = $interval->days;                                //changed
+        if($interval->days==0){                                      //added
+            $totalDays = $interval->days+1;
+        }
         $term = "Short-Term";
         if ($totalDays > 15) {
             $term = "Long-Term";

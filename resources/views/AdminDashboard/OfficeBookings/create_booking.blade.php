@@ -227,9 +227,12 @@
             const checkoutDate = new Date(document.getElementById("checkout").value);
             const termInput = document.getElementById("term");
 
-            if (checkinDate && checkoutDate && checkinDate < checkoutDate) {
+            if (checkinDate && checkoutDate && checkinDate <= checkoutDate) {        //changed
                 let daysDifference = Math.floor((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
-                totalDays = daysDifference + 1;
+                totalDays = daysDifference ;                                         //changed
+                if(daysDifference==0){                                               //added
+                    totalDays=daysDifference+1; 
+                }
                 let term = "Short Term";
                 if (totalDays > 15) {
                     term = "Long Term";
