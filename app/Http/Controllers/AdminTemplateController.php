@@ -10,11 +10,16 @@ use App\Models\Staff;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class AdminTemplateController extends Controller
 {
     public function index()
     {
+        // Check if the session exists
+        if (!Session::has('staff')) {
+            return redirect()->route('staff_login')->with('error', 'Please login first.');
+        }
         // Get total online bookings
         $totalOnlineBookings = Booking::where('booking_type', 'Online')->count();
 

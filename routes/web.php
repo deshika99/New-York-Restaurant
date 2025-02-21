@@ -96,6 +96,8 @@ Route::get('/admin/apartments', [ApartmentController::class, 'index'])->name('ap
 Route::get('/admin/floors', [FloorController::class, 'index'])->name('floor_management');
 Route::get('/admin/room-types', [RoomTypeController::class, 'index'])->name('room_type_management');
 Route::get('/admin/rooms', [RoomController::class, 'index'])->name('room_management');
+Route::post('/get-apartment-details', [RoomController::class, 'getApartmentDetails'])->name('get.apartment.details');
+
 
 
 Route::post('/admin/categories', [CategoryController::class, 'store'])->name('categories.store');

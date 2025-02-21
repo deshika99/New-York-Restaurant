@@ -24,6 +24,21 @@ class RoomController extends Controller
         return view('AdminDashboard.ApartmentsSection.Rooms.index', compact('rooms','floors','roomTypes','apartments'));
     }
 
+    public function getApartmentDetails(Request $request)
+    {
+        $apartmentId = $request->apartment_id;
+
+        // Fetch floors and room types for the selected apartment
+        $floors = Floor::where('apartment_id', $apartmentId)->get();
+        $roomTypes = RoomTypes::where('apartment_id', $apartmentId)->get();
+
+        return response()->json([
+            'floors' => $floors,
+            'roomTypes' => $roomTypes,
+        ]);
+    }
+
+
     /**
      * Show the form for creating a new resource.
      */
@@ -42,7 +57,19 @@ class RoomController extends Controller
         'apartment_id' => 'required|exists:apartments,id',
         'floor_id' => 'required|exists:floors,id',
         'room_type_id' => 'required|exists:room_types,id',
-        'room_number' => 'required|string|max:255|unique:rooms,room_number',
+        'room_number' => [
+            'required',
+            'string',
+            'max:255',
+            // Custom validation for uniqueness within the apartment
+            function ($attribute, $value, $fail) use ($request) {
+                if (Room::where('apartment_id', $request->apartment_id)
+                        ->where('room_number', $value)
+                        ->exists()) {
+                    $fail("The {$attribute} has already been taken in this apartment.");
+                }
+            },
+        ],
         'rental_price' => 'nullable|numeric',
         'occupancy_status' => 'required|string',
         'facilities' => 'nullable|string',

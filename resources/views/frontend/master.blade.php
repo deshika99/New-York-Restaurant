@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Place favicon.png in the root directory -->
-    <link rel="shortcut icon" href="{{ asset('/frontend/img/ny logo.jpg') }}" />
+    <link rel="shortcut icon" href="{{ asset('/frontend/img/Chili-01.png') }}" />
     <!-- Font Icons css -->
     <link rel="stylesheet" href="{{asset('frontend/css/font-icons.css')}}">
     <!-- plugins css -->

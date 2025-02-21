@@ -38,27 +38,38 @@
                                 <div class="mb-3">
                                     <label for="apartment_id" class="form-label">Apartment</label>
                                     <select class="form-select" id="apartment_id" name="apartment_id" required>
+                                        <option value="">Select Apartment</option>
                                         @foreach($apartments as $apartment)
                                             <option value="{{ $apartment->id }}">{{ $apartment->apartment_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="floor_id" class="form-label">Floor</label>
                                     <select class="form-select" id="floor_id" name="floor_id" required>
+                                        <option value="">Select Floor</option>
                                         @foreach($floors as $floor)
-                                            <option value="{{ $floor->id }}">Floor {{ $floor->floor_number }} - {{ $floor->apartment->apartment_name }}</option>
+                                            <option value="{{ $floor->id }}" data-apartment="{{ $floor->apartment_id }}">
+                                                Floor {{ $floor->floor_number }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="room_type_id" class="form-label">Room Type</label>
                                     <select class="form-select" id="room_type_id" name="room_type_id" required>
+                                        <option value="">Select Room Type</option>
                                         @foreach($roomTypes as $roomType)
-                                            <option value="{{ $roomType->id }}">{{ $roomType->type_name }}</option>
+                                            <option value="{{ $roomType->id }}" data-apartment="{{ $roomType->apartment_id }}">
+                                                {{ $roomType->type_name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
+
+
                                 <div class="mb-3">
                                     <label for="room_number" class="form-label">Room Number</label>
                                     <input type="text" class="form-control" id="room_number" name="room_number" required />
@@ -144,6 +155,32 @@
                     document.getElementById(`delete-room-form-${id}`).submit();
                 }
             }
+        </script>
+
+        <script>
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const apartmentSelect = document.getElementById('apartment_id');
+                const floorSelect = document.getElementById('floor_id');
+
+                apartmentSelect.addEventListener('change', function () {
+                    const selectedApartmentId = this.value;
+
+                    // Filter floors based on the selected apartment
+                    Array.from(floorSelect.options).forEach(option => {
+                        if (!option.value || option.dataset.apartment === selectedApartmentId) {
+                            option.style.display = '';
+                        } else {
+                            option.style.display = 'none';
+                        }
+                    });
+
+                    // Reset the floor selection
+                    floorSelect.value = '';
+                });
+            });
+
+
         </script>
         
         <script src="backend/assets/js/vendors/jquery-3.6.0.min.js"></script>
