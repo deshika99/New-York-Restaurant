@@ -4,6 +4,7 @@ use App\Http\Controllers\FloorController;
 use App\Http\Controllers\OfficeBookingController;
 use App\Http\Controllers\OnlineBookingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomTypeController;
@@ -66,6 +67,7 @@ Route::get('/makebooking',[HomeTemplateController::class,'makebooking'])->name('
 Route::get('/myprofile',[HomeTemplateController::class,'myProfile'])->name('myProfile');
 Route::post('/update-cus-profile/{id}',[HomeTemplateController::class,'updateCusProfile'])->name('updateCusProfile');
 Route::post('/update-password/{id}', [HomeTemplateController::class, 'updatePassword'])->name('updatePassword');
+Route::get('/view/promotions',[HomeTemplateController::class,'showPromotions'])->name('showPromotions');
 
 
 Route::view('/AdminDashboard/customer_section', 'AdminDashboard.customer_section')->name('customer_section');
@@ -161,6 +163,15 @@ Route::put('/admin/staff/{id}', [StaffController::class, 'update'])->name('staff
 Route::delete('/admin/staff/{id}', [StaffController::class, 'destroy'])->name('staff.destroy');
 
 
+//promotions    
+Route::get('/admin/promotion', [PromotionController::class, 'index'])->name('promotion.index');
+Route::post('/admin/promotion/store', [PromotionController::class, 'store'])->name('promotion.store');
+Route::get('/admin/promotion/{id}/edit', [PromotionController::class, 'edit'])->name('promotion.edit');
+Route::put('/admin/promotion/{id}', [PromotionController::class, 'update'])->name('promotion.update');
+Route::delete('/admin/promotion/{id}', [PromotionController::class, 'destroy'])->name('promotion.destroy');
+
+
+
 
 Route::post('/admin/categories', [CategoryController::class, 'store'])->name('categories.store');
 
@@ -170,6 +181,7 @@ Route::post('/check-availability', [OnlineBookingController::class, 'checkAvaila
 
 Route::get('/onlinebooking/create', [OnlineBookingController::class, 'create'])->name('onlinebooking.create');
 Route::post('/onlinebooking/store', [OnlineBookingController::class, 'store'])->name('onlinebooking.store');
+Route::post('/api/check-promotion', [OnlineBookingController::class, 'checkPromotion'])->name('checkPromotion');
 
 Route::get('/admin/online-bookings', [OnlineBookingController::class, 'index'])->name('viewOnlineBookings');
 Route::get('/admin/online-bookings-details/{id}', [OnlineBookingController::class, 'onlineBookingDetails'])->name('onlinebooking.details');
@@ -189,7 +201,7 @@ Route::post('/admin/office-update-payment/{id}', [OfficeBookingController::class
 Route::post('/admin/office-update-status/{id}', [OfficeBookingController::class, 'updateStatus'])->name('office.updateStatus');
 Route::get('/admin/office-booking-print/{id}', [OfficeBookingController::class, 'printView'])->name('office.bookingPrint');
 Route::delete('/admin/office-booking/destroy/{id}', [OfficeBookingController::class, 'destroy'])->name('officebooking.destroy');
-
+Route::post('/api/apply-promocode', [OfficeBookingController::class, 'applyPromoCode'])->name('applyPromoCode');
 
 
 //report

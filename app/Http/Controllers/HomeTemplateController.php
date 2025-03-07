@@ -6,6 +6,7 @@ use App\Models\Apartments;
 use App\Models\Booking;
 use App\Models\CompanyDetails;
 use App\Models\Customer;
+use App\Models\Promotion;
 use App\Models\Room;
 use App\Models\RoomTypes;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class HomeTemplateController extends Controller
     public function index()
     {
         $roomTypes = RoomTypes::all();
-        $apartments = Apartments::all();
+        $apartments = Apartments::where('status','Available')->get();
 
         $roomCount = Room::count();
         $apartmentCount = Apartments::count();
@@ -43,7 +44,7 @@ class HomeTemplateController extends Controller
 
     public function makebooking()
     {
-        $apartments = Apartments::all();
+        $apartments = Apartments::where('status','Available')->get();
         return view('frontend.makeBooking', compact(
             'apartments'
         ));
@@ -104,5 +105,15 @@ class HomeTemplateController extends Controller
 
         // Success message
         return back()->with('success', 'Your password has been updated successfully!');
+    }
+
+    public function showPromotions()
+    {
+        $today = now()->toDateString();
+        $promotions = Promotion::where('status', 1) // Active status
+        ->where('start_date', '<=', $today) // Within start date
+        ->where('end_date', '>=', $today)   // Within end date
+        ->get();
+        return view('frontend.promotions', compact('promotions'));
     }
 }

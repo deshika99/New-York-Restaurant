@@ -7,6 +7,7 @@ use App\Models\BankDetails;
 use App\Models\Booking;
 use App\Models\CompanyDetails;
 use App\Models\Payment;
+use App\Models\Promotion;
 use App\Models\Room;
 use App\Models\RoomTypes;
 use DateTime;
@@ -77,9 +78,9 @@ class OnlineBookingController extends Controller
         $checkinDate = new DateTime($checkin);
         $checkoutDate = new DateTime($checkout);
         $interval = $checkinDate->diff($checkoutDate);
-        $totalDays = $interval->days ;                                  //changed
-        if($interval->days==0){                                         //added
-            $totalDays = $interval->days+1; 
+        $totalDays = $interval->days;                                  //changed
+        if ($interval->days == 0) {                                         //added
+            $totalDays = $interval->days + 1;
         }
         $term = null;
         if ($totalDays > 15) {
@@ -103,6 +104,33 @@ class OnlineBookingController extends Controller
     }
 
 
+    public function checkPromotion(Request $request)
+    {
+        $request->validate([
+            'promo_code' => 'required|string',
+            'total_amount' => 'required|numeric',
+        ]);
+
+        $today = now()->toDateString();
+        $promotion = Promotion::where('promotion_code', $request->promo_code)
+            ->where('start_date', '<=', $today)
+            ->where('end_date', '>=', $today)
+            ->where('status', 1)
+            ->first();
+
+        if ($promotion) {
+            return response()->json([
+                'is_valid' => true,
+                'promotion_id' => $promotion->id,
+                'discount_percentage' => $promotion->discount_percentage,
+            ]);
+        }
+
+        return response()->json(['is_valid' => false], 400);
+    }
+
+
+
     public function store(Request $request)
     {
         $loggedCustomerId = session('customer_id');
@@ -124,7 +152,9 @@ class OnlineBookingController extends Controller
                 'checkout' => 'required|date',
                 'total_days' => 'required|integer',
                 'term' => 'required|string',
-                'transfer_slip_image' => 'nullable|string'
+                'transfer_slip_image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+                'promotion_id' => 'nullable|exists:promotions,id',
+                'promotion_amount' => 'nullable|numeric|min:0',
             ]);
 
             $dueAmount = $request->due_amount;
@@ -149,6 +179,9 @@ class OnlineBookingController extends Controller
                 $bookingStatus = 'Confirmed';
             }
 
+            $promotionId = $request->promotion_id;
+            $promotionAmount = $request->promotion_amount ?? 0;
+
             DB::beginTransaction();
 
             try {
@@ -165,6 +198,7 @@ class OnlineBookingController extends Controller
                     'service_charge' => $request->service_charge,
                     'total_cost' => $request->total_cost,
                     'discount_applied' => 0,
+                    'promotion_id' => $promotionId,
                     'booking_status' => $bookingStatus,
                     'confirmation_status' => $confirmationStatus
                 ]);
@@ -183,6 +217,12 @@ class OnlineBookingController extends Controller
                     $paymentStatus = 'Not Paid';
                 }
 
+                    // Handle Bank Transfer Slip Image Upload
+                $transferSlipImagePath = null;
+                if ($request->hasFile('transfer_slip_image')) {
+                    $transferSlipImagePath = $request->file('transfer_slip_image')->store('bank_slips', 'public');
+                }
+
                 $payment = Payment::create([
                     'booking_id' => $booking->id,
                     'total_room_charge' => $request->amount,
@@ -196,10 +236,11 @@ class OnlineBookingController extends Controller
                     'refundable_amount' => $request->refundable_charge ?? 0,
                     'refund_status' => $request->refundable_charge > 0 ? 'Pending' : 'No Charge',
                     'bank_transfer_confirmation' => $request->payment_type === 'Bank Transfer' ? 1 : 0,
-
+                    'promotion_amount' => $promotionAmount,
                     'discounted_total' => $request->total_cost,
                     'partial_payment' => $advancedPayment,
-                    'payment_status' => $paymentStatus
+                    'payment_status' => $paymentStatus,
+                    'transfer_slip_image' => $transferSlipImagePath, // Store the uploaded image path
                 ]);
 
                 DB::commit();
@@ -228,7 +269,14 @@ class OnlineBookingController extends Controller
     public function onlineBookingDetails($id)
     {
         $booking = Booking::with('payment')->where('id', $id)->firstOrFail();
-        return view('AdminDashboard.OnlineBookings.viewDetails', compact('booking'));
+
+        $promotionCode = null;
+        if ($booking->promotion_id) {
+            $promotion = Promotion::findOrFail($booking->promotion_id);
+            $promotionCode = $promotion->promotion_code;
+        }
+
+        return view('AdminDashboard.OnlineBookings.viewDetails', compact('booking','promotionCode'));
     }
 
     public function updatePayment(Request $request, $id)

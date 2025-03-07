@@ -63,7 +63,7 @@
                         <tbody>
                             @foreach($bookings as $booking)
                             <tr>
-                                <td>OB{{ $booking->id }}</td>
+                                <td>OB{{ $booking->id }}</td>                           
                                 <td>{{ $booking->customer->fname }} {{ $booking->customer->lname }}</td>
                                 <td>{{ $booking->customer->phone_number }}</td>
                                 <td>{{ $booking->booking_date }}</td>
@@ -80,7 +80,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger " onclick="return confirm('Are you sure?')"><i class="material-icons md-delete"></i></button>
-                                    </form>
+                                    </form>                                             
                                 </td>
                             </tr>
                             @endforeach
@@ -120,7 +120,8 @@
 
                 "searching": true, // Enable search functionality
                 "paging": true, // Enable pagination
-                "ordering": true // Enable column ordering
+                "ordering": true, // Enable column ordering
+                "order": [[0, 'desc']]                                        
             });
         });
     </script>

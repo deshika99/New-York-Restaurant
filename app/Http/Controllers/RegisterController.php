@@ -156,7 +156,7 @@ class RegisterController extends Controller
         $customer = Customer::findOrFail($id);
         $customer->delete();
 
-        return redirect()->route('customers.index')->with('success', 'Customer deleted successfully.');
+        return redirect()->route('customers.showlist')->with('success', 'Customer deleted successfully.');
     }
 
 

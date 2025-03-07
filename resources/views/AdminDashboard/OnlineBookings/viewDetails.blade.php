@@ -99,12 +99,15 @@
                                     Total Room Charge: LKR {{$booking->payment->total_room_charge}} <br />
                                     Service Charge: LKR {{$booking->service_charge ?? '0'}} <br />
                                     Refundable Charge: LKR {{$booking->payment->refundable_amount ?? '0'}} <br />
+                                    @if ($booking->promotion_id)       
+                                    Promotion: LKR {{$booking->payment->promotion_amount ?? '0'}} ({{$promotionCode ?? 'No'}})<br />
+                                    @endif 
                                     Total Cost: LKR {{$booking->payment->total_amount}} <br />
                                     Discount: LKR {{$booking->discount_applied ?? '0'}} <br />
                                     Discounted Total: LKR {{$booking->payment->discounted_total }}
-                                </p>
+                                </p>  
                             </div>
-                        </article>
+                        </article>                   
                     </div>
 
                     <div class="col-md-4 mt-3">
@@ -119,7 +122,15 @@
                                     Payment Date: {{$booking->payment->payment_date}} <br />
                                     Paid Amount: LKR {{$booking->payment->paid_amount ?? '0'}} <br />
                                     Due Amount: LKR {{$booking->payment->due_amount ?? '0'}}
+                                  
                                 </p>
+                                @if(!empty($booking->payment->transfer_slip_image))
+                                    <p>
+                                        <a href="{{ asset('storage/' . $booking->payment->transfer_slip_image) }}" target="_blank">
+                                            View Bank Slip
+                                        </a>
+                                    </p>
+                                @endif
 
                             </div>
                         </article>
@@ -159,7 +170,7 @@
                                     @csrf
                                     <div class="row">
                                         <div class="mb-4 col-md-12">
-                                            <label for="discount" class="form-label">Discount (LKR)<span class="text-danger">*</span></label>
+                                            <label for="discount" class="form-label">Discount (LKR)</label>
                                             <input type="text" placeholder="Type Discount" class="form-control" id="discount" name="discount"  />
                                         </div>
                                         <div class="mb-4 col-md-12">

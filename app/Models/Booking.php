@@ -23,6 +23,7 @@ class Booking extends Model
         'discount_applied',
         'booking_status',
         'confirmation_status',
+        'promotion_id',
     ];
 
     public function customer()

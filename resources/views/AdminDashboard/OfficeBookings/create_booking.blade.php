@@ -203,6 +203,11 @@
                                 readonly />
                         </div>
 
+                        <div id="promodiv">
+                            <input type="hidden" id="input_promo_id" name="input_promo_id" value="" />
+                            <input type="hidden" id="input_promo_amount" name="input_promo_amount" value="0" />
+                        </div>
+
                         <!-- Submit Button -->
                         <div class="d-grid col-md-6">
                             <button type="submit" class="btn btn-primary">Submit Booking</button>
@@ -213,6 +218,34 @@
 
             </div>
         </div>
+
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+
+                    <!-- Promo code -->
+                    <div class="col-md-4">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="promocode"
+                            name="promocode"
+                            placeholder="Enter Promotion Code" />
+                    </div>
+                    <!-- apply Button -->
+                    <div class="col-md-2">
+                        <button type="button" id="promocodebtn" class="btn btn-secondary">Apply</button>
+                    </div>
+
+                    <div class="col-md-6" id="promotion_message">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </section>
 
 
@@ -227,11 +260,11 @@
             const checkoutDate = new Date(document.getElementById("checkout").value);
             const termInput = document.getElementById("term");
 
-            if (checkinDate && checkoutDate && checkinDate <= checkoutDate) {        //changed
+            if (checkinDate && checkoutDate && checkinDate <= checkoutDate) { //changed
                 let daysDifference = Math.floor((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
-                totalDays = daysDifference ;                                         //changed
-                if(daysDifference==0){                                               //added
-                    totalDays=daysDifference+1; 
+                totalDays = daysDifference; //changed
+                if (daysDifference == 0) { //added
+                    totalDays = daysDifference + 1;
                 }
                 let term = "Short Term";
                 if (totalDays > 15) {
@@ -320,6 +353,53 @@
 
             document.getElementById("due_amount").value = dueAmount.toFixed(2);
         }
+
+
+        document.getElementById('promocodebtn').addEventListener('click', function() {
+            const promocode = document.getElementById('promocode').value;
+            const inputPromoId = document.getElementById('input_promo_id');
+
+            fetch("{{route('applyPromoCode')}}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    body: JSON.stringify({
+                        promocode
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const messageDiv = document.getElementById('promotion_message');
+                    if (data.success) {
+                        const discountPercentage = data.discount_percentage;
+                        messageDiv.innerHTML = `<span class="text-success">${data.message} (${discountPercentage}% off)</span>`;
+                        inputPromoId.value= data.promo_id;
+                        applyPromotionDiscount(discountPercentage);
+                    } else {
+                        messageDiv.innerHTML = `<span class="text-danger">${data.message}</span>`;
+                    }
+                })
+                .catch(error => console.error('Error applying promocode:', error));
+        });
+
+        function applyPromotionDiscount(discountPercentage) {
+            const totalCostInput = document.getElementById('total_cost');
+            const discountedTotalInput = document.getElementById('discounted_total');
+            const inputPromoAmount = document.getElementById('input_promo_amount');
+
+            const totalCost = parseFloat(totalCostInput.value) || 0;
+            const discountAmount = totalCost * (discountPercentage / 100);
+            const newTotal = totalCost - discountAmount;
+
+            inputPromoAmount.value = discountAmount.toFixed(2);
+            totalCostInput.value = newTotal.toFixed(2);
+            calculateDiscountedTotal()
+        }
+
+
+
 
 
         // Attach calculateCharges function to room selection

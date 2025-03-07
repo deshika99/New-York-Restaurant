@@ -99,9 +99,12 @@
                                     Total Room Charge: LKR {{$booking->payment->total_room_charge}} <br />
                                     Service Charge: LKR {{$booking->service_charge ?? '0'}} <br />
                                     Refundable Charge: LKR {{$booking->payment->refundable_amount ?? '0'}} <br />
+                                    @if ($booking->promotion_id)
+                                    Promotion: LKR {{$booking->payment->promotion_amount ?? '0'}} ({{$promotionCode ?? 'No'}})<br />
+                                    @endif
                                     Total Cost: LKR {{$booking->payment->total_amount}} <br />
                                     Discount: LKR {{$booking->discount_applied ?? '0'}} <br />
-                                    Discounted Total: LKR {{$booking->payment->discounted_total }} 
+                                    Discounted Total: LKR {{$booking->payment->discounted_total }}
                                 </p>
                             </div>
                         </article>
@@ -158,6 +161,10 @@
                                 <form action="{{ route('office.updatePayment',$booking->payment->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
+                                        <div class="mb-4 col-md-12">
+                                            <label for="discount" class="form-label">Discount (LKR)</label>
+                                            <input type="text" placeholder="Type Discount" class="form-control" id="discount" name="discount" />
+                                        </div>
                                         <div class="mb-4 col-md-12">
                                             <label for="amount_paid" class="form-label">Amount Paid (LKR)<span class="text-danger">*</span></label>
                                             <input type="text" placeholder="Type Amount" class="form-control" id="amount_paid" name="amount_paid" required />
@@ -240,8 +247,27 @@
 
     </section>
 
-
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const totalAmount = parseFloat('{{ $booking->payment->due_amount ?? 0 }}');
+            const discountInput = document.getElementById('discount');
+            const amountPaidInput = document.getElementById('amount_paid');
+            const dueAmountInput = document.getElementById('due_amount');
+
+            function updateDueAmount() {
+                const discount = parseFloat(discountInput.value) || 0;
+                const amountPaid = parseFloat(amountPaidInput.value) || 0;
+
+                const dueAmount = totalAmount - discount - amountPaid;
+                dueAmountInput.value = dueAmount >= 0 ? dueAmount.toFixed(2) : '0.00';
+            }
+
+            discountInput.addEventListener('input', updateDueAmount);
+            amountPaidInput.addEventListener('input', updateDueAmount);
+        }); 
+    </script>
+
+    <!-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             const totalAmount = ('{{ $booking->payment->due_amount ?? 0 }}');
             const amountPaidInput = document.getElementById('amount_paid');
@@ -255,7 +281,7 @@
                 dueAmountInput.value = dueAmount >= 0 ? dueAmount.toFixed(2) : '0.00';
             });
         });
-    </script>
+    </script> -->
 
 
 

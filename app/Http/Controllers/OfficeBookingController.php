@@ -7,6 +7,7 @@ use App\Models\Booking;
 use App\Models\CompanyDetails;
 use App\Models\Customer;
 use App\Models\Payment;
+use App\Models\Promotion;
 use App\Models\Room;
 use App\Models\RoomTypes;
 use DateTime;
@@ -20,7 +21,7 @@ class OfficeBookingController extends Controller
     {
 
         $customer = Customer::findOrFail($id); //change customer id
-        $apartments = Apartments::all();
+        $apartments = Apartments::where('status','Available')->get();
         $roomTypes = RoomTypes::all();
 
         return view('AdminDashboard.OfficeBookings.create_booking', compact(
@@ -78,6 +79,8 @@ class OfficeBookingController extends Controller
             'payment_type' => 'required|string',
             'amount_paid' => 'required|numeric',
             'due_amount' => 'required|numeric',
+            'input_promo_id' => 'nullable|exists:promotions,id',
+            'input_promo_amount' => 'nullable|numeric|min:0',
         ]);
 
         $checkinDate = new DateTime($request->checkin);
@@ -114,6 +117,7 @@ class OfficeBookingController extends Controller
                 'service_charge' => $request->service_charge,
                 'total_cost' => $request->total_cost,
                 'discount_applied' => $request->discount ?? '0',
+                'promotion_id' => $request->input_promo_id,
                 'booking_status' => 'Confirmed',
                 'confirmation_status' => $confirmationStatus
             ]);    
@@ -146,7 +150,7 @@ class OfficeBookingController extends Controller
                 'refundable_amount' => $request->refundable_charge ?? 0,
                 'refund_status' => $request->refundable_charge > 0 ? 'Pending' : 'No Charge',
                 'bank_transfer_confirmation' => $request->payment_type === 'Bank Transfer' ? 1 : 0,
-
+                'promotion_amount' => $request->input_promo_amount ?? 0, 
                 'discounted_total' => $request->discounted_total,
                 'partial_payment' =>$advancedPayment,
                 'payment_status' => $paymentStatus
@@ -163,6 +167,37 @@ class OfficeBookingController extends Controller
 
     }
 
+    public function applyPromocode(Request $request)
+{
+    $request->validate([
+        'promocode' => 'required|string',
+    ]);
+
+    $promocode = $request->input('promocode');
+    $today = now()->toDateString();
+
+    $promotion = Promotion::where('promotion_code', $promocode)
+        ->where('status', 1) // Active status
+        ->where('start_date', '<=', $today) // Within start date
+        ->where('end_date', '>=', $today)   // Within end date
+        ->first();
+
+    if ($promotion) {
+        return response()->json([
+            'success' => true,
+            'promo_id' => $promotion->id,
+            'discount_percentage' => $promotion->discount_percentage, // Return percentage
+            'message' => 'Promotion code applied successfully.',
+        ]);
+    }
+
+    return response()->json([
+        'success' => false,
+        'message' => 'Invalid or expired promotion code.',
+    ]);
+}
+
+
     public function index()
     {
         $bookings = Booking::with('payment')
@@ -176,22 +211,35 @@ class OfficeBookingController extends Controller
     public function officeBookingDetails($id) 
     {
         $booking = Booking::with('payment')->where('id', $id)->firstOrFail();
-        return view('AdminDashboard.OfficeBookings.viewDetails', compact('booking'));
+        $promotionCode = null;
+        if ($booking->promotion_id) {
+            $promotion = Promotion::findOrFail($booking->promotion_id);
+            $promotionCode = $promotion->promotion_code;
+        }
+        return view('AdminDashboard.OfficeBookings.viewDetails', compact('booking','promotionCode'));
     }
 
     public function updatePayment(Request $request, $id)
     {
         $request->validate([
+            'discount' => 'nullable|numeric|min:0',
             'amount_paid' => 'required|numeric|min:0',
             'payment_type' => 'required|string',
         ]);
 
         $payment = Payment::findOrFail($id);
+        $booking = Booking::findOrFail($payment->booking_id);
+
+        $totalAmount = $payment->total_amount;
+
+        $discount = $request->input('discount') ?? 0;
+        $updatedDiscount = $booking->discount_applied + $discount;
+        $discountedTotal = $payment->discounted_total;
+        $newDiscountedTotal = $totalAmount - $updatedDiscount;
 
         $newPayment = $request->input('amount_paid');
         $updatedPaidAmount = $payment->paid_amount + $newPayment;
-        $totalAmount = $payment->discounted_total;
-        $dueAmount = $totalAmount - $updatedPaidAmount;
+        $dueAmount = $newDiscountedTotal - $updatedPaidAmount;
 
         $dueAmount = max(0, $dueAmount);
 
@@ -207,20 +255,21 @@ class OfficeBookingController extends Controller
             'due_amount' => $dueAmount,
             'payment_type' => $request->input('payment_type'),
             'payment_status' => $paymentStatus,
+            'discounted_total' => $newDiscountedTotal,
         ]);
 
-        $booking = Booking::findOrFail($payment->booking_id);
 
         $confirmationStatus = 'Not Relevant';
         if ($request->input('payment_type') == 'Bank Transfer' && $booking->payment_type == 'Bank Transfer') {
-            $confirmationStatus = 'Confirmed'; 
-        }else if($booking->confirmation_status == 'Confirmed'){
+            $confirmationStatus = 'Confirmed';
+        } else if ($booking->confirmation_status == 'Confirmed') {
             $confirmationStatus = 'Confirmed';
         }
 
         $booking->update([
             'booking_status' => 'Confirmed',
             'confirmation_status' => $confirmationStatus,
+            'discount_applied' => $updatedDiscount,
         ]);
 
         return redirect()->back()->with('success', 'Payment updated successfully.');

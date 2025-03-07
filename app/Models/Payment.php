@@ -25,5 +25,6 @@ class Payment extends Model
         'discounted_total',
         'partial_payment',
         'payment_status',
+        'promotion_amount',
     ];
 }

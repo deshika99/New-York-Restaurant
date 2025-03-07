@@ -37,8 +37,8 @@ class FloorController extends Controller
         $request->validate([
             'apartment_id' => 'required|exists:apartments,id', // Ensure the apartment exists
             'floor_number' => 'required|integer',
-            'total_rooms' => 'nullable|integer',
-            'occupied_rooms' => 'nullable|integer',
+            'total_rooms' => 'required|integer',
+            'occupied_rooms' => 'required|integer',
             'floor_status' => 'required|string',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validate each image

@@ -158,6 +158,37 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ltn__checkout-inner">
+                    <div class="ltn__checkout-single-content ">
+                        <h4 class="title-2">Promotion Code</h4>
+                        <div class="ltn__checkout-single-content-info">
+                            <div class="row">
+
+                                <!--  promo code -->
+                                <div class="col-md-6">
+                                    <div class="input-item input-item-name ">
+                                        <input type="text" name="promocode" id="promocode" placeholder="If you have a promotion code, you can apply for discount">
+                                    </div>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="col-md-2 ltn__car-dealer-form-item">
+                                    <div class="btn-wrapper text-center mt-0">
+                                        <button type="button"  id="promocodebtn" class="btn theme-btn-1 btn-effect-1 text-uppercase">Apply</button>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4" id="promotion_message">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="row mt-5">
 
@@ -176,7 +207,7 @@
                                         <strong>Account Number:</strong> {{ $bankDetails->account_number ?? '' }} <br>
                                         <strong>Account Holder:</strong> {{ $bankDetails->account_holder ?? '' }} <br>
                                         <strong>Branch:</strong> {{ $bankDetails->branch ?? '' }} <br><br>
-                                        After completing the transfer, send a clear image of your bank slip along with your Booking Number and your details to WhatsApp number: <strong>{{ $bankDetails->whatsapp_number ?? '' }}</strong>.
+                                        <!-- After completing the transfer, send a clear image of your bank slip along with your Booking Number and your details to WhatsApp number: <strong>{{ $bankDetails->whatsapp_number ?? '' }}</strong>. -->
                                     </span>
                                 </div>
 
@@ -197,14 +228,14 @@
                                     <h6>Payment Type</h6>
                                     <div class="input-item ">
                                         <select name="payment_type" class="nice-select" id="payment_type">
-                                            <option value="Card">Card</option>
+                                            <!-- <option value="Card">Card</option> -->
                                             <option value="At Hotel">Pay At Hotel</option>
                                             <option value="Bank Transfer">Bank Transfer</option>
                                         </select>
                                     </div>
                                 </div>
 
-                                <div class="col-md-12" id="paid_amount_box">
+                                <div class="col-md-12" id="paid_amount_box" style="display: none;">
                                     <h6>Amount Paid (LKR)</h6>
                                     <div class="input-item input-item-name ">
                                         <input type="text" name="amount_paid" id="amount_paid" placeholder="Amount Paid" step="0.01">
@@ -268,11 +299,6 @@
 
                 totalRoomCharge = roomPrice * totalDays;
 
-                const amountInput = document.querySelector('input[name="amount"]');
-                const serviceChargeInput = document.querySelector('input[name="service_charge"]');
-                const refundableChargeInput = document.querySelector('input[name="refundable"]');
-                const totalAmountInput = document.querySelector('input[name="total_amount"]');
-
                 serviceCharge = totalRoomCharge * 0.1; // 10% service charge
 
                 if (term == 'Long-Term') {
@@ -281,14 +307,19 @@
 
                 totalAmount = totalRoomCharge + serviceCharge + refundableCharge;
 
-                amountInput.value = `LKR ${totalRoomCharge.toFixed(2)}`;
-                serviceChargeInput.value = `LKR ${serviceCharge.toFixed(2)}`;
-                refundableChargeInput.value = `LKR ${refundableCharge.toFixed(2)}`;
-                totalAmountInput.value = `LKR ${totalAmount.toFixed(2)}`;
+                updateAmountFields();
 
-                calculateDueAmounts();
+
             }
         });
+
+        function updateAmountFields() {
+            $('input[name="amount"]').val(`LKR ${totalRoomCharge.toFixed(2)}`);
+            $('input[name="service_charge"]').val(`LKR ${serviceCharge.toFixed(2)}`);
+            $('input[name="refundable"]').val(`LKR ${refundableCharge.toFixed(2)}`);
+            $('input[name="total_amount"]').val(`LKR ${totalAmount.toFixed(2)}`);
+            calculateDueAmounts();
+        }
 
         var dueAmount;
 
@@ -304,6 +335,51 @@
             });
         }
 
+        let promotionId = null;
+        let promotionAmount = 0;
+
+        $('#promocodebtn').on('click', function() {
+            const promoCode = document.getElementById('promocode').value;
+
+            if (promoCode) {
+                $.ajax({
+                    url: "{{route('checkPromotion')}}",
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        promo_code: promoCode,
+                        total_amount: totalAmount,
+                    },
+                    success: function(response) {
+                        if (response.is_valid) {
+                            promotionId = response.promotion_id;
+                            const discountPercentage = response.discount_percentage;
+                            promotionAmount = totalAmount * (discountPercentage / 100);
+                            totalAmount -= promotionAmount;
+
+                            $('#promotion_message').html(
+                                `<span class="text-success">Promotion applied! Discount: ${discountPercentage}%</span>`
+                            );
+                            // $('#promotion_id').val(response.promotion_id);
+                            // $('#promotion_amount').val(promotionAmount.toFixed(2));
+                        } else {
+                            $('#promotion_message').html(
+                                `<span class="text-danger">Invalid promotion code!</span>`
+                            );
+                            // $('#promotion_id').val('');
+                            // $('#promotion_amount').val('');
+                        }
+                        updateAmountFields();
+                    },
+                    error: function() {
+                        $('#promotion_message').html(
+                            `<span class="text-danger">Error checking promotion code!</span>`
+                        );
+                    },
+                });
+            }
+        });
+
 
 
         $('#payment_type').on('change', function() {
@@ -311,12 +387,12 @@
             const amountPaid = document.getElementById('paid_amount_box');
             const dueValue = document.getElementById('due_amount');
 
-            // if (this.value === 'Bank Transfer') {
-            //     slipUploadField.style.display = 'none';
-            //     amountPaid.style.display = 'none';
-            // } else {
-            //     slipUploadField.style.display = 'none';
-            // }
+            if (this.value === 'Bank Transfer') {
+                slipUploadField.style.display = 'block';
+                amountPaid.style.display = 'none';
+            } else {
+                slipUploadField.style.display = 'none';
+            }
             if (this.value === 'At Hotel') {
                 amountPaid.style.display = 'none';
                 dueValue.value = totalAmount.toFixed(2);
@@ -334,6 +410,19 @@
         $('#submit-button').on('click', function(e) {
             e.preventDefault();
 
+            const transferSlipImageL = $('#transfer_slip_image')[0].files.length;
+            const paymentType = $('#payment_type').val();
+
+            if (paymentType === 'Bank Transfer' && transferSlipImageL === 0) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Please upload the bank slip image before proceeding.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
             Swal.fire({
                 title: 'Are you sure you want to proceed with the booking?',
                 icon: 'warning',
@@ -343,7 +432,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     const selectedRoomId = $('#room-select').val();
-                    const paymentType = $('#payment_type').val();
+
                     let amountPaid = $('#amount_paid').val();
                     let dueAmount;
 
@@ -356,27 +445,38 @@
 
                     const checkin = $('#checkin').val();
                     const checkout = $('#checkout').val();
-                    const transferSlipImage = $('#transfer_slip_image').val();
+                    const transferSlipImage = $('#transfer_slip_image')[0].files[0];
+
+                    let formData = new FormData();
+                    formData.append('_token', '{{ csrf_token() }}');
+                    formData.append('room_id', selectedRoomId);
+                    formData.append('payment_type', paymentType);
+                    formData.append('amount', totalRoomCharge);
+                    formData.append('paid_amount', amountPaid);
+                    formData.append('due_amount', dueAmount);
+                    formData.append('service_charge', serviceCharge);
+                    formData.append('refundable_charge', refundableCharge);
+                    formData.append('total_cost', totalAmount);
+                    formData.append('checkin', checkin);
+                    formData.append('checkout', checkout);
+                    formData.append('total_days', totalDays);
+                    formData.append('term', term);
+                    if (promotionId) {
+                        formData.append('promotion_id', promotionId);
+                        formData.append('promotion_amount', promotionAmount);
+                    }
+
+                    if (transferSlipImage) {
+                        formData.append('transfer_slip_image', transferSlipImage); // Append file
+                    }
+                    
 
                     $.ajax({
                         url: "{{route('onlinebooking.store')}}",
                         type: 'POST',
-                        data: {
-                            _token: '{{ csrf_token() }}',
-                            room_id: selectedRoomId,
-                            payment_type: paymentType,
-                            amount: totalRoomCharge,
-                            paid_amount: amountPaid,
-                            due_amount: dueAmount,
-                            service_charge: serviceCharge,
-                            refundable_charge: refundableCharge,
-                            total_cost: totalAmount,
-                            checkin: checkin,
-                            checkout: checkout,
-                            total_days: totalDays,
-                            term: term,
-                            transfer_slip_image: transferSlipImage
-                        },
+                        data: formData,
+                        contentType: false,  // ✅ Important for file upload
+                        processData: false,
                         success: function(response) {
                             // Success message with booking ID and page reload
                             Swal.fire({

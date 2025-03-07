@@ -119,7 +119,8 @@
 
                 "searching": true, // Enable search functionality
                 "paging": true, // Enable pagination
-                "ordering": true // Enable column ordering
+                "ordering": true,// Enable column ordering
+                "order": [[0, 'desc']]
             });
         });
     </script>

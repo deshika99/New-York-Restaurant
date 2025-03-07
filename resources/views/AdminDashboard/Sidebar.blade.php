@@ -79,6 +79,12 @@
                         </a>
                     </li>
 
+                    <li class="menu-item">
+                        <a class="menu-link" href="{{ route('promotion.index') }}">
+                            <i class="icon material-icons md-local_offer"></i>
+                            <span class="text">Promotion</span>   
+                        </a>
+                    </li> 
 
                     <li class="menu-item has-submenu {{ request()->is('admin/staff*') || request()->is('admin/position*') || request()->is('admin/department*') ? 'active' : '' }}">
                         <a class="menu-link" href="#">

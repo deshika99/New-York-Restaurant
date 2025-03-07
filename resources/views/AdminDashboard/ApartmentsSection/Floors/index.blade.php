@@ -49,12 +49,12 @@
                                     <input type="number" placeholder="Enter floor number" class="form-control" id="floor_number" name="floor_number" required />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="total_rooms" class="form-label">Total Rooms</label>
-                                    <input type="number" placeholder="Enter total rooms" class="form-control" id="total_rooms" name="total_rooms" />
+                                    <label for="total_rooms" class="form-label">Total Rooms <span class="text-danger">*</span></label>
+                                    <input type="number" placeholder="Enter total rooms" class="form-control" id="total_rooms" name="total_rooms" required/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="occupied_rooms" class="form-label">Occupied Rooms</label>
-                                    <input type="number" placeholder="Enter occupied rooms" class="form-control" id="occupied_rooms" name="occupied_rooms" />
+                                    <label for="occupied_rooms" class="form-label">Occupied Rooms <span class="text-danger">*</span></label>
+                                    <input type="number" placeholder="Enter occupied rooms" class="form-control" id="occupied_rooms" name="occupied_rooms" required/>
                                 </div>
                                 <div class="mb-3">
                                     <label for="floor_status" class="form-label">Floor Status <span class="text-danger">*</span></label>
